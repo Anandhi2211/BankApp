@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dfb945b7-4f64-46ea-9419-b03d387ae4df" name="Changes" comment="initail" />
+    <list default="true" id="dfb945b7-4f64-46ea-9419-b03d387ae4df" name="Changes" comment="initail">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +40,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/anand/OneDrive/Desktop/Anandhi_Learning/QA Training/Solvd/Bank App/Git/BankApp",
+    "last_opened_file_path": "C:/Users/anand/OneDrive/Desktop/Anandhi_Learning/QA Training/Solvd/Bank App/Git/aj",
     "settings.editor.selected.configurable": "terminal"
   }
 }]]></component>
