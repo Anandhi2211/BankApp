@@ -38,7 +38,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/anand/OneDrive/Desktop/Anandhi_Learning/QA Training/Solvd/Bank App/Git/BankApp",
+    "last_opened_file_path": "C:/Users/anand/OneDrive/Desktop/Anandhi_Learning/QA Training/Solvd/Bank App/Git/Anandhi",
     "settings.editor.selected.configurable": "terminal"
   }
 }]]></component>
@@ -93,7 +93,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705457818025</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="initail">
+      <created>1705704517371</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1705704517371</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TerminalProjectNonSharedOptionsProvider">
