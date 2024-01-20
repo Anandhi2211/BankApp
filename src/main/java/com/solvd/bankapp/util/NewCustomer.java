@@ -8,8 +8,14 @@ import org.apache.logging.log4j.Logger;
 public class NewCustomer {
     private static final Logger logger = LogManager.getLogger(Main.class);
     public Customer addNewCustomer() {
-        logger.info("Enter the details");
+        System.out.println("New Customer details");
         Customer customer = new Customer(123456,"Anandhi","Jayapal","anandhirmk@gmail.com","9999999999");
+//        System.out.println(customer);
+        NewAccount newAccount = new NewAccount();
+        customer  = newAccount.addNewAccount(customer);
+        if(customer==null){
+            customer = new Customer();
+        }
         return customer;
     }
 }
