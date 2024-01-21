@@ -1,4 +1,10 @@
 package com.solvd.bankapp.persistence;
 
-public interface LoginCredentialDAO {
+import com.solvd.bankapp.domain.LoginCredential;
+
+public interface LoginCredentialDAO extends BaseDAO<LoginCredential> {
+    @Override
+    void create(LoginCredential credentials);
+
+    void update(LoginCredential credentials);
 }
