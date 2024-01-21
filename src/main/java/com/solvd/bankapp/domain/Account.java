@@ -3,7 +3,7 @@ package com.solvd.bankapp.domain;
 import java.math.BigDecimal;
 
 public class Account {
-
+//trial
     long accountNumber;
 
     BigDecimal totalBalance;
