@@ -34,16 +34,15 @@ public class NewAccount {
                 {
                     System.out.println("Enter minimum balance at least 100$");
                     System.out.println("Account Not Created");
-                    customer = null;
+                    customer  = new Customer();
                     break;
                 }
             }
         }
         return customer;
     }
-
     public Customer setLoginDetails(Account account, Customer customer) {
-        LoginCredential loginCredential = new LoginCredential();
+        LoginCredential loginCredential ;
         System.out.println("Enter NetBanking Password");
         Scanner in = new Scanner(System.in);
         String password = in.next();
@@ -53,14 +52,11 @@ public class NewAccount {
             int pin = Integer.parseInt(Long.toString(customer.getSsn()).substring(Long.toString(customer.getSsn()).length() - 4 ));
             System.out.println(pin);
             loginCredential = new LoginCredential(account.getUserName(),password,true,pin,customer.getSsn());
-//            customer.setAccount(account);
             customer.setLoginCredential(loginCredential);
         }
         else
         {
             System.out.println("Mismatch Password");
-            account = new Account();
-            customer.setAccount(account);
             customer = new Customer();
         }
         return customer;

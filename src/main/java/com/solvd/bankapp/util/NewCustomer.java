@@ -10,12 +10,8 @@ public class NewCustomer {
     public Customer addNewCustomer() {
         System.out.println("New Customer details");
         Customer customer = new Customer(123456,"Anandhi","Jayapal","anandhirmk@gmail.com","9999999999");
-//        System.out.println(customer);
         NewAccount newAccount = new NewAccount();
         customer  = newAccount.addNewAccount(customer);
-        if(customer==null){
-            customer = new Customer();
-        }
         return customer;
     }
 }
