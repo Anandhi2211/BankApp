@@ -1,6 +1,7 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class Payment {
 
@@ -16,13 +17,17 @@ public class Payment {
 
     private long ssn;
 
-    public Payment(int companyAccountNumber, String companyName, BigDecimal billAmount, String username, int transactionId, long ssn) {
+    private Timestamp paymentTimestamp;
+
+    public Payment(int companyAccountNumber, String companyName, BigDecimal billAmount,
+                   String username, int transactionId, long ssn, Timestamp paymentTimestamp) {
         this.companyAccountNumber = companyAccountNumber;
         this.companyName = companyName;
         this.billAmount = billAmount;
         this.username = username;
         this.transactionId = transactionId;
         this.ssn = ssn;
+        this.paymentTimestamp = paymentTimestamp;
     }
 
     public int getCompanyAccountNumber() {
@@ -73,6 +78,14 @@ public class Payment {
         this.ssn = ssn;
     }
 
+    public Timestamp getPaymentTimestamp() {
+        return paymentTimestamp;
+    }
+
+    public void setPaymentTimestamp(Timestamp paymentTimestamp) {
+        this.paymentTimestamp = paymentTimestamp;
+    }
+
     @Override
     public String toString() {
         return "Payment{" +
@@ -82,6 +95,7 @@ public class Payment {
                 ", username='" + username + '\'' +
                 ", transactionId=" + transactionId +
                 ", ssn=" + ssn +
+                ", paymentTimestamp=" + paymentTimestamp +
                 '}';
     }
 }
