@@ -11,15 +11,15 @@ public class BankTransfer {
     // what exactly is charge? is it a service fee?
     private BigDecimal charge;
 
-    private String userName;
+    private String username;
 
     private int transactionId;
 
-    public BankTransfer(BigDecimal transferAmount, long beneficiaryAccountNumber, BigDecimal charge, String userName, int transactionId) {
+    public BankTransfer(BigDecimal transferAmount, long beneficiaryAccountNumber, BigDecimal charge, String username, int transactionId) {
         this.transferAmount = transferAmount;
         this.beneficiaryAccountNumber = beneficiaryAccountNumber;
         this.charge = charge;
-        this.userName = userName;
+        this.username = username;
         this.transactionId = transactionId;
     }
 
@@ -47,12 +47,12 @@ public class BankTransfer {
         this.charge = charge;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getTransactionId() {
@@ -69,7 +69,7 @@ public class BankTransfer {
                 "transferAmount=" + transferAmount +
                 ", beneficiaryAccountNumber=" + beneficiaryAccountNumber +
                 ", charge=" + charge +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 ", transactionId=" + transactionId +
                 '}';
     }
