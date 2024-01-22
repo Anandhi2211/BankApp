@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 public class SavingsAccount {
 
-    // slightly modified field name for clarity
     private BigDecimal savingsBalance;
 
     private long accountNumber;

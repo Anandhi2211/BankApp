@@ -10,16 +10,15 @@ public class DebitCard {
 
     private int cvvNumber;
 
-    // should we replace this field with customer name or delete it?
-    private int customerId;
+    private String customerFullName;
 
     private long ssn;
 
-    public DebitCard(long cardNumber, Timestamp expirationDate, int cvvNumber, int customerId, long ssn) {
+    public DebitCard(long cardNumber, Timestamp expirationDate, int cvvNumber, String customerFullName, long ssn) {
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
         this.cvvNumber = cvvNumber;
-        this.customerId = customerId;
+        this.customerFullName = customerFullName;
         this.ssn = ssn;
     }
 
@@ -47,12 +46,12 @@ public class DebitCard {
         this.cvvNumber = cvvNumber;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public String getCustomerFullName() {
+        return customerFullName;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomerFullName(String customerFullName) {
+        this.customerFullName = customerFullName;
     }
 
     public long getSsn() {
@@ -69,7 +68,7 @@ public class DebitCard {
                 "cardNumber=" + cardNumber +
                 ", expirationDate=" + expirationDate +
                 ", cvvNumber=" + cvvNumber +
-                ", customerId=" + customerId +
+                ", customerFullName='" + customerFullName + '\'' +
                 ", ssn=" + ssn +
                 '}';
     }

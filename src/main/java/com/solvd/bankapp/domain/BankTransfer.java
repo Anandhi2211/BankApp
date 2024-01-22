@@ -8,7 +8,7 @@ public class BankTransfer {
 
     private long beneficiaryAccountNumber;
 
-    // what exactly is charge? is it a service fee?
+    // create enum class
     private BigDecimal charge;
 
     private String username;
