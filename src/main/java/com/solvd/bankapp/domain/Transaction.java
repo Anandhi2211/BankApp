@@ -5,12 +5,9 @@ import java.math.BigDecimal;
 public class Transaction {
 
     private int transactionId;
-
     private BigDecimal amount;
-
     // may consider creating an enum class just for this field
     private String transactionStatus;
-
     private long accountNumber;
 
     public Transaction(int transactionId, BigDecimal amount, String transactionStatus, long accountNumber) {

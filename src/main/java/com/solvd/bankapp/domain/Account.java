@@ -1,14 +1,32 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class Account {
 
-    long accountNumber;
+    private long accountNumber;
 
-    BigDecimal totalBalance;
+    private BigDecimal totalBalance;
 
-    String userName;
+    private String userName;
+
+    public ArrayList<Transaction> getTransactionList() {
+        if(this.transactionList==null){
+            this.transactionList = new ArrayList<>();
+        }
+        return this.transactionList;
+    }
+
+    public void setTransactionList(Transaction transaction) {
+        if(this.transactionList==null){
+            this.transactionList = new ArrayList<>();
+        }
+        this.transactionList.add(transaction);
+    }
+
+    private ArrayList<Transaction> transactionList;
+
 
     public Account(long accountNumber, BigDecimal totalBalance, String userName) {
         this.accountNumber = accountNumber;
