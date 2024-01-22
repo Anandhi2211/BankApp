@@ -8,12 +8,12 @@ public class Account {
 
     BigDecimal totalBalance;
 
-    String userName;
+    String username;
 
-    public Account(long accountNumber, BigDecimal totalBalance, String userName) {
+    public Account(long accountNumber, BigDecimal totalBalance, String username) {
         this.accountNumber = accountNumber;
         this.totalBalance = totalBalance;
-        this.userName = userName;
+        this.username = username;
     }
 
 
@@ -33,12 +33,12 @@ public class Account {
         this.totalBalance = totalBalance;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Account {
         return "Account{" +
                 "accountNumber=" + accountNumber +
                 ", totalBalance=" + totalBalance +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 '}';
     }
 }

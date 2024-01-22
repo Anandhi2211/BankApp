@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 public class Payment {
 
     // changed this field name to be a more generic placeholder for any bill recipient
-    private int companyName;
+    private String companyName;
+
+    private int companyAccountNumber;
 
     private BigDecimal billAmount;
 
@@ -15,20 +17,29 @@ public class Payment {
 
     private long ssn;
 
-    public Payment(int companyName, BigDecimal billAmount, String username, int transactionId, long ssn) {
+    public Payment(String companyName, int companyAccountNumber, BigDecimal billAmount, String username, int transactionId, long ssn) {
         this.companyName = companyName;
+        this.companyAccountNumber = companyAccountNumber;
         this.billAmount = billAmount;
         this.username = username;
         this.transactionId = transactionId;
         this.ssn = ssn;
     }
 
-    public int getCompanyName() {
+    public String getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(int companyName) {
+    public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public int getCompanyAccountNumber() {
+        return companyAccountNumber;
+    }
+
+    public void setCompanyAccountNumber(int companyAccountNumber) {
+        this.companyAccountNumber = companyAccountNumber;
     }
 
     public BigDecimal getBillAmount() {
@@ -66,7 +77,8 @@ public class Payment {
     @Override
     public String toString() {
         return "Payment{" +
-                "companyName=" + companyName +
+                "companyName='" + companyName + '\'' +
+                "companyAccountNumber" + companyAccountNumber +
                 ", billAmount=" + billAmount +
                 ", username='" + username + '\'' +
                 ", transactionId=" + transactionId +
