@@ -11,7 +11,7 @@ public class TransactionUtil {
     private static final Logger logger = LogManager.getLogger(TransactionUtil.class);
     public Customer createTransaction(Customer customer, BigDecimal amt) {
         if(customer!=null){
-            Transaction transaction = new Transaction(12345, amt,"success",customer.getAccount().getAccountNumber());
+            Transaction transaction = new Transaction(12345, amt,true,customer.getAccount().getAccountNumber());
             customer.getAccount().setTransactionList(transaction);
         }
         else{

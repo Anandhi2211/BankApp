@@ -7,10 +7,10 @@ public class Transaction {
     private int transactionId;
     private BigDecimal amount;
     // may consider creating an enum class just for this field
-    private String transactionStatus;
+    private boolean transactionStatus;
     private long accountNumber;
 
-    public Transaction(int transactionId, BigDecimal amount, String transactionStatus, long accountNumber) {
+    public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus, long accountNumber) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.transactionStatus = transactionStatus;
@@ -33,11 +33,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getTransactionStatus() {
+    public boolean getTransactionStatus() {
         return transactionStatus;
     }
 
-    public void setTransactionStatus(String transactionStatus) {
+    public void setTransactionStatus(boolean transactionStatus) {
         this.transactionStatus = transactionStatus;
     }
 
