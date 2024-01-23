@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bankapp.persistence.PurchaseProductDAO">
+
+    <insert id="create"  >
+        Insert into purchase_products (debitcards_card_number, purchase_description, amount, transactions_transaction_id, customers_ssn)
+        values (#{cardNumber}, #{purchaseDescription}, #{amount}, #{transactionId}, #{ssn})
+    </insert>
+
+    <select id="findById">
+        Select * From purchase_products
+        where debitcards_card_number = #{cardNumber}
+    </select>
+
+    <select id="getAll" >
+        SELECT * FROM purchase_products;
+    </select>
+
+</mapper>

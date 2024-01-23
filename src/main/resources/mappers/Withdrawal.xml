@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bankapp.persistence.WithdrawalDAO">
+
+    <insert id="create"  >
+        Insert into withdrawals (withdrawal_amount, account_number, logincredentials_username,  transactions_transaction_id )
+        values (#{withdrawalAmount}, #{accountNumber}, #{username}, #{transactionId})
+    </insert>
+
+    <select id="findById">
+        Select * From withdrawals
+        where transactions_transaction_id = #{transactionId}
+    </select>
+
+    <select id="getAll" >
+        SELECT * FROM withdrawals;
+    </select>
+
+
+
+</mapper>

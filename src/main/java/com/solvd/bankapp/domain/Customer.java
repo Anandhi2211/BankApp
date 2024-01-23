@@ -1,17 +1,11 @@
 package com.solvd.bankapp.domain;
 
 public class Customer {
-
     private long ssn;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private String phoneNumber;
-
     public Customer(long ssn, String firstName, String lastName, String email, String phoneNumber) {
         this.ssn = ssn;
         this.firstName = firstName;
