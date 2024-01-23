@@ -11,21 +11,21 @@ public class Account {
 
     private String username;
 
-    public ArrayList<Transaction> getTransactionList() {
-        if(this.transactionList==null){
-            this.transactionList = new ArrayList<>();
-        }
-        return this.transactionList;
-    }
+//    public ArrayList<Transaction> getTransactionList() {
+//        if(this.transactionList==null){
+//            this.transactionList = new ArrayList<>();
+//        }
+//        return this.transactionList;
+//    }
+//
+//    public void setTransactionList(Transaction transaction) {
+//        if(this.transactionList==null){
+//            this.transactionList = new ArrayList<>();
+//        }
+//        this.transactionList.add(transaction);
+//    }
 
-    public void setTransactionList(Transaction transaction) {
-        if(this.transactionList==null){
-            this.transactionList = new ArrayList<>();
-        }
-        this.transactionList.add(transaction);
-    }
-
-    private ArrayList<Transaction> transactionList;
+//    private ArrayList<Transaction> transactionList;
 
 
     public Account(long accountNumber, BigDecimal totalBalance, String username) {
@@ -66,7 +66,7 @@ public class Account {
         return "Account{" +
                 "accountNumber=" + accountNumber +
                 ", totalBalance=" + totalBalance +
-                ", userName='" + username + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }
