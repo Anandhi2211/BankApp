@@ -16,12 +16,11 @@ public class Withdrawal {
     private Timestamp withdrawalTimestamp;
 
     public Withdrawal(BigDecimal withdrawalAmount, long accountNumber, String username,
-                      int transactionId, Timestamp withdrawalTimestamp) {
+                      int transactionId) {
         this.withdrawalAmount = withdrawalAmount;
         this.accountNumber = accountNumber;
         this.username = username;
         this.transactionId = transactionId;
-        this.withdrawalTimestamp = withdrawalTimestamp;
     }
 
     public BigDecimal getWithdrawalAmount() {

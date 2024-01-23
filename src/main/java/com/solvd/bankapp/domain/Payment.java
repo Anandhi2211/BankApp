@@ -20,14 +20,13 @@ public class Payment {
     private Timestamp paymentTimestamp;
 
     public Payment(int companyAccountNumber, String companyName, BigDecimal billAmount,
-                   String username, int transactionId, long ssn, Timestamp paymentTimestamp) {
+                   String username, int transactionId, long ssn) {
         this.companyAccountNumber = companyAccountNumber;
         this.companyName = companyName;
         this.billAmount = billAmount;
         this.username = username;
         this.transactionId = transactionId;
-        this.ssn = ssn;
-        this.paymentTimestamp = paymentTimestamp;
+        this.ssn = ssn;;
     }
 
     public int getCompanyAccountNumber() {

@@ -16,12 +16,11 @@ public class Deposit {
     private Timestamp depositTimestamp;
 
     public Deposit(BigDecimal depositAmount, long accountNumber, String username,
-                   int transactionId, Timestamp depositTimestamp) {
+                   int transactionId) {
         this.depositAmount = depositAmount;
         this.accountNumber = accountNumber;
         this.username = username;
         this.transactionId = transactionId;
-        this.depositTimestamp = depositTimestamp;
     }
 
     public BigDecimal getDepositAmount() {
