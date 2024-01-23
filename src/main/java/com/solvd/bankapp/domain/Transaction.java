@@ -6,27 +6,21 @@ import java.sql.Timestamp;
 public class Transaction {
 
     private int transactionId;
+
     private BigDecimal amount;
-    // may consider creating an enum class just for this field
+
     private boolean transactionStatus;
 
-    public Timestamp getTransactionTimestamp() {
-        return transactionTimestamp;
-    }
-
-    public void setTransactionTimestamp(Timestamp transactionTimestamp) {
-        this.transactionTimestamp = transactionTimestamp;
-    }
-
-    private Timestamp transactionTimestamp;
     private long accountNumber;
 
-    public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus, long accountNumber,Timestamp transactionTimestamp) {
+    private Timestamp transactionTimestamp;
+
+    public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus,
+                       long accountNumber) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.transactionStatus = transactionStatus;
         this.accountNumber = accountNumber;
-        this.transactionTimestamp = transactionTimestamp;
     }
 
     public int getTransactionId() {
@@ -61,6 +55,14 @@ public class Transaction {
         this.accountNumber = accountNumber;
     }
 
+    public Timestamp getTransactionTimestamp() {
+        return transactionTimestamp;
+    }
+
+    public void setTransactionTimestamp(Timestamp transactionTimestamp) {
+        this.transactionTimestamp = transactionTimestamp;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -68,6 +70,7 @@ public class Transaction {
                 ", amount=" + amount +
                 ", transactionStatus='" + transactionStatus + '\'' +
                 ", accountNumber=" + accountNumber +
+                ", transactionTimestamp=" + transactionTimestamp +
                 '}';
     }
 }
