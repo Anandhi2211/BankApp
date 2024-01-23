@@ -1,4 +1,4 @@
-package com.solvd.bankapp.util;
+package com.solvd.bankapp.service;
 
 import com.solvd.bankapp.domain.Account;
 import com.solvd.bankapp.domain.Customer;
@@ -50,7 +50,7 @@ public class AccountUtil {
         if (password.equals(retypePassword)) {
             int pin = Integer.parseInt(Long.toString(customer.getSsn()).substring(Long.toString(customer.getSsn()).length() - 4));
             logger.info(pin);
-            loginCredential = new LoginCredential(account.getUserName(), password, true, pin, customer.getSsn());
+            loginCredential = new LoginCredential(account.getUsername(), password, true, pin, customer.getSsn());
             customer.setLoginCredential(loginCredential);
         } else {
             logger.info("Mismatch Password");

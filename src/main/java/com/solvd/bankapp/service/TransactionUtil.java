@@ -1,4 +1,4 @@
-package com.solvd.bankapp.util;
+package com.solvd.bankapp.service;
 
 import com.solvd.bankapp.domain.Customer;
 import com.solvd.bankapp.domain.Transaction;

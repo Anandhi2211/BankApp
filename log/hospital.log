@@ -5,7 +5,7 @@
 2024-01-21 23:39:23.485 [main] INFO  com.solvd.bankapp.Main - 3.Deposit to ATM
 2024-01-21 23:39:23.485 [main] INFO  com.solvd.bankapp.Main - 4.Withdrawal from ATM
 2024-01-21 23:39:23.485 [main] INFO  com.solvd.bankapp.Main - 5.Exit
-2024-01-21 23:39:25.529 [main] INFO  com.solvd.bankapp.util.NewCustomer - New Customer details
+2024-01-21 23:39:25.529 [main] INFO  com.solvd.bankapp.service.NewCustomer - New Customer details
 2024-01-21 23:39:25.533 [main] INFO  com.solvd.bankapp.util.NewAccount - Deposit minimum balance of 100$
 2024-01-21 23:39:27.304 [main] INFO  com.solvd.bankapp.util.NewAccount - Account Created
 2024-01-21 23:39:27.317 [main] INFO  com.solvd.bankapp.util.NewAccount - Enter NetBanking Password
@@ -23,9 +23,9 @@
 2024-01-21 23:39:28.747 [main] INFO  com.solvd.bankapp.Main - 3.Deposit to ATM
 2024-01-21 23:39:28.747 [main] INFO  com.solvd.bankapp.Main - 4.Withdrawal from ATM
 2024-01-21 23:39:28.747 [main] INFO  com.solvd.bankapp.Main - 5.Exit
-2024-01-21 23:39:31.349 [main] INFO  com.solvd.bankapp.util.DashBoard - Enter user Name
-2024-01-21 23:39:33.729 [main] INFO  com.solvd.bankapp.util.DashBoard - Login Details Error
-2024-01-21 23:39:33.730 [main] INFO  com.solvd.bankapp.util.DashBoard - Error with the LoginDetails
+2024-01-21 23:39:31.349 [main] INFO  com.solvd.bankapp.service.DashBoard - Enter user Name
+2024-01-21 23:39:33.729 [main] INFO  com.solvd.bankapp.service.DashBoard - Login Details Error
+2024-01-21 23:39:33.730 [main] INFO  com.solvd.bankapp.service.DashBoard - Error with the LoginDetails
 2024-01-21 23:39:33.730 [main] INFO  com.solvd.bankapp.Main - daaa sdfsdf!
 2024-01-21 23:39:33.730 [main] INFO  com.solvd.bankapp.Main - Enter the choices: 
 2024-01-21 23:39:33.730 [main] INFO  com.solvd.bankapp.Main - 1.Register

@@ -1,4 +1,4 @@
-package com.solvd.bankapp.util;
+package com.solvd.bankapp.service;
 
 public class SavingAccountUtil {
 }
