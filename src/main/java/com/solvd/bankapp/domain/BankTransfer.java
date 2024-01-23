@@ -19,13 +19,12 @@ public class BankTransfer {
     private Timestamp transferTimestamp;
 
     public BankTransfer(BigDecimal transferAmount, long beneficiaryAccountNumber,
-                        BigDecimal charge, String username, int transactionId, Timestamp transferTimestamp) {
+                        BigDecimal charge, String username, int transactionId) {
         this.transferAmount = transferAmount;
         this.beneficiaryAccountNumber = beneficiaryAccountNumber;
         this.charge = charge;
         this.username = username;
         this.transactionId = transactionId;
-        this.transferTimestamp = transferTimestamp;
     }
 
     public BigDecimal getTransferAmount() {
@@ -82,7 +81,7 @@ public class BankTransfer {
                 "transferAmount=" + transferAmount +
                 ", beneficiaryAccountNumber=" + beneficiaryAccountNumber +
                 ", charge=" + charge +
-                ", userName='" + username + '\'' +
+                ", username='" + username + '\'' +
                 ", transactionId=" + transactionId +
                 ", transferTimestamp=" + transferTimestamp +
                 '}';
