@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 public class Account {
 
-    long accountNumber;
+    private long accountNumber;
 
-    BigDecimal totalBalance;
+    private BigDecimal totalBalance;
 
-    String username;
+    private String username;
 
     public Account(long accountNumber, BigDecimal totalBalance, String username) {
         this.accountNumber = accountNumber;
