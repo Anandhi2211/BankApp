@@ -22,7 +22,6 @@ public class Transaction {
         this.transactionStatus = transactionStatus;
         this.accountNumber = accountNumber;
     }
-
     public int getTransactionId() {
         return transactionId;
     }

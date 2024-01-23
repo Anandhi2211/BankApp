@@ -18,13 +18,12 @@ public class PurchaseProduct {
     private Timestamp purchaseTimestamp;
 
     public PurchaseProduct(long cardNumber, String purchaseDescription, BigDecimal amount,
-                           int transactionId, long ssn, Timestamp purchaseTimestamp) {
+                           int transactionId, long ssn) {
         this.cardNumber = cardNumber;
         this.purchaseDescription = purchaseDescription;
         this.amount = amount;
         this.transactionId = transactionId;
         this.ssn = ssn;
-        this.purchaseTimestamp = purchaseTimestamp;
     }
 
     public long getCardNumber() {

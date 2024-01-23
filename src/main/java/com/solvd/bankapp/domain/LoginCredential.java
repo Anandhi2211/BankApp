@@ -19,6 +19,14 @@ public class LoginCredential {
         this.pin = pin;
         this.ssn = ssn;
     }
+    public LoginCredential() {
+
+    }
+
+
+    public LoginCredential() {
+
+    }
 
     public String getUsername() {
         return username;
