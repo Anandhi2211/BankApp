@@ -12,6 +12,9 @@
       <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/DebitCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/DebitCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Deposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Deposit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/LoginCredential.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/LoginCredential.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/PurchaseProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/PurchaseProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/SavingsAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/SavingsAccount.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Withdrawal.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Withdrawal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Account.xml" afterDir="false" />
@@ -213,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706046684818</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="initail">
+      <created>1706053318416</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1706053318416</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TerminalProjectNonSharedOptionsProvider">
