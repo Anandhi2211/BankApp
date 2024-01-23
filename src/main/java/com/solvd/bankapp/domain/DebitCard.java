@@ -3,17 +3,11 @@ package com.solvd.bankapp.domain;
 import java.sql.Timestamp;
 
 public class DebitCard {
-
     private long cardNumber;
-
     private Timestamp expirationDate;
-
     private int cvvNumber;
-
     private String customerFullName;
-
     private long ssn;
-
     public DebitCard(long cardNumber, Timestamp expirationDate, int cvvNumber, String customerFullName, long ssn) {
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;

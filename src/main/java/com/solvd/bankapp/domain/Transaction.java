@@ -4,17 +4,11 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Transaction {
-
     private int transactionId;
-
     private BigDecimal amount;
-
     private boolean transactionStatus;
-
     private long accountNumber;
-
     private Timestamp transactionTimestamp;
-
     public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus,
                        long accountNumber) {
         this.transactionId = transactionId;

@@ -17,6 +17,7 @@
         <id column="account_number" property="accountNumber"/>
         <result column="total_balance" property="totalBalance"/>
         <result column="logincredentials_username" property="username"/>
+        <collection property="transactionList" resultMap="com.solvd.bankapp.persistence.TransactionDAO.transactionsResultMap"/>
     </resultMap>
 
 </mapper>

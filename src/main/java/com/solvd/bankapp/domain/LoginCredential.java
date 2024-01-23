@@ -1,17 +1,11 @@
 package com.solvd.bankapp.domain;
 
 public class LoginCredential {
-
     private String username;
-
     private String userPassword;
-
     private boolean activeStatus;
-
     private int pin;
-
     private long ssn;
-
     public LoginCredential(String username, String userPassword, boolean activeStatus, int pin, long ssn) {
         this.username = username;
         this.userPassword = userPassword;
@@ -22,7 +16,6 @@ public class LoginCredential {
     public LoginCredential() {
 
     }
-
 
     public String getUsername() {
         return username;

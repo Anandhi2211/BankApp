@@ -10,12 +10,17 @@
         values (#{beneficiaryName}, #{beneficiaryAccountNumber}, #{accountNumber})
     </insert>
 
-    <select id="findByName">
+    <sql id="beneficiariesColumns">
         Select * From beneficiaries
+    </sql>
+
+    <select id="findByName" resultMap="beneficiariesResultMap">
+        <include refid="beneficiariesColumns"/>
         where beneficiary_name = #{beneficiaryName}
     </select>
 
-    <select id="getAll" >
+    <select id="getAll" resultMap="beneficiariesResultMap" >
+        <include refid="beneficiariesColumns"/>
         SELECT * FROM beneficiaries;
     </select>
 

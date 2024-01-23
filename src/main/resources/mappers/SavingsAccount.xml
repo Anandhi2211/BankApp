@@ -14,13 +14,17 @@
         Delete from savings_accounts where account_number = #{accountNumber};
     </delete>
 
-    <select id="findByNumber">
+    <sql id="savings_accountsColumns">
         Select * From savings_accounts
+    </sql>
+
+    <select id="findByNumber" resultMap="savings_accountsResultMap" >
+        <include refid="savings_accountsColumns"/>
         where account_number = #{accountNumber}
     </select>
 
-    <select id="getAll" >
-        SELECT * FROM savings_accounts;
+    <select id="getAll" resultMap="savings_accountsResultMap" >
+        <include refid="savings_accountsColumns"/>
     </select>
 
     <resultMap id="savings_accountsResultMap" type="com.solvd.bankapp.domain.SavingsAccount" autoMapping="false">

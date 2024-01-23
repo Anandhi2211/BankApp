@@ -5,8 +5,8 @@
 <mapper namespace="com.solvd.bankapp.persistence.DebitCardDAO">
 
     <insert id="create"  keyColumn="card_number" keyProperty="cardNumber" useGeneratedKeys="true">
-        Insert into debit_cards (card_number, expiration_date, cvv_number, customer_id, customers_ssn)
-        values (#{cardNumber}, #{expirationDate}, #{cvvNumber}, #{customerId}, #{ssn})
+        Insert into debit_cards (card_number, expiration_date, cvv_number, customer_full_name, customers_ssn)
+        values (#{cardNumber}, #{expirationDate}, #{cvvNumber}, #{customerFullName}, #{ssn})
     </insert>
 
     <delete id="delete">
