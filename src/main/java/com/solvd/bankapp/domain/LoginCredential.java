@@ -20,6 +20,10 @@ public class LoginCredential {
         this.ssn = ssn;
     }
 
+    public LoginCredential() {
+
+    }
+
     public String getUsername() {
         return username;
     }
