@@ -7,6 +7,15 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
+import com.solvd.bankapp.domain.Customer;
+import com.solvd.bankapp.exception.ExceptionBank;
+import com.solvd.bankapp.service.DashBoard;
+import com.solvd.bankapp.service.NewCustomer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Scanner;
+
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
@@ -37,6 +46,7 @@ public class Main {
                             logger.info(customer.getAccount());
                             logger.info(customer.getAccount().getTransactionList());
                             //use Service layer to insert record to DB
+
                         } else {
                             logger.info("Account not created");
                         }
