@@ -1,6 +1,7 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class Withdrawal {
 
@@ -12,7 +13,10 @@ public class Withdrawal {
 
     private int transactionId;
 
-    public Withdrawal(BigDecimal withdrawalAmount, long accountNumber, String username, int transactionId) {
+    private Timestamp withdrawalTimestamp;
+
+    public Withdrawal(BigDecimal withdrawalAmount, long accountNumber, String username,
+                      int transactionId) {
         this.withdrawalAmount = withdrawalAmount;
         this.accountNumber = accountNumber;
         this.username = username;
@@ -51,6 +55,14 @@ public class Withdrawal {
         this.transactionId = transactionId;
     }
 
+    public Timestamp getWithdrawalTimestamp() {
+        return withdrawalTimestamp;
+    }
+
+    public void setWithdrawalTimestamp(Timestamp withdrawalTimestamp) {
+        this.withdrawalTimestamp = withdrawalTimestamp;
+    }
+
     @Override
     public String toString() {
         return "Withdrawal{" +
@@ -58,6 +70,7 @@ public class Withdrawal {
                 ", accountNumber=" + accountNumber +
                 ", username='" + username + '\'' +
                 ", transactionId=" + transactionId +
+                ", withdrawalTimestamp=" + withdrawalTimestamp +
                 '}';
     }
 }

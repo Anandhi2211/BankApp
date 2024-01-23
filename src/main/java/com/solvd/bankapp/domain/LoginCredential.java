@@ -2,21 +2,19 @@ package com.solvd.bankapp.domain;
 
 public class LoginCredential {
 
-    // username should be String/varchar not int
     private String username;
 
-    private String password;
+    private String userPassword;
 
-    // active status makes sense as boolean instead of String/varchar
     private boolean activeStatus;
 
     private int pin;
 
     private long ssn;
 
-    public LoginCredential(String username, String password, boolean activeStatus, int pin, long ssn) {
+    public LoginCredential(String username, String userPassword, boolean activeStatus, int pin, long ssn) {
         this.username = username;
-        this.password = password;
+        this.userPassword = userPassword;
         this.activeStatus = activeStatus;
         this.pin = pin;
         this.ssn = ssn;
@@ -34,12 +32,12 @@ public class LoginCredential {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
     public boolean isActiveStatus() {
@@ -70,7 +68,7 @@ public class LoginCredential {
     public String toString() {
         return "LoginCredential{" +
                 "username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", password='" + userPassword + '\'' +
                 ", activeStatus=" + activeStatus +
                 ", pin=" + pin +
                 ", ssn=" + ssn +

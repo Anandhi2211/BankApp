@@ -1,11 +1,13 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class Payment {
 
-    // changed this field name to be a more generic placeholder for any bill recipient
-    private int companyName;
+    private int companyAccountNumber;
+
+    private String companyName;
 
     private BigDecimal billAmount;
 
@@ -15,19 +17,31 @@ public class Payment {
 
     private long ssn;
 
-    public Payment(int companyName, BigDecimal billAmount, String username, int transactionId, long ssn) {
+    private Timestamp paymentTimestamp;
+
+    public Payment(int companyAccountNumber, String companyName, BigDecimal billAmount,
+                   String username, int transactionId, long ssn) {
+        this.companyAccountNumber = companyAccountNumber;
         this.companyName = companyName;
         this.billAmount = billAmount;
         this.username = username;
         this.transactionId = transactionId;
-        this.ssn = ssn;
+        this.ssn = ssn;;
     }
 
-    public int getCompanyName() {
+    public int getCompanyAccountNumber() {
+        return companyAccountNumber;
+    }
+
+    public void setCompanyAccountNumber(int companyAccountNumber) {
+        this.companyAccountNumber = companyAccountNumber;
+    }
+
+    public String getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(int companyName) {
+    public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
 
@@ -63,14 +77,24 @@ public class Payment {
         this.ssn = ssn;
     }
 
+    public Timestamp getPaymentTimestamp() {
+        return paymentTimestamp;
+    }
+
+    public void setPaymentTimestamp(Timestamp paymentTimestamp) {
+        this.paymentTimestamp = paymentTimestamp;
+    }
+
     @Override
     public String toString() {
         return "Payment{" +
-                "companyName=" + companyName +
+                "companyAccountNumber" + companyAccountNumber +
+                "companyName='" + companyName + '\'' +
                 ", billAmount=" + billAmount +
                 ", username='" + username + '\'' +
                 ", transactionId=" + transactionId +
                 ", ssn=" + ssn +
+                ", paymentTimestamp=" + paymentTimestamp +
                 '}';
     }
 }

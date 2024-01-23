@@ -1,6 +1,7 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class BankTransfer {
 
@@ -8,18 +9,21 @@ public class BankTransfer {
 
     private long beneficiaryAccountNumber;
 
-    // what exactly is charge? is it a service fee?
+    // create enum class
     private BigDecimal charge;
 
-    private String userName;
+    private String username;
 
     private int transactionId;
 
-    public BankTransfer(BigDecimal transferAmount, long beneficiaryAccountNumber, BigDecimal charge, String userName, int transactionId) {
+    private Timestamp transferTimestamp;
+
+    public BankTransfer(BigDecimal transferAmount, long beneficiaryAccountNumber,
+                        BigDecimal charge, String username, int transactionId) {
         this.transferAmount = transferAmount;
         this.beneficiaryAccountNumber = beneficiaryAccountNumber;
         this.charge = charge;
-        this.userName = userName;
+        this.username = username;
         this.transactionId = transactionId;
     }
 
@@ -47,12 +51,12 @@ public class BankTransfer {
         this.charge = charge;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getTransactionId() {
@@ -63,14 +67,23 @@ public class BankTransfer {
         this.transactionId = transactionId;
     }
 
+    public Timestamp getTransferTimestamp() {
+        return transferTimestamp;
+    }
+
+    public void setTransferTimestamp(Timestamp transferTimestamp) {
+        this.transferTimestamp = transferTimestamp;
+    }
+
     @Override
     public String toString() {
         return "BankTransfer{" +
                 "transferAmount=" + transferAmount +
                 ", beneficiaryAccountNumber=" + beneficiaryAccountNumber +
                 ", charge=" + charge +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", transactionId=" + transactionId +
+                ", transferTimestamp=" + transferTimestamp +
                 '}';
     }
 }

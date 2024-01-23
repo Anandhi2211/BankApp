@@ -22,6 +22,7 @@ public class Account {
         this.username = username;
     }
 
+
     public long getAccountNumber() {
         return accountNumber;
     }
