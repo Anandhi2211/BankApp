@@ -1,9 +1,0 @@
-2024-01-23 11:51:11.146 [main] INFO  com.solvd.bankapp.Main - daaa sdfsdf!
-2024-01-23 11:51:11.154 [main] INFO  com.solvd.bankapp.Main - Enter the choices: 
-2024-01-23 11:51:11.155 [main] INFO  com.solvd.bankapp.Main - 1.Register
-2024-01-23 11:51:11.155 [main] INFO  com.solvd.bankapp.Main - 2.Login
-2024-01-23 11:51:11.156 [main] INFO  com.solvd.bankapp.Main - 3.Deposit to ATM
-2024-01-23 11:51:11.156 [main] INFO  com.solvd.bankapp.Main - 4.Withdrawal from ATM
-2024-01-23 11:51:11.156 [main] INFO  com.solvd.bankapp.Main - 5.Exit
-2024-01-23 11:51:14.861 [main] INFO  com.solvd.bankapp.Main - Thanks for Visiting
-2024-01-23 11:51:14.861 [main] INFO  com.solvd.bankapp.Main - No Exception
