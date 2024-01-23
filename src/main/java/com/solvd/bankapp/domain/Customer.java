@@ -30,7 +30,7 @@ public class Customer {
         this.loginCredential = loginCredential;
     }
 
-
+// trial
     public Account getAccount() {
         if(this.account == null){
             this.account = new Account();
