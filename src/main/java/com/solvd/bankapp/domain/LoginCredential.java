@@ -2,12 +2,10 @@ package com.solvd.bankapp.domain;
 
 public class LoginCredential {
 
-    // username should be String/varchar not int
     private String username;
 
     private String userPassword;
 
-    // active status makes sense as boolean instead of String/varchar
     private boolean activeStatus;
 
     private int pin;

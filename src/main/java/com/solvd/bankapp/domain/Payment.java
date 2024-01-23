@@ -1,13 +1,13 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class Payment {
 
-    // changed this field name to be a more generic placeholder for any bill recipient
-    private String companyName;
-
     private int companyAccountNumber;
+
+    private String companyName;
 
     private BigDecimal billAmount;
 
@@ -17,21 +17,17 @@ public class Payment {
 
     private long ssn;
 
-    public Payment(String companyName, int companyAccountNumber, BigDecimal billAmount, String username, int transactionId, long ssn) {
-        this.companyName = companyName;
+    private Timestamp paymentTimestamp;
+
+    public Payment(int companyAccountNumber, String companyName, BigDecimal billAmount,
+                   String username, int transactionId, long ssn, Timestamp paymentTimestamp) {
         this.companyAccountNumber = companyAccountNumber;
+        this.companyName = companyName;
         this.billAmount = billAmount;
         this.username = username;
         this.transactionId = transactionId;
         this.ssn = ssn;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+        this.paymentTimestamp = paymentTimestamp;
     }
 
     public int getCompanyAccountNumber() {
@@ -40,6 +36,14 @@ public class Payment {
 
     public void setCompanyAccountNumber(int companyAccountNumber) {
         this.companyAccountNumber = companyAccountNumber;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public BigDecimal getBillAmount() {
@@ -74,15 +78,24 @@ public class Payment {
         this.ssn = ssn;
     }
 
+    public Timestamp getPaymentTimestamp() {
+        return paymentTimestamp;
+    }
+
+    public void setPaymentTimestamp(Timestamp paymentTimestamp) {
+        this.paymentTimestamp = paymentTimestamp;
+    }
+
     @Override
     public String toString() {
         return "Payment{" +
-                "companyName='" + companyName + '\'' +
                 "companyAccountNumber" + companyAccountNumber +
+                "companyName='" + companyName + '\'' +
                 ", billAmount=" + billAmount +
                 ", username='" + username + '\'' +
                 ", transactionId=" + transactionId +
                 ", ssn=" + ssn +
+                ", paymentTimestamp=" + paymentTimestamp +
                 '}';
     }
 }

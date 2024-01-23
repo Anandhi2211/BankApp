@@ -1,6 +1,7 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class Transaction {
 
@@ -8,16 +9,19 @@ public class Transaction {
 
     private BigDecimal amount;
 
-    // may consider creating an enum class just for this field
-    private String transactionStatus;
+    private boolean transactionStatus;
 
     private long accountNumber;
 
-    public Transaction(int transactionId, BigDecimal amount, String transactionStatus, long accountNumber) {
+    private Timestamp transactionTimestamp;
+
+    public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus,
+                       long accountNumber, Timestamp transactionTimestamp) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.transactionStatus = transactionStatus;
         this.accountNumber = accountNumber;
+        this.transactionTimestamp = transactionTimestamp;
     }
 
     public int getTransactionId() {
@@ -36,11 +40,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getTransactionStatus() {
+    public boolean isTransactionStatus() {
         return transactionStatus;
     }
 
-    public void setTransactionStatus(String transactionStatus) {
+    public void setTransactionStatus(boolean transactionStatus) {
         this.transactionStatus = transactionStatus;
     }
 
@@ -52,6 +56,14 @@ public class Transaction {
         this.accountNumber = accountNumber;
     }
 
+    public Timestamp getTransactionTimestamp() {
+        return transactionTimestamp;
+    }
+
+    public void setTransactionTimestamp(Timestamp transactionTimestamp) {
+        this.transactionTimestamp = transactionTimestamp;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -59,6 +71,7 @@ public class Transaction {
                 ", amount=" + amount +
                 ", transactionStatus='" + transactionStatus + '\'' +
                 ", accountNumber=" + accountNumber +
+                ", transactionTimestamp=" + transactionTimestamp +
                 '}';
     }
 }
