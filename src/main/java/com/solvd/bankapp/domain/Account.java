@@ -16,6 +16,13 @@ public class Account {
     public Account() {
     }
 
+    public Account(long accountNumber, BigDecimal totalBalance, String username) {
+        this.accountNumber = accountNumber;
+        this.totalBalance = totalBalance;
+        this.username = username;
+    }
+
+
     public long getAccountNumber() {
         return accountNumber;
     }
