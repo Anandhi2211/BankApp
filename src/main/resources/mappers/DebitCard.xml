@@ -13,4 +13,12 @@
         Delete from debit_cards where card_number = #{cardNumber};
     </delete>
 
+    <resultMap id="debit_cardsResultMap" type="com.solvd.bankapp.domain.DebitCard" autoMapping="false">
+        <id column="card_number" property="cardNumber"/>
+        <result column="expiration_date" property="expirationDate"/>
+        <result column="cvv_number" property="cvvNumber"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="customers_ssn" property="ssn"/>
+    </resultMap>
+
 </mapper>

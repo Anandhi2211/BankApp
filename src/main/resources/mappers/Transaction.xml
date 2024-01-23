@@ -10,13 +10,19 @@
     </insert>
 
     <select id="findById">
-      Select transaction_id, amount, transaction_status, account_number
-        From transactions
+      Select * From transactions
         where transaction_id = #{transactionId}
     </select>
 
     <select id="getAll" >
         SELECT * FROM transactions;
     </select>
+
+    <resultMap id="transactionsResultMap" type="com.solvd.bankapp.domain.Transaction" autoMapping="false">
+        <id column="transaction_id" property="transactionId"/>
+        <result column="amount" property="amount"/>
+        <result column="transaction_status" property="transactionStatus"/>
+        <result column="account_number" property="accountNumber"/>
+    </resultMap>
 
 </mapper>

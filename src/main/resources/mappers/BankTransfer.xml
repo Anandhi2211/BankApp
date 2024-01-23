@@ -10,7 +10,7 @@
     </insert>
 
     <select id= "findById" >
-        SELECT * FROM bank_transfers where  beneficiary_account_number = #{beneficiaryAccountNumber}
+        SELECT * FROM bank_transfers where  transactions_transaction_id = #{transactionId}
     </select>
 
     <select id="getAll" >
@@ -22,6 +22,6 @@
         <result column="beneficiary_account_number" property="beneficiaryAccountNumber"/>
         <result column="charge" property="charge"/>
         <result column="logincredentials_username" property="username"/>
-        <!--<id column="transactions_transaction_id" property="transactionId"/>-->
+        <result column="transactions_transaction_id" property="transactionId"/>
     </resultMap>
 </mapper>

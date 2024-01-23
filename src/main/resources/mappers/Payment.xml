@@ -11,11 +11,20 @@
 
     <select id="findById">
         Select * From payments
-        where company_account_number = #{companyAccountNumber}
+        where transactions_transaction_id = #{transactionId}
     </select>
 
     <select id="getAll" >
         SELECT * FROM payments;
     </select>
+
+    <resultMap id="paymentsResultMap" type="com.solvd.bankapp.domain.Payment" autoMapping="false">
+        <id column="company_account_number" property="companyAccountNumber"/>
+        <result column="company_name" property="companyName"/>
+        <result column="bill_amount" property="billAmount"/>
+        <result column="logincredentials_username" property="username"/>
+        <result column="transactions_transaction_id" property="transactionId"/>
+        <result column="customers_ssn" property="ssn"/>
+    </resultMap>
 
 </mapper>

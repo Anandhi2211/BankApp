@@ -18,6 +18,13 @@
         SELECT * FROM withdrawals;
     </select>
 
+    <resultMap id="withdrawalsResultMap" type="com.solvd.bankapp.domain.Withdrawal" autoMapping="false">
+        <id column="transaction_id" property="transactionId"/>
+        <result column="withdrawal_amount" property="withdrawalAmount"/>
+        <result column="account_number" property="accountNumber"/>
+        <result column="logincredentials_username" property="username"/>
+        <result column="transactions_transaction_id" property="transactionId"/>
+    </resultMap>
 
 
 </mapper>

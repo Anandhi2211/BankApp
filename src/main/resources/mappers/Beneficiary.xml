@@ -19,5 +19,9 @@
         SELECT * FROM beneficiaries;
     </select>
 
-
+    <resultMap id="beneficiariesResultMap" type="com.solvd.bankapp.domain.Beneficiary" autoMapping="false">
+        <result column="beneficiary_name" property="beneficiaryName"/>
+        <result column="beneficiary_account_number" property="beneficiaryAccountNumber"/>
+        <result column="account_number" property="accountNumber"/>
+    </resultMap>
 </mapper>

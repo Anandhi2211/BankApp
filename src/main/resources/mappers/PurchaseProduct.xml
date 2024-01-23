@@ -11,11 +11,19 @@
 
     <select id="findById">
         Select * From purchase_products
-        where debitcards_card_number = #{cardNumber}
+        where transactions_transaction_id = #{transactionId}
     </select>
 
     <select id="getAll" >
         SELECT * FROM purchase_products;
     </select>
+
+    <resultMap id="purchase_productsResultMap" type="com.solvd.bankapp.domain.PurchaseProduct" autoMapping="false">
+        <id column="debitcards_card_number" property="cardNumber"/>
+        <result column="purchase_description" property="purchaseDescription"/>
+        <result column="amount" property="amount"/>
+        <result column="transactions_transaction_id" property="transactionId"/>
+        <result column="customers_ssn" property="ssn"/>
+    </resultMap>
 
 </mapper>
