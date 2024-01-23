@@ -1,11 +1,48 @@
 package com.solvd.bankapp.domain;
 
 public class Customer {
+
     private long ssn;
+
     private String firstName;
+
     private String lastName;
+
     private String email;
+
     private String phoneNumber;
+    private Account account;
+    private LoginCredential loginCredential;
+
+    public Customer() {
+
+    }
+
+    public LoginCredential getLoginCredential() {
+
+        if(this.loginCredential==null){
+            this.loginCredential = new LoginCredential();
+        }
+        return this.loginCredential;
+    }
+
+    public void setLoginCredential(LoginCredential loginCredential) {
+        this.loginCredential = loginCredential;
+    }
+
+
+    public Account getAccount() {
+        if(this.account == null){
+            this.account = new Account();
+        }
+        return this.account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+
     public Customer(long ssn, String firstName, String lastName, String email, String phoneNumber) {
         this.ssn = ssn;
         this.firstName = firstName;

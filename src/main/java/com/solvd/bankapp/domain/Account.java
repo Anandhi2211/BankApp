@@ -1,21 +1,26 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class Account {
-//trial
-    long accountNumber;
 
-    BigDecimal totalBalance;
+    private long accountNumber;
 
-    String username;
+    private BigDecimal totalBalance;
+
+    private String username;
+
+    private ArrayList<Transaction> transactionList;
+
+    public Account() {
+    }
 
     public Account(long accountNumber, BigDecimal totalBalance, String username) {
         this.accountNumber = accountNumber;
         this.totalBalance = totalBalance;
         this.username = username;
     }
-
 
     public long getAccountNumber() {
         return accountNumber;
@@ -41,12 +46,26 @@ public class Account {
         this.username = username;
     }
 
+    public ArrayList<Transaction> getTransactionList() {
+        if(this.transactionList==null){
+            this.transactionList = new ArrayList<>();
+        }
+        return this.transactionList;
+    }
+
+    public void setTransactionList(Transaction transaction) {
+        if(this.transactionList==null){
+            this.transactionList = new ArrayList<>();
+        }
+        this.transactionList.add(transaction);
+    }
+
     @Override
     public String toString() {
         return "Account{" +
                 "accountNumber=" + accountNumber +
                 ", totalBalance=" + totalBalance +
-                ", userName='" + username + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

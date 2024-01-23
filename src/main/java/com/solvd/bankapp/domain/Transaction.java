@@ -16,12 +16,11 @@ public class Transaction {
     private Timestamp transactionTimestamp;
 
     public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus,
-                       long accountNumber, Timestamp transactionTimestamp) {
+                       long accountNumber) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.transactionStatus = transactionStatus;
         this.accountNumber = accountNumber;
-        this.transactionTimestamp = transactionTimestamp;
     }
 
     public int getTransactionId() {
