@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dfb945b7-4f64-46ea-9419-b03d387ae4df" name="Changes" comment="initail" />
+    <list default="true" id="dfb945b7-4f64-46ea-9419-b03d387ae4df" name="Changes" comment="initail">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/BankTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/BankTransfer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Beneficiary.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Beneficiary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/DebitCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/DebitCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Deposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Deposit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/LoginCredential.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/LoginCredential.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Withdrawal.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/java/com/solvd/bankapp/domain/Withdrawal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Account.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/BankTransfer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/BankTransfer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Beneficiary.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Beneficiary.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/DebitCard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/DebitCard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Deposit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Deposit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Payment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Payment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/PurchaseProduct.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/PurchaseProduct.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/SavingsAccount.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/SavingsAccount.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Transaction.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Transaction.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Withdrawal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BankApp/src/main/resources/mappers/Withdrawal.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -186,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706046531940</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="initail">
+      <created>1706046684818</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1706046684818</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TerminalProjectNonSharedOptionsProvider">
