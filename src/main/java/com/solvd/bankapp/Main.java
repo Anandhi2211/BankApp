@@ -46,6 +46,7 @@ public class Main {
                             logger.info(customer.getAccount());
                             logger.info(customer.getAccount().getTransactionList());
                             //use Service layer to insert record to DB
+
                         } else {
                             logger.info("Account not created");
                         }
