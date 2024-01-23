@@ -24,6 +24,10 @@ public class LoginCredential {
     }
 
 
+    public LoginCredential() {
+
+    }
+
     public String getUsername() {
         return username;
     }
