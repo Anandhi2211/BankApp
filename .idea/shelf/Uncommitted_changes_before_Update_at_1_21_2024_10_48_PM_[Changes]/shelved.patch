@@ -1,0 +1,146 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>org.example</groupId>\r\n    <artifactId>BankApp</artifactId>\r\n    <version>1.0-SNAPSHOT</version>\r\n\r\n    <properties>\r\n        <maven.compiler.source>11</maven.compiler.source>\r\n        <maven.compiler.target>11</maven.compiler.target>\r\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n    </properties>\r\n\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 21fbaeaf1b46a10bec4f2015d7d29742cf4abbf7)
++++ b/pom.xml	(date 1705895477853)
+@@ -12,6 +12,34 @@
+         <maven.compiler.source>11</maven.compiler.source>
+         <maven.compiler.target>11</maven.compiler.target>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
++        <log4jVersion>2.21.1</log4jVersion>
+     </properties>
+ 
++    <dependencies>
++        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
++        <dependency>
++            <groupId>org.apache.logging.log4j</groupId>
++            <artifactId>log4j-core</artifactId>
++            <version>${log4jVersion}</version>
++        </dependency>
++        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
++        <dependency>
++            <groupId>org.apache.logging.log4j</groupId>
++            <artifactId>log4j-api</artifactId>
++            <version>${log4jVersion}</version>
++        </dependency>
++
++        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
++        <dependency>
++            <groupId>org.mybatis</groupId>
++            <artifactId>mybatis</artifactId>
++            <version>3.5.15</version>
++        </dependency>
++        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
++        <dependency>
++            <groupId>com.mysql</groupId>
++            <artifactId>mysql-connector-j</artifactId>
++            <version>8.1.0</version>
++        </dependency>
++    </dependencies>
+ </project>
+\ No newline at end of file
+Index: src/main/resources/myBatis-config.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/myBatis-config.xml b/src/main/resources/myBatis-config.xml
+new file mode 100644
+--- /dev/null	(date 1705904302248)
++++ b/src/main/resources/myBatis-config.xml	(date 1705904302248)
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="UTF-8" ?>
++<!DOCTYPE configuration
++        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
++        "https://mybatis.org/dtd/mybatis-3-config.dtd">
++<configuration>
++    <environments default="development">
++        <environment id="development">
++            <transactionManager type=""></transactionManager>
++            <dataSource type=""></dataSource>
++        </environment>
++    </environments>
++</configuration>
+\ No newline at end of file
+Index: src/main/resources/mappers/Customer.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mappers/Customer.xml b/src/main/resources/mappers/Customer.xml
+new file mode 100644
+--- /dev/null	(date 1705824147006)
++++ b/src/main/resources/mappers/Customer.xml	(date 1705824147006)
+@@ -0,0 +1,32 @@
++<?xml version="1.0" encoding="UTF-8" ?>
++<!DOCTYPE mapper
++        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
++        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
++<mapper>
++    <select id="selectAllCustomers" resultType="com.example.model.Customer">
++        SELECT * FROM Customers;
++    </select>
++
++    <!-- Select a customer by SSN -->
++    <select id="selectCustomerBySSN" resultType="com.example.model.Customer" parameterType="java.lang.Long">
++        SELECT * FROM Customers WHERE SSN = #{SSN};
++    </select>
++
++    <!-- Insert a new customer -->
++    <insert id="insertCustomer" parameterType="com.example.model.Customer">
++        INSERT INTO Customers (SSN, first_name, last_name, email, phone_number)
++        VALUES (#{SSN}, #{firstName}, #{lastName}, #{email}, #{phoneNumber});
++    </insert>
++
++    <!-- Update a customer -->
++    <update id="updateCustomer" parameterType="com.example.model.Customer">
++        UPDATE Customers
++        SET first_name = #{firstName}, last_name = #{lastName}, email = #{email}, phone_number = #{phoneNumber}
++        WHERE SSN = #{SSN};
++    </update>
++
++    <!-- Delete a customer by SSN -->
++    <delete id="deleteCustomer" parameterType="java.lang.Long">
++        DELETE FROM Customers WHERE SSN = #{SSN};
++    </delete>
++</mapper>
+\ No newline at end of file
+Index: src/main/java/com/solvd/bankapp/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.solvd.bankapp;\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        System.out.println(\"daaa sdfsdf!\");\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/solvd/bankapp/Main.java b/src/main/java/com/solvd/bankapp/Main.java
+--- a/src/main/java/com/solvd/bankapp/Main.java	(revision 21fbaeaf1b46a10bec4f2015d7d29742cf4abbf7)
++++ b/src/main/java/com/solvd/bankapp/Main.java	(date 1705807961458)
+@@ -3,5 +3,6 @@
+ public class Main {
+     public static void main(String[] args) {
+         System.out.println("daaa sdfsdf!");
++        System.out.println("aparna");
+     }
+ }
+\ No newline at end of file
+diff --git a/src/main/resources/mappers/LoginCredential.xml b/src/main/resources/mappers/LoginCredential.xml
+new file mode 100644
+diff --git a/src/main/resources/mappers/Payment.xml b/src/main/resources/mappers/Payment.xml
+new file mode 100644
+diff --git a/src/main/resources/mappers/DebitCard.xml b/src/main/resources/mappers/DebitCard.xml
+new file mode 100644
+diff --git a/src/main/resources/mappers/Deposit.xml b/src/main/resources/mappers/Deposit.xml
+new file mode 100644
+diff --git a/src/main/resources/mappers/Transaction.xml b/src/main/resources/mappers/Transaction.xml
+new file mode 100644
+diff --git a/src/main/resources/mappers/PurchaseProduct.xml b/src/main/resources/mappers/PurchaseProduct.xml
+new file mode 100644
+diff --git a/src/main/resources/mappers/SavingsAccount.xml b/src/main/resources/mappers/SavingsAccount.xml
+new file mode 100644
+diff --git a/src/main/resources/mappers/Withdrawal.xml b/src/main/resources/mappers/Withdrawal.xml
+new file mode 100644
