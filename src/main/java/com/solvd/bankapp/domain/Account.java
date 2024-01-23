@@ -45,7 +45,7 @@ public class Account {
         return "Account{" +
                 "accountNumber=" + accountNumber +
                 ", totalBalance=" + totalBalance +
-                ", userName='" + username + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

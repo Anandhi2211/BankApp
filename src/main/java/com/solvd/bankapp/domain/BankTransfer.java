@@ -82,7 +82,7 @@ public class BankTransfer {
                 "transferAmount=" + transferAmount +
                 ", beneficiaryAccountNumber=" + beneficiaryAccountNumber +
                 ", charge=" + charge +
-                ", userName='" + username + '\'' +
+                ", username='" + username + '\'' +
                 ", transactionId=" + transactionId +
                 ", transferTimestamp=" + transferTimestamp +
                 '}';
