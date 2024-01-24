@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Scanner;
 
 import com.solvd.bankapp.domain.Customer;
-import com.solvd.bankapp.exception.ExceptionBank;
+import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.service.DashBoard;
 import com.solvd.bankapp.service.NewCustomer;
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +33,7 @@ public class Main {
                 logger.info("5.Exit");
                 answer = in.nextInt();
                 if (!(answer >= 1) || !(answer <= 5)) {
-                    throw new ExceptionBank("Invalid Input");
+                    throw new BankException("Invalid Input");
                 }
                 switch (answer) {
                     case 1: {
