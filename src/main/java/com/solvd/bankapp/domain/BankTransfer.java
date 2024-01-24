@@ -4,20 +4,13 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class BankTransfer {
-
     private BigDecimal transferAmount;
-
     private long beneficiaryAccountNumber;
-
     // create enum class
     private BigDecimal charge;
-
     private String username;
-
     private int transactionId;
-
     private Timestamp transferTimestamp;
-
     public BankTransfer(BigDecimal transferAmount, long beneficiaryAccountNumber,
                         BigDecimal charge, String username, int transactionId) {
         this.transferAmount = transferAmount;

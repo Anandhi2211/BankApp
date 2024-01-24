@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bankapp.persistence.BankTransferDAO">
+
+    <insert id="create"  >
+        Insert into bank_transfers (transfer_amount, beneficiary_account_number, charge, logincredentials_username, transactions_transaction_id, transfer_timestamp )
+        values (#{transferAmount}, #{beneficiaryAccountNumber}, #{charge}, #{username}, #{transactionId}, #{transferTimestamp})
+    </insert>
+
+    <sql id="bankTransferColumns">
+        select * from bank_transfers
+    </sql>
+
+    <select id= "findById"  resultMap="bank_transfersResultMap">
+        <include refid="bankTransferColumns"/>
+        SELECT * FROM bank_transfers where  transactions_transaction_id = #{transactionId}
+    </select>
+
+    <select id="getAll" resultMap="bank_transfersResultMap">
+        <include refid="bankTransferColumns"/>
+    </select>
+
+    <resultMap id="bank_transfersResultMap" type="com.solvd.bankapp.domain.BankTransfer" autoMapping="false">
+        <result column="transfer_amount" property="transferAmount"/>
+        <result column="beneficiary_account_number" property="beneficiaryAccountNumber"/>
+        <result column="charge" property="charge"/>
+        <result column="logincredentials_username" property="username"/>
+        <result column="transactions_transaction_id" property="transactionId"/>
+    </resultMap>
+</mapper>

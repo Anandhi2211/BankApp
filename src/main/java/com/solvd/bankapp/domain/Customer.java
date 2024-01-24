@@ -1,23 +1,16 @@
 package com.solvd.bankapp.domain;
 
 public class Customer {
-
     private long ssn;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private String phoneNumber;
     private Account account;
     private LoginCredential loginCredential;
-
     public Customer() {
 
     }
-
     public LoginCredential getLoginCredential() {
 
         if(this.loginCredential==null){

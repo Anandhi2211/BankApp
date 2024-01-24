@@ -1,11 +1,8 @@
 package com.solvd.bankapp.domain;
 
 public class Beneficiary {
-
     private String beneficiaryName;
-
     private long beneficiaryAccountNumber;
-
     private long accountNumber;
 
     public Beneficiary(String beneficiaryName, long beneficiaryAccountNumber, long accountNumber) {

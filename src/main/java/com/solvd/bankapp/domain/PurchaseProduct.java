@@ -4,17 +4,11 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class PurchaseProduct {
-
     private long cardNumber;
-
     private String purchaseDescription;
-
     private BigDecimal amount;
-
     private int transactionId;
-
     private long ssn;
-
     private Timestamp purchaseTimestamp;
 
     public PurchaseProduct(long cardNumber, String purchaseDescription, BigDecimal amount,

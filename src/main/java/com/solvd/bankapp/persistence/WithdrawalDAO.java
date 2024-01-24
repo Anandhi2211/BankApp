@@ -7,7 +7,6 @@ import java.util.Optional;
 public interface WithdrawalDAO extends BaseListDAO<Withdrawal> {
     @Override
     void create(Withdrawal withdrawal);
-
     @Override
     Optional<Withdrawal> findById(int transactionId);
 
