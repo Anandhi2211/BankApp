@@ -1,7 +1,7 @@
 package com.solvd.bankapp.service.Impl;
 
 import com.solvd.bankapp.domain.LoginCredential;
-import com.solvd.bankapp.exception.ExceptionBank;
+import com.solvd.bankapp.exception.BankException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +28,7 @@ public class DashBoard {
                 logger.info("Enter your options: ");
                 answer = in.nextInt();
                 if (!(answer >= 1) || !(answer <= 6)) {
-                    throw new ExceptionBank("Invalid Input");
+                    throw new BankException("Invalid Input");
                 }
                 switch (answer){
                     case 1: {

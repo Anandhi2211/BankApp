@@ -1,7 +1,7 @@
 package com.solvd.bankapp.service.Impl;
 
 import com.solvd.bankapp.domain.SavingsAccount;
-import com.solvd.bankapp.exception.ExceptionBank;
+import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.persistence.SavingsAccountDAO;
 import com.solvd.bankapp.persistence.mybatis.SavingsAccountDAOImpl;
 import org.apache.logging.log4j.LogManager;
@@ -30,7 +30,7 @@ public class SavingAccountUtil {
             logger.info("Enter your options: ");
             int answer = in.nextInt();
             if (!(answer >= 1) || !(answer <= 2)) {
-                throw new ExceptionBank("Invalid Input");
+                throw new BankException("Invalid Input");
             }
             switch (answer){
                 case 1:
