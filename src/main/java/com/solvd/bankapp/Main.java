@@ -33,6 +33,7 @@ public class Main {
                         NewCustomer newCustomer = new NewCustomer();
                         Customer customer = newCustomer.addNewCustomer();
                         if (customer != null) {
+
                             logger.info("successfully Created");
                             logger.info(customer);
                             logger.info(customer.getLoginCredential());
