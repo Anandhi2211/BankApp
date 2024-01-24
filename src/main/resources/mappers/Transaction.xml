@@ -6,7 +6,7 @@
 
     <insert id="create" keyColumn="transaction_id" keyProperty="transactionId" useGeneratedKeys="true" >
         Insert into transactions (transaction_id, amount, transaction_status, account_number,transaction_timestamp )
-        values (#{transactionId}, #{amount}, #{transactionStatus}, #{accountNumber},#{transactionTimestamp})
+        values (#{transaction.transactionId}, #{transaction.amount}, #{transaction.transactionStatus}, #{transaction.accountNumber},#{transaction.transactionTimestamp})
     </insert>
 
     <sql id="transactionsColumns">

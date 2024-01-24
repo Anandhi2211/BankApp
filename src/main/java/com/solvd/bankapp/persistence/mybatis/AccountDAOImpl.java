@@ -27,6 +27,7 @@ public class AccountDAOImpl implements AccountDAO {
         }
     }
 
+
     @Override
     public void delete(Account account) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);

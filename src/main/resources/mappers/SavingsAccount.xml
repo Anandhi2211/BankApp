@@ -7,7 +7,7 @@
 
     <insert id="create"  >
         Insert into savings_accounts (savings_balance, account_number,  interest_rate)
-        values (#{savingsBalance}, #{accountNumber}, #{interestRate})
+        values (#{savingsAccount.savingsBalance}, #{savingsAccount.accountNumber}, #{savingsAccount.interestRate})
     </insert>
 
     <delete id="delete">

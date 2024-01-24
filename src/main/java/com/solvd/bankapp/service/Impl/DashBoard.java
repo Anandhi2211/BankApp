@@ -1,10 +1,10 @@
-package com.solvd.bankapp.service;
+package com.solvd.bankapp.service.Impl;
 
+import com.solvd.bankapp.domain.LoginCredential;
 import com.solvd.bankapp.exception.ExceptionBank;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DashBoard {
@@ -13,15 +13,19 @@ public class DashBoard {
     public void welcomePage() {
         int answer;
         String userName = loginVerification();
+        long accountNumber = 0 ;
+        //find account number here from username from table
         if(userName!=null){
             do{
+
                 logger.info("1.Account Details");
-                logger.info("2.Create Saving Account");
-                logger.info("3.Add Beneficiary Account");
+                logger.info("2.Saving Account");
+                logger.info("3.Bank Transfers");
                 logger.info("4.Transactions");
-                logger.info("5.Add Bill");
-                logger.info("6.Bank to Bank Transfers");
+                logger.info("5.Bill");
+                logger.info("6.");
                 logger.info("7.Log out");
+                logger.info("Enter your options: ");
                 answer = in.nextInt();
                 if (!(answer >= 1) || !(answer <= 6)) {
                     throw new ExceptionBank("Invalid Input");
@@ -34,14 +38,17 @@ public class DashBoard {
                         break;
                     case 2:{
                         SavingAccountUtil savingAccountUtil = new SavingAccountUtil();
-//                        savingAccountUtil.page();
+                        savingAccountUtil.savingAccountPage(accountNumber);
                     }
                         break;
                     case 3:{
-
+                        BankTransfers bankTransfers = new BankTransfers();
+                        bankTransfers.bankTransferPage(accountNumber);
                     }
                         break;
                     case 4:{
+
+
 
                     }
                         break;
@@ -66,36 +73,25 @@ public class DashBoard {
         }
     }
     private String loginVerification( ) {
-//        boolean flag;
-        boolean found = false;
         logger.info("Enter user Name");
-
-        String userName = in.next();
-        //service layer to call to all usernames from login table
-        //iterations from the
-        ArrayList<String> usernameList = new ArrayList<>();
-        usernameList.add("ajjj_1212121");
-        usernameList.add("Anandhi_1234567");
-        String passwordDb = "11";
-        for(String uName : usernameList)
-        {
-            if(uName.equals(userName))
-            {
+        String username = in.next();
+        LoginCredential loginCredential = new LoginCredential(); // code fetch from login table
+        if(loginCredential!=null){
+            if(loginCredential.getUsername().equals(username)){
                 logger.info("Enter the password");
                 String password = in.next();
-                //service layer to match password in login tables
-                if(passwordDb.equals(password)){//from DB
-                    found = true;
+                if (loginCredential.getUserPassword().equals(password)){
+                    logger.info("Login Success");
+                }
+                else{
+                    logger.info("Password wrong");
                 }
             }
         }
-        if (!found){
-            userName = "Not Found";
-            logger.info("Login Details Error");        }
-//        else{
-//
-////            flag = false;
-//        }
-        return userName;
+        else {
+            logger.info("username not found");
+        }
+
+        return username;
     }
 }

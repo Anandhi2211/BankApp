@@ -8,13 +8,14 @@ public class Transaction {
     private BigDecimal amount;
     private boolean transactionStatus;
     private long accountNumber;
-    private Timestamp transactionTimestamp;
+    private String transactionTimestamp;
     public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus,
-                       long accountNumber) {
+                       long accountNumber, String currentTime) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.transactionStatus = transactionStatus;
         this.accountNumber = accountNumber;
+        this.transactionTimestamp = currentTime;
     }
     public int getTransactionId() {
         return transactionId;
@@ -48,11 +49,11 @@ public class Transaction {
         this.accountNumber = accountNumber;
     }
 
-    public Timestamp getTransactionTimestamp() {
+    public String getTransactionTimestamp() {
         return transactionTimestamp;
     }
 
-    public void setTransactionTimestamp(Timestamp transactionTimestamp) {
+    public void setTransactionTimestamp(String transactionTimestamp) {
         this.transactionTimestamp = transactionTimestamp;
     }
 

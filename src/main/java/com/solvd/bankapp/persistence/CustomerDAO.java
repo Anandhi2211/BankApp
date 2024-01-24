@@ -1,10 +1,11 @@
 package com.solvd.bankapp.persistence;
 
 import com.solvd.bankapp.domain.Customer;
+import org.apache.ibatis.annotations.Param;
 
 public interface CustomerDAO extends BaseDAO<Customer> {
     @Override
-    void create(Customer customer);
+    void create(@Param("customer") Customer customer);
 
     void update(Customer customer);
 

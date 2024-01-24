@@ -1,12 +1,14 @@
 package com.solvd.bankapp.persistence;
 
 import com.solvd.bankapp.domain.Transaction;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Optional;
 
 public interface TransactionDAO extends BaseListDAO<Transaction> {
     @Override
-    void create(Transaction transaction);
+    void create(@Param("transaction") Transaction transaction);
 
     @Override
     Optional<Transaction> findById(int transactionId);

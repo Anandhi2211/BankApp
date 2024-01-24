@@ -9,8 +9,5 @@
         <module name="BankApp" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="BankApp" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>

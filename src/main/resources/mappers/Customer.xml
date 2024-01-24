@@ -7,7 +7,7 @@
     <!-- Insert a new customer -->
     <insert id="create" keyColumn="ssn" keyProperty="ssn" useGeneratedKeys="true" >
         Insert into customers (ssn, first_name , last_name, email, phone_number)
-        values (#{ssn}, #{firstName}, #{lastName}, #{email}, #{phoneNumber})
+        values (#{customer.ssn}, #{customer.firstName}, #{customer.lastName}, #{customer.email}, #{customer.phoneNumber})
     </insert>
 
     <!-- Update a customer -->
