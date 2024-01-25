@@ -1,8 +1,10 @@
 package com.solvd.bankapp;
 
+import com.solvd.bankapp.domain.Customer;
 import com.solvd.bankapp.exception.BankException;
-import com.solvd.bankapp.service.Impl.DashBoard;
-import com.solvd.bankapp.service.Impl.NewCustomer;
+import com.solvd.bankapp.service.DashBoard;
+import com.solvd.bankapp.service.NewCustomer;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
