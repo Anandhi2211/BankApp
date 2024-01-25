@@ -36,7 +36,7 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
         Optional<SavingsAccount> optionalSavingsAccount = Optional.empty();
         try {
             SavingsAccountDAO savingsAccountDAO= sqlSession.getMapper(SavingsAccountDAO.class);
-            savingsAccountDAO.findByNumber(accountNumber);
+            optionalSavingsAccount = savingsAccountDAO.findByNumber(accountNumber);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error finding savings account by account number", e);

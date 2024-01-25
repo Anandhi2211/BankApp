@@ -62,12 +62,12 @@ public class LoginCredentialDAOImpl implements LoginCredentialDAO {
     }
 
     @Override
-    public Optional<LoginCredential> findByUsername(String username) {
+    public LoginCredential findByUsername(String username) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
-        Optional<LoginCredential> optionalCredentials = Optional.empty();
+        LoginCredential credentials = null;
         try {
             LoginCredentialDAO loginCredentialDAO = sqlSession.getMapper(LoginCredentialDAO.class);
-            loginCredentialDAO.findByUsername(username);
+            credentials = loginCredentialDAO.findByUsername(username);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error finding login credentials by username", e);
@@ -75,6 +75,6 @@ public class LoginCredentialDAOImpl implements LoginCredentialDAO {
         } finally {
             sqlSession.close();
         }
-        return optionalCredentials;
+        return credentials;
     }
 }
