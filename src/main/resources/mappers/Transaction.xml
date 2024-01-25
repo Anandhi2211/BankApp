@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bankapp.persistence.TransactionDAO">
+
+    <insert id="create" keyColumn="transaction_id" keyProperty="transactionId" useGeneratedKeys="true" >
+        Insert into transactions (transaction_id, amount, transaction_status, account_number,transaction_timestamp )
+        values (#{transaction.transactionId}, #{transaction.amount}, #{transaction.transactionStatus}, #{transaction.accountNumber},#{transaction.transactionTimestamp})
+    </insert>
+
+    <sql id="transactionsColumns">
+        Select * From transactions
+    </sql>
+
+    <select id="findById" resultMap="transactionsResultMap">
+      <include refid="transactionsColumns"/>
+        where transaction_id = #{transactionId}
+    </select>
+
+    <select id="getAll" resultMap="transactionsResultMap" >
+        <include refid="transactionsColumns"/>
+        where transaction_id = #{transactionId}
+    </select>
+
+    <resultMap id="transactionsResultMap" type="com.solvd.bankapp.domain.Transaction" autoMapping="false">
+        <id column="transaction_id" property="transactionId"/>
+        <result column="amount" property="amount"/>
+        <result column="transaction_status" property="transactionStatus"/>
+        <result column="account_number" property="accountNumber"/>
+    </resultMap>
+
+</mapper>
