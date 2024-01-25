@@ -17,7 +17,7 @@
       <include refid="transactionsColumns"/>
         where transaction_id = #{transactionId}
     </select>
-
+    /// changes
     <select id="getAll" resultMap="transactionsResultMap" >
         <include refid="transactionsColumns"/>
         where account_number = #{accountNumber}

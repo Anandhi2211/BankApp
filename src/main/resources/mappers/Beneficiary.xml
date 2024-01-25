@@ -18,7 +18,7 @@
         <include refid="beneficiariesColumns"/>
         where beneficiary_name = #{beneficiaryName}
     </select>
-
+/// changes
     <select id="getAll" resultMap="beneficiariesResultMap" >
         <include refid="beneficiariesColumns"/>
         where beneficiary_account_number = #{beneficiaryAccountNumber}
