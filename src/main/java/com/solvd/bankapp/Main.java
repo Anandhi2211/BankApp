@@ -1,16 +1,10 @@
-mport com.solvd.bankapp.domain.Customer;
-import com.solvd.bankapp.exception.ExceptionBank;
-import com.solvd.bankapp.service.DashBoard;
-import com.solvd.bankapp.service.NewCustomer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.Scanner;
+package com.solvd.bankapp;
 
 import com.solvd.bankapp.domain.Customer;
 import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.service.DashBoard;
 import com.solvd.bankapp.service.NewCustomer;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,18 +32,7 @@ public class Main {
                 switch (answer) {
                     case 1: {
                         NewCustomer newCustomer = new NewCustomer();
-                        Customer customer = newCustomer.addNewCustomer();
-                        if (customer != null) {
-                            logger.info("successfully Created");
-                            logger.info(customer);
-                            logger.info(customer.getLoginCredential());
-                            logger.info(customer.getAccount());
-                            logger.info(customer.getAccount().getTransactionList());
-                            //use Service layer to insert record to DB
-
-                        } else {
-                            logger.info("Account not created");
-                        }
+                        newCustomer.addNewCustomer();
                         break;
                     }
                     case 2: {
@@ -72,8 +55,7 @@ public class Main {
                         logger.info("Enter the valid options");
                 }
             } while (true);
-        }
-        finally {
+        } finally {
             in.close();
             logger.info("No Exception");
         }

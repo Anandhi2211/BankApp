@@ -86,7 +86,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "ICustomer{" +
                 "ssn=" + ssn +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

@@ -1,19 +1,48 @@
-package com.solvd.bankapp.service;
+package com.solvd.bankapp.service.Impl;
 
 import com.solvd.bankapp.domain.Account;
 import com.solvd.bankapp.domain.Customer;
 import com.solvd.bankapp.domain.LoginCredential;
+import com.solvd.bankapp.domain.Transaction;
+import com.solvd.bankapp.persistence.AccountDAO;
+import com.solvd.bankapp.persistence.CustomerDAO;
+import com.solvd.bankapp.persistence.LoginCredentialDAO;
+import com.solvd.bankapp.persistence.TransactionDAO;
+import com.solvd.bankapp.persistence.mybatis.AccountDAOImpl;
+import com.solvd.bankapp.persistence.mybatis.CustomerDAOImpl;
+import com.solvd.bankapp.persistence.mybatis.LoginCredentialDAOImpl;
+import com.solvd.bankapp.persistence.mybatis.TransactionDAOImpl;
+import com.solvd.bankapp.service.IAccount;
+import com.solvd.bankapp.service.ICustomer;
+import com.solvd.bankapp.service.ITransaction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class AccountUtil {
+public class AccountUtil implements IAccount {
+
+    private final AccountDAO accountDAO;
+    private final LoginCredentialDAO loginCredentialDAO;
+    private final CustomerDAO customerDAO;
+    private final TransactionDAO transactionDAO;
+    private final ITransaction iTransaction;
+    private final ICustomer iCustomer;
     private static final Logger logger = LogManager.getLogger(AccountUtil.class);
     Scanner in = new Scanner(System.in);
 
-    public Customer createAccount(Customer customer) {
+    public AccountUtil() {
+        this.accountDAO = new AccountDAOImpl();
+        this.loginCredentialDAO = new LoginCredentialDAOImpl();
+        this.customerDAO = new CustomerDAOImpl();
+        this.transactionDAO = new TransactionDAOImpl();
+        this.iTransaction = new TransactionUtil();
+        this.iCustomer = new NewCustomer();
+
+    }
+
+    public void createAccount(Customer customer) {
         Account account;
         if (customer != null) {
             logger.info("Deposit minimum balance of 100$");
@@ -27,20 +56,31 @@ public class AccountUtil {
                     account = new Account(1122334455, amt, userName);
                     customer.setAccount(account);
                     customer = setLoginDetails(account, customer);
-                    TransactionUtil transactionUtil = new TransactionUtil();
-                    customer = transactionUtil.createTransaction(customer, amt);
+                    if (customer != null) {
+                        TransactionUtil transactionUtil = new TransactionUtil();
+//                        customer =
+                        this.customerDAO.create(customer);
+                        this.loginCredentialDAO.create(customer.getLoginCredential());
+                        this.accountDAO.create(customer.getAccount());
+                        transactionUtil.addTransactions(customer.getAccount().getAccountNumber(), amt);
+//                        for (Transaction transaction : customer.getAccount().getTransactionList()) {
+//                            this.transactionDAO.create(transaction);
+//                        }
+
+                    } else {
+                        customer = null;
+                    }
                     break;
                 }
                 case -1: {
                     logger.info("Enter minimum balance at least 100$");
                     logger.info("Account Not Created");
-                    customer = null;
                     break;
                 }
             }
         }
-        return customer;
     }
+
     public Customer setLoginDetails(Account account, Customer customer) {
         LoginCredential loginCredential;
         logger.info("Enter NetBanking Password");
@@ -60,7 +100,14 @@ public class AccountUtil {
     }
 
     public void displayAccountDetails(String userName) {
+//        this.accountDAO.display(userName);
         logger.info("Account Details");
 
+    }
+
+
+    @Override
+    public void login() {
+        logger.info("Enter Login userName");
     }
 }
