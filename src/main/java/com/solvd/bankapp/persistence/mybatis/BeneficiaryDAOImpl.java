@@ -36,7 +36,7 @@ public class BeneficiaryDAOImpl implements BeneficiaryDAO {
         Optional<Beneficiary> optionalBeneficiary = Optional.empty();
         try {
             BeneficiaryDAO beneficiaryDAO = sqlSession.getMapper(BeneficiaryDAO.class);
-            beneficiaryDAO.findByName(beneficiaryName);
+            optionalBeneficiary = beneficiaryDAO.findByName(beneficiaryName);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error finding beneficiary by name", e);

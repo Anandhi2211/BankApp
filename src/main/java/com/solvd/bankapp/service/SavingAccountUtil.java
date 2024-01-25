@@ -1,5 +1,5 @@
 package com.solvd.bankapp.service;
-
+import com.solvd.bankapp.service.AccountUtil;
 import com.solvd.bankapp.domain.SavingsAccount;
 import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.persistence.SavingsAccountDAO;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class SavingAccountUtil {
     private final SavingsAccountDAO savingsAccountDAO;
-    private final com.solvd.bankapp.service.Impl.AccountUtil accountUtil;
+    private final AccountUtil accountUtil;
     private final TransactionUtil transactionUtil;
     private static final Logger logger = LogManager.getLogger(SavingAccountUtil.class);
     Scanner in = new Scanner(System.in);
@@ -20,13 +20,14 @@ public class SavingAccountUtil {
     public SavingAccountUtil() {
         this.savingsAccountDAO = new SavingsAccountDAOImpl();
         this.transactionUtil = new TransactionUtil();
-        this.accountUtil = new com.solvd.bankapp.service.Impl.AccountUtil();
+        this.accountUtil = new AccountUtil();
     }
 
     public void savingAccountPage(long accountNumber) {
         do{
             logger.info("1. Add amount to Saving Account");
-            logger.info("2. Take out amount from Saving Account");
+            logger.info("2. Transfer amount from Saving Account");
+            logger.info("3. Exit");
             logger.info("Enter your options: ");
             int answer = in.nextInt();
             if (!(answer >= 1) || !(answer <= 2)) {
@@ -61,8 +62,11 @@ public class SavingAccountUtil {
                         logger.info("Amount is not sufficient to add into Checking account");
                     }
                     break;
+                case 3:
+                    logger.info("Exiting");
+                    break;
                 default:
-                    logger.info("Exit");
+                    logger.info("Enter correct option");
                     break;
             }
         }
