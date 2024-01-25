@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bankapp.persistence.AccountDAO">
+
+    <insert id="create" keyColumn="account_number" keyProperty="accountNumber" useGeneratedKeys="true" >
+        Insert into accounts (account_number, total_balance, logincredentials_username)
+        values (#{account.accountNumber}, #{account.totalBalance}, #{account.username})
+    </insert>
+
+    <delete id="delete">
+        Delete from accounts where account_number = #{accountNumber};
+    </delete>
+
+    <resultMap id="accountsResultMap" type="com.solvd.bankapp.domain.Account" autoMapping="false">
+        <id column="account_number" property="accountNumber"/>
+        <result column="total_balance" property="totalBalance"/>
+        <result column="logincredentials_username" property="username"/>
+        <collection property="transactionList" resultMap="com.solvd.bankapp.persistence.TransactionDAO.transactionsResultMap"/>
+    </resultMap>
+
+</mapper>

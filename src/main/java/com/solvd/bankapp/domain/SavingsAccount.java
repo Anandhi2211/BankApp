@@ -3,13 +3,9 @@ package com.solvd.bankapp.domain;
 import java.math.BigDecimal;
 
 public class SavingsAccount {
-
     private BigDecimal savingsBalance;
-
     private long accountNumber;
-
     private int interestRate;
-
     public SavingsAccount(BigDecimal savingsBalance, long accountNumber, int interestRate) {
         this.savingsBalance = savingsBalance;
         this.accountNumber = accountNumber;

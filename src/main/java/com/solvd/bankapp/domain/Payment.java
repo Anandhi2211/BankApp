@@ -4,21 +4,13 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Payment {
-
     private int companyAccountNumber;
-
     private String companyName;
-
     private BigDecimal billAmount;
-
     private String username;
-
     private int transactionId;
-
     private long ssn;
-
     private Timestamp paymentTimestamp;
-
     public Payment(int companyAccountNumber, String companyName, BigDecimal billAmount,
                    String username, int transactionId, long ssn) {
         this.companyAccountNumber = companyAccountNumber;

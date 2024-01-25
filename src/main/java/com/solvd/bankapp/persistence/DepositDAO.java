@@ -13,4 +13,5 @@ public interface DepositDAO extends BaseListDAO<Deposit> {
 
     @Override
     List<Deposit> getAll();
+
 }

@@ -4,17 +4,11 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Deposit {
-
     private BigDecimal depositAmount;
-
     private long accountNumber;
-
     private String username;
-
     private int transactionId;
-
     private Timestamp depositTimestamp;
-
     public Deposit(BigDecimal depositAmount, long accountNumber, String username,
                    int transactionId) {
         this.depositAmount = depositAmount;

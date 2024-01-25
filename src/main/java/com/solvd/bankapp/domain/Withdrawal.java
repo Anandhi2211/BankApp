@@ -4,17 +4,11 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Withdrawal {
-
     private BigDecimal withdrawalAmount;
-
     private long accountNumber;
-
     private String username;
-
     private int transactionId;
-
     private Timestamp withdrawalTimestamp;
-
     public Withdrawal(BigDecimal withdrawalAmount, long accountNumber, String username,
                       int transactionId) {
         this.withdrawalAmount = withdrawalAmount;

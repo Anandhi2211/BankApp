@@ -4,7 +4,8 @@ import com.solvd.bankapp.domain.PurchaseProduct;
 import java.util.List;
 import java.util.Optional;
 
-public interface PurchaseProductDAO extends BaseListDAO<PurchaseProduct> {
+public interface
+PurchaseProductDAO extends BaseListDAO<PurchaseProduct> {
     @Override
     void create(PurchaseProduct purchase);
 
