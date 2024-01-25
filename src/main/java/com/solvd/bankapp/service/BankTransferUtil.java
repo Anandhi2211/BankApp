@@ -1,5 +1,6 @@
 package com.solvd.bankapp.service;
 
+import com.solvd.bankapp.domain.Account;
 import com.solvd.bankapp.domain.Beneficiary;
 import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.persistence.BeneficiaryDAO;
@@ -13,15 +14,17 @@ import java.util.Scanner;
 
 public class BankTransferUtil implements IBankTransfers {
     private final BeneficiaryDAO beneficiaryDAO;
+    private final TransactionUtil transactionUtil;
     private static final Logger logger = LogManager.getLogger(DashBoard.class);
     Scanner in = new Scanner(System.in);
 
     public BankTransferUtil() {
         this.beneficiaryDAO = new BeneficiaryDAOImpl();
+        this.transactionUtil = new TransactionUtil();
     }
 
     @Override
-    public void bankTransferPage(long accountNumber) {
+    public void bankTransferPage(Account account) {
         do{
             logger.info("1. Add Beneficiary");
             logger.info("2. View all Beneficiary");
@@ -37,8 +40,9 @@ public class BankTransferUtil implements IBankTransfers {
                     long beneficiaryAccountNumber = in.nextLong();
                     logger.info("Enter Beneficiary Name");
                     String beneficiaryName = in.next();
-                    Beneficiary beneficiary = new Beneficiary(beneficiaryName,beneficiaryAccountNumber,accountNumber);
+                    Beneficiary beneficiary = new Beneficiary(beneficiaryName,beneficiaryAccountNumber,account.getAccountNumber());
                     this.beneficiaryDAO.create(beneficiary);
+//                    account.setBeneficiaryList();
                     break;
                 case 2:
                     boolean flag = false;
@@ -46,7 +50,7 @@ public class BankTransferUtil implements IBankTransfers {
 
                     ArrayList<Beneficiary> beneficiaryList = (ArrayList<Beneficiary>) this.beneficiaryDAO.getAll();//this will fetch all the record of all the customer so we need to pass accounmber as parameter
                     for(Beneficiary beneficiary1 : beneficiaryList){ // we can modify the code
-                        if(accountNumber == beneficiary1.getAccountNumber()){
+                        if(account.getAccountNumber() == beneficiary1.getAccountNumber()){
                             logger.info("Beneficiary Name: "+beneficiary1.getBeneficiaryName());
                             logger.info("Beneficiary Account Number: "+ beneficiary1.getBeneficiaryAccountNumber());
                             logger.info("***");
@@ -58,8 +62,26 @@ public class BankTransferUtil implements IBankTransfers {
                     }
                     break;
                 case 3:
-                    logger.info("Enter the ");
-                    logger.info("Enter "); // need to modify mapper file
+                    logger.info("Enter the Beneficiary Account Name: ");
+                    String beneficiaryNameToTransfer = in.next();
+                    beneficiaryList = (ArrayList<Beneficiary>) this.beneficiaryDAO.getAll();//this will fetch all the record of all the customer so we need to pass accounmber as parameter
+                    for(Beneficiary beneficiary1 : beneficiaryList){
+                        if(beneficiary1.getBeneficiaryName().equalsIgnoreCase(beneficiaryNameToTransfer)){
+                            logger.info("Enter the amount to transfer: ");
+                            BigDecimal amountToTransfer = in.nextBigDecimal();
+                            if(amountToTransfer.compareTo(account.getTotalBalance()) == -1){
+                                account.setTotalBalance(account.getTotalBalance().subtract(amountToTransfer));
+                                transactionUtil.addTransactions(account.getAccountNumber(),amountToTransfer);
+                                //update the updated amount to account DAO
+                            }
+                            else{
+                                logger.info("Don't have enough Account Balance to do Transfer");
+                            }
+                        }
+                        else{
+                            logger.info("No Such Beneficiary Account");
+                        }
+                    }
                     break;
                 case 4:
                     logger.info("Exiting");

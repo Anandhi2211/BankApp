@@ -25,6 +25,7 @@ public class NewCustomer implements ICustomer {
 //        Customer customer = new Customer(ssn, firstname, lastname, email, mobileNumber);
 
         Customer customer = new Customer(1234567, "Anandhi", "Jayapal", "anandhirmk@gmail.com", "9999999999");
+
         AccountUtil accountUtil = new AccountUtil();
         accountUtil.createAccount(customer);
     }

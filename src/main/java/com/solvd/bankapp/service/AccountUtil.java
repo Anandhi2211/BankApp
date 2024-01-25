@@ -27,9 +27,9 @@ public class AccountUtil implements IAccount {
     private final AccountDAO accountDAO;
     private final LoginCredentialDAO loginCredentialDAO;
     private final CustomerDAO customerDAO;
-    private final TransactionDAO transactionDAO;
-    private final ITransaction iTransaction;
-    private final ICustomer iCustomer;
+//    private final TransactionDAO transactionDAO;
+//    private final ITransaction iTransaction;
+//    private final ICustomer iCustomer;
     private static final Logger logger = LogManager.getLogger(AccountUtil.class);
     Scanner in = new Scanner(System.in);
 
@@ -37,12 +37,11 @@ public class AccountUtil implements IAccount {
         this.accountDAO = new AccountDAOImpl();
         this.loginCredentialDAO = new LoginCredentialDAOImpl();
         this.customerDAO = new CustomerDAOImpl();
-        this.transactionDAO = new TransactionDAOImpl();
-        this.iTransaction = new TransactionUtil();
-        this.iCustomer = new NewCustomer();
+//        this.transactionDAO = new TransactionDAOImpl();
+//        this.iTransaction = new TransactionUtil();
+//        this.iCustomer = new NewCustomer();
 
     }
-
     public void createAccount(Customer customer) {
         Account account;
         if (customer != null) {
@@ -76,7 +75,6 @@ public class AccountUtil implements IAccount {
             }
         }
     }
-
     public Customer setLoginDetails(Account account, Customer customer) {
         LoginCredential loginCredential;
         logger.info("Enter NetBanking Password");
@@ -94,16 +92,16 @@ public class AccountUtil implements IAccount {
         }
         return customer;
     }
-
-    public void displayAccountDetails(String userName) {
+    public void displayAccountDetails(Account account) {
 //        this.accountDAO.display(userName);
-        //
         logger.info("Account Details");
     }
-
     @Override
     public long getAccountNumber(String userName) {
         return accountDAO.findAccountNumberByUsername(userName);
-
+    }
+    @Override
+    public BigDecimal getTotaleBalance(long accountNumber) {
+        return accountDAO.displayTotalBalance(accountNumber);
     }
 }

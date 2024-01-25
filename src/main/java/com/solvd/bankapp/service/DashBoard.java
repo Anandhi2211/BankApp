@@ -2,13 +2,18 @@ package com.solvd.bankapp.service;
 
  
 
+import com.solvd.bankapp.domain.Account;
 import com.solvd.bankapp.domain.LoginCredential;
 import com.solvd.bankapp.exception.BankException;
-import com.solvd.bankapp.service.DebitCardUtil;
+import com.solvd.bankapp.persistence.LoginCredentialDAO;
+import com.solvd.bankapp.persistence.mybatis.LoginCredentialDAOImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DashBoard {
     private static final Logger logger = LogManager.getLogger(DashBoard.class);
@@ -17,6 +22,7 @@ public class DashBoard {
     private final BankTransferUtil bankTransferUtil;
     private final TransactionUtil transactionUtil;
     private final DebitCardUtil debitCardUtil;
+    private final LoginCredentialDAO loginCredentialDAO;
     Scanner in = new Scanner(System.in);
 
     public DashBoard() {
@@ -25,12 +31,18 @@ public class DashBoard {
         this.accountUtil = new AccountUtil();
         this.transactionUtil = new TransactionUtil();
         this.debitCardUtil = new DebitCardUtil();
+        this.loginCredentialDAO = new LoginCredentialDAOImpl();
     }
 
     public void welcomePage() {
         int answer;
         String userName = loginVerification();
         long accountNumber = accountUtil.getAccountNumber(userName) ;
+        BigDecimal totaleBalance = accountUtil.getTotaleBalance(accountNumber);
+        Account account = new Account();
+        account.setAccountNumber(accountNumber);
+        account.setUsername(userName);
+        account.setTotalBalance(totaleBalance);
         //find account number here from username from table
         if(userName!=null){
             do{
@@ -48,7 +60,7 @@ public class DashBoard {
                 }
                 switch (answer){
                     case 1: {
-                        accountUtil.displayAccountDetails(userName);//add DAO
+                        accountUtil.displayAccountDetails(account);//add DAO
                     }
                         break;
                     case 2:{
@@ -56,17 +68,16 @@ public class DashBoard {
                     }
                         break;
                     case 3:{
-                        bankTransferUtil.bankTransferPage(accountNumber);//add DAO
+                        bankTransferUtil.bankTransferPage(account);//add DAO
                     }
                         break;
                     case 4:{
-                        this.transactionUtil.transactionPage(accountNumber);
+                        this.transactionUtil.transactionPage(account);
                         //need to chk  about transaction DAO code
                     }
                         break;
                     case 5:{
-                        this.debitCardUtil.debitCardPage(accountNumber);
-
+                        this.debitCardUtil.debitCardPage(account);
                     }
                         break;
                     case 6:{
@@ -91,7 +102,16 @@ public class DashBoard {
     private String loginVerification( ) {
         logger.info("Enter user Name");
         String username = in.next();
-        LoginCredential loginCredential = new LoginCredential(); // code fetch from login table
+//        Optional<LoginCredential> customerUserName = loginCredentialDAO.findByUsername(username);
+//        if(customerUserName.isPresent()){
+//            customerUserName.stream().collect(Collectors.toList());
+//            for(){
+//
+//            }
+//        }
+//        LoginCredential loginCredential = loginCredentialDAO.findByUserName(username); // code fetch from login table
+        LoginCredential loginCredential = new LoginCredential();
+
         if(loginCredential!=null){
             if(loginCredential.getUsername().equals(username)){
                 logger.info("Enter the password");

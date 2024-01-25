@@ -1,5 +1,6 @@
 package com.solvd.bankapp.service;
 
+import com.solvd.bankapp.domain.Account;
 import com.solvd.bankapp.domain.Customer;
 import com.solvd.bankapp.domain.Transaction;
 import com.solvd.bankapp.exception.BankException;
@@ -26,7 +27,7 @@ public class TransactionUtil implements ITransaction {
     }
 
     @Override
-    public void transactionPage(long accountNumber) {
+    public void transactionPage(Account account) {
         do{
             logger.info("1. Transaction History");
             logger.info("2. Filter by Date");
@@ -40,7 +41,7 @@ public class TransactionUtil implements ITransaction {
                 case 1:{
                     ArrayList<Transaction> transactionList = (ArrayList<Transaction>) transactionDAO.getAll();//modify add account Number parameter
                     for(Transaction transaction : transactionList){
-                        logger.info("Account Number: "+accountNumber);
+                        logger.info("Account Number: "+ account.getAccountNumber());
                         logger.info("Transaction Number: "+transaction.getTransactionId());
                         logger.info("Transaction Amount: " + transaction.getAmount());
                         logger.info("Transaction Status: "+ transaction.isTransactionStatus());
@@ -55,7 +56,7 @@ public class TransactionUtil implements ITransaction {
                     ArrayList<Transaction> transactionList = (ArrayList<Transaction>) transactionDAO.getAll();//modify add account Number parameter
                     for(Transaction transaction : transactionList){
                         if(transaction.getTransactionTimestamp().contains(date)){
-                            logger.info("Account Number: "+accountNumber);
+                            logger.info("Account Number: "+ account.getAccountNumber());
                             logger.info("Transaction Number: "+transaction.getTransactionId());
                             logger.info("Transaction Amount: " + transaction.getAmount());
                             logger.info("Transaction Status: "+ transaction.isTransactionStatus());
@@ -70,7 +71,7 @@ public class TransactionUtil implements ITransaction {
                     if(transactions.isPresent()){
                         ArrayList<Transaction> transactionArrayList = (ArrayList<Transaction>) transactions.stream().collect(Collectors.toList());
                             for(Transaction transaction : transactionArrayList){
-                                logger.info("Account Number: "+accountNumber);
+                                logger.info("Account Number: "+ account.getAccountNumber());
                                 logger.info("Transaction Number: "+transaction.getTransactionId());
                                 logger.info("Transaction Amount: " + transaction.getAmount());
                                 logger.info("Transaction Status: "+ transaction.isTransactionStatus());
@@ -85,25 +86,10 @@ public class TransactionUtil implements ITransaction {
         }while (true);
 
     }
-
-    public Customer createTransaction(Customer customer, BigDecimal amt) {
-        if(customer!=null){
-            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            Transaction transaction = new Transaction(12345, amt,true,customer.getAccount().getAccountNumber(),currentTime.toString());
-//            customer.getAccount().setTransactionList(transaction);
-        }
-        else{
-            customer = null;
-        }
-        return customer;
-    }
     @Override
     public void addTransactions(long accountNumber, BigDecimal amount) {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         Transaction transaction = new Transaction(transactionID++,amount,true,accountNumber,currentTime.toString());
-        //set Account
         this.transactionDAO.create(transaction);
     }
-
-
 }
