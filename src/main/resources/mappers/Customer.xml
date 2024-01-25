@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bankapp.persistence.CustomerDAO">
+
+    <!-- Insert a new customer -->
+    <insert id="create" keyColumn="ssn" keyProperty="ssn" useGeneratedKeys="true" >
+        Insert into customers (ssn, first_name , last_name, email, phone_number)
+        values (#{customer.ssn}, #{customer.firstName}, #{customer.lastName}, #{customer.email}, #{customer.phoneNumber})
+    </insert>
+
+    <!-- Update a customer -->
+    <update id="update" >
+        UPDATE customers
+        SET first_name = #{firstName}, last_name = #{lastName}, email = #{email}, phone_number = #{phoneNumber}
+        WHERE ssn = #{ssn};
+    </update>
+
+    <!-- Delete a customer by SSN -->
+    <delete id="delete">
+        Delete from customers where ssn = #{ssn};
+    </delete>
+    
+    <resultMap id="customerResultMap" type="com.solvd.bankapp.domain.Customer" autoMapping="false">
+        <id column="ssn" property="ssn"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="email" property="email"/>
+        <result column="phone_number" property="phoneNumber"/>
+    </resultMap>
+</mapper>
