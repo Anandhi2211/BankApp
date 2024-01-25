@@ -15,11 +15,12 @@
 
     <select id= "findById"  resultMap="bank_transfersResultMap">
         <include refid="bankTransferColumns"/>
-        SELECT * FROM bank_transfers where  transactions_transaction_id = #{transactionId}
+            where  transactions_transaction_id = #{transactionId}
     </select>
 
     <select id="getAll" resultMap="bank_transfersResultMap">
         <include refid="bankTransferColumns"/>
+        where  beneficiary_account_number = #{beneficiaryAccountNumber}
     </select>
 
     <resultMap id="bank_transfersResultMap" type="com.solvd.bankapp.domain.BankTransfer" autoMapping="false">

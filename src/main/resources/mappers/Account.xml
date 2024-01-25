@@ -13,6 +13,20 @@
         Delete from accounts where account_number = #{accountNumber};
     </delete>
 
+    <sql id="accountColumns">
+        select total_balance, logincredentials_username from accounts
+    </sql>
+
+    <select id="findAccountNumberByUsername" resultMap="accountsResultMap">
+        <include refid="accountColumns"/>
+        select account_number from accounts where logincredentials_username = #{username}
+    </select>
+
+    <select id="displayTotalBalance" resultMap="accountsResultMap">
+        <include refid="accountColumns"/>
+        select  total_balance from accounts where account_number= #{accountNumber}
+    </select>
+
     <resultMap id="accountsResultMap" type="com.solvd.bankapp.domain.Account" autoMapping="false">
         <id column="account_number" property="accountNumber"/>
         <result column="total_balance" property="totalBalance"/>

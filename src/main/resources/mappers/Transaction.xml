@@ -20,6 +20,7 @@
 
     <select id="getAll" resultMap="transactionsResultMap" >
         <include refid="transactionsColumns"/>
+        where transaction_id = #{transactionId}
     </select>
 
     <resultMap id="transactionsResultMap" type="com.solvd.bankapp.domain.Transaction" autoMapping="false">
