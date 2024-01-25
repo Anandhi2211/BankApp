@@ -13,5 +13,5 @@ public interface LoginCredentialDAO extends BaseDAO<LoginCredential> {
     void findByUserName(String username);
     void update(LoginCredential credentials);
 
-    Optional<LoginCredential> findByUsername(String username);
+    LoginCredential findByUsername(String username);
 }
