@@ -51,7 +51,7 @@ public class AccountDAOImpl implements AccountDAO {
         long accountNumber = 0;
         try {
             AccountDAO accountDAO = sqlSession.getMapper(AccountDAO.class);
-            accountDAO.findAccountNumberByUsername(username);
+            accountNumber = accountDAO.findAccountNumberByUsername(username);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error finding account number by username", e);
@@ -68,7 +68,7 @@ public class AccountDAOImpl implements AccountDAO {
         BigDecimal totalBalance = BigDecimal.ZERO;
         try {
             AccountDAO accountDAO = sqlSession.getMapper(AccountDAO.class);
-            accountDAO.displayTotalBalance(accountNumber);
+            totalBalance = accountDAO.displayTotalBalance(accountNumber);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error finding total balance by account number", e);

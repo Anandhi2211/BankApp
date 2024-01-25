@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 public class SavingsAccount {
     private BigDecimal savingsBalance;
     private long accountNumber;
-    private int interestRate;
-    public SavingsAccount(BigDecimal savingsBalance, long accountNumber, int interestRate) {
+    private double interestRate;
+    public SavingsAccount(BigDecimal savingsBalance, long accountNumber, double interestRate) {
         this.savingsBalance = savingsBalance;
         this.accountNumber = accountNumber;
         this.interestRate = interestRate;
@@ -28,11 +28,11 @@ public class SavingsAccount {
         this.accountNumber = accountNumber;
     }
 
-    public int getInterestRate() {
+    public double getInterestRate() {
         return interestRate;
     }
 
-    public void setInterestRate(int interestRate) {
+    public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
 
