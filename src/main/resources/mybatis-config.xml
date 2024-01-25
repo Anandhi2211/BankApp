@@ -16,8 +16,6 @@
             </dataSource>
         </environment>
     </environments>
-
-
         <mappers>
             <mapper resource="mappers/Account.xml"/>
             <mapper resource="mappers/BankTransfer.xml"/>
@@ -31,5 +29,6 @@
             <mapper resource="mappers/SavingsAccount.xml"/>
             <mapper resource="mappers/Transaction.xml"/>
             <mapper resource="mappers/Withdrawal.xml"/>
+
     </mappers>
 </configuration>

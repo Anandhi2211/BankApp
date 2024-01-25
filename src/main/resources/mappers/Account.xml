@@ -6,7 +6,7 @@
 
     <insert id="create" keyColumn="account_number" keyProperty="accountNumber" useGeneratedKeys="true" >
         Insert into accounts (account_number, total_balance, logincredentials_username)
-        values (#{accountNumber}, #{totalBalance}, #{username})
+        values (#{account.accountNumber}, #{account.totalBalance}, #{account.username})
     </insert>
 
     <delete id="delete">
