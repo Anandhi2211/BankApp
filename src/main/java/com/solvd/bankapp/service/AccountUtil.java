@@ -1,4 +1,4 @@
-package com.solvd.bankapp.service.Impl;
+package com.solvd.bankapp.service;
 
 import com.solvd.bankapp.domain.Account;
 import com.solvd.bankapp.domain.Customer;
@@ -23,6 +23,7 @@ import java.util.Scanner;
 
 public class AccountUtil implements IAccount {
 
+    private static long accountNumber = 300005000;
     private final AccountDAO accountDAO;
     private final LoginCredentialDAO loginCredentialDAO;
     private final CustomerDAO customerDAO;
@@ -53,20 +54,15 @@ public class AccountUtil implements IAccount {
                 case 1: {
                     logger.info("Account Created");
                     String userName = customer.getFirstName() + "_" + customer.getSsn();
-                    account = new Account(1122334455, amt, userName);
+                    account = new Account(accountNumber++, amt, userName);
                     customer.setAccount(account);
                     customer = setLoginDetails(account, customer);
                     if (customer != null) {
                         TransactionUtil transactionUtil = new TransactionUtil();
-//                        customer =
                         this.customerDAO.create(customer);
                         this.loginCredentialDAO.create(customer.getLoginCredential());
                         this.accountDAO.create(customer.getAccount());
                         transactionUtil.addTransactions(customer.getAccount().getAccountNumber(), amt);
-//                        for (Transaction transaction : customer.getAccount().getTransactionList()) {
-//                            this.transactionDAO.create(transaction);
-//                        }
-
                     } else {
                         customer = null;
                     }
@@ -101,13 +97,12 @@ public class AccountUtil implements IAccount {
 
     public void displayAccountDetails(String userName) {
 //        this.accountDAO.display(userName);
+        //
         logger.info("Account Details");
-
     }
 
-
     @Override
-    public void login() {
-        logger.info("Enter Login userName");
+    public long getAccountNumber(String userName) {
+        return accountDAO.findAccountNumberByUsername(userName);
     }
 }

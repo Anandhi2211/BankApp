@@ -14,5 +14,5 @@ public interface TransactionDAO extends BaseListDAO<Transaction> {
     Optional<Transaction> findById(int transactionId);
 
     @Override
-    List<Transaction> getAll();
+    List<Transaction> getAll();//changes need add parameter as accountnumber
 }

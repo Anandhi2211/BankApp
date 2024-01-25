@@ -4,4 +4,6 @@ import java.math.BigDecimal;
 
 public interface ITransaction {
     void addTransactions(long accountNumber, BigDecimal amount);
+
+    void transactionPage(long accountNumber);
 }

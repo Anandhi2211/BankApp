@@ -1,5 +1,5 @@
 package com.solvd.bankapp.service;
 
 public interface IAccount {
-    void login();
+    long getAccountNumber(String userName);
 }

@@ -1,4 +1,4 @@
-package com.solvd.bankapp.service.Impl;
+package com.solvd.bankapp.service;
 
 import com.solvd.bankapp.service.IBankTransfers;
 import org.apache.logging.log4j.LogManager;
