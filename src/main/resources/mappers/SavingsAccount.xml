@@ -14,6 +14,12 @@
         Delete from savings_accounts where account_number = #{accountNumber};
     </delete>
 
+    <update id="update" >
+        UPDATE savings_accounts
+        SET savings_balance
+        WHERE account_number = #{accountNumber};
+    </update>
+
     <sql id="savings_accountsColumns">
         Select * From savings_accounts
     </sql>
