@@ -9,53 +9,27 @@ public class Withdrawal {
     private String username;
     private int transactionId;
     private Timestamp withdrawalTimestamp;
-    public Withdrawal(BigDecimal withdrawalAmount, long accountNumber, String username,
-                      int transactionId) {
-        this.withdrawalAmount = withdrawalAmount;
-        this.accountNumber = accountNumber;
-        this.username = username;
-        this.transactionId = transactionId;
-    }
 
     public BigDecimal getWithdrawalAmount() {
         return withdrawalAmount;
-    }
-
-    public void setWithdrawalAmount(BigDecimal withdrawalAmount) {
-        this.withdrawalAmount = withdrawalAmount;
     }
 
     public long getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(long accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public int getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
-    }
-
     public Timestamp getWithdrawalTimestamp() {
         return withdrawalTimestamp;
     }
 
-    public void setWithdrawalTimestamp(Timestamp withdrawalTimestamp) {
-        this.withdrawalTimestamp = withdrawalTimestamp;
-    }
 
     @Override
     public String toString() {
@@ -66,5 +40,46 @@ public class Withdrawal {
                 ", transactionId=" + transactionId +
                 ", withdrawalTimestamp=" + withdrawalTimestamp +
                 '}';
+    }
+
+    public static  Builder builder(){
+        return new Builder (new Withdrawal());
+    }
+
+    public static class Builder{
+        private final Withdrawal withdrawal;
+
+        public Builder(com.solvd.bankapp.domain.Withdrawal withdrawal) {
+            this.withdrawal = withdrawal;
+        }
+
+        public Builder setWithdrawalAmount(BigDecimal withdrawalAmount) {
+            withdrawal.withdrawalAmount = withdrawalAmount;
+            return this;
+        }
+
+        public Builder setAccountNumber(long accountNumber) {
+            withdrawal.accountNumber = accountNumber;
+            return this;
+        }
+
+        public Builder setUsername(String username) {
+            withdrawal.username = username;
+            return this;
+        }
+
+        public Builder setTransactionId(int transactionId) {
+            withdrawal.transactionId = transactionId;
+            return this;
+        }
+
+        public Builder setWithdrawalTimestamp(Timestamp withdrawalTimestamp) {
+            withdrawal.withdrawalTimestamp = withdrawalTimestamp;
+            return this;
+        }
+
+        public com.solvd.bankapp.domain.Withdrawal getWithdrawal() {
+            return withdrawal;
+        }
     }
 }

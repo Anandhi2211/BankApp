@@ -9,53 +9,39 @@ public class Transaction {
     private boolean transactionStatus;
     private long accountNumber;
     private String transactionTimestamp;
-    public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus,
-                       long accountNumber, String currentTime) {
+
+    public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus, long accountNumber, String transactionTimestamp) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.transactionStatus = transactionStatus;
         this.accountNumber = accountNumber;
-        this.transactionTimestamp = currentTime;
-    }
-    public int getTransactionId() {
-        return transactionId;
+        this.transactionTimestamp = transactionTimestamp;
     }
 
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
+    public Transaction() {
+
+    }
+
+    public int getTransactionId() {
+        return transactionId;
     }
 
     public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
     public boolean isTransactionStatus() {
         return transactionStatus;
-    }
-
-    public void setTransactionStatus(boolean transactionStatus) {
-        this.transactionStatus = transactionStatus;
     }
 
     public long getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(long accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
     public String getTransactionTimestamp() {
         return transactionTimestamp;
     }
 
-    public void setTransactionTimestamp(String transactionTimestamp) {
-        this.transactionTimestamp = transactionTimestamp;
-    }
 
     @Override
     public String toString() {
@@ -66,5 +52,45 @@ public class Transaction {
                 ", accountNumber=" + accountNumber +
                 ", transactionTimestamp=" + transactionTimestamp +
                 '}';
+    }
+    public static  Builder builder(){
+        return new Builder (new Transaction());
+    }
+
+    public static class Builder{
+        private final Transaction transaction;
+
+        public Builder(com.solvd.bankapp.domain.Transaction transaction) {
+            this.transaction = transaction;
+        }
+
+        public Builder setTransactionId(int transactionId) {
+            transaction.transactionId = transactionId;
+            return this;
+        }
+
+        public Builder setAmount(BigDecimal amount) {
+            transaction.amount = amount;
+            return this;
+        }
+
+        public Builder setTransactionStatus(boolean transactionStatus) {
+            transaction.transactionStatus = transactionStatus;
+            return this;
+        }
+
+        public Builder setAccountNumber(long accountNumber) {
+            transaction.accountNumber = accountNumber;
+            return this;
+        }
+
+        public Builder setTransactionTimestamp(String transactionTimestamp) {
+            transaction.transactionTimestamp = transactionTimestamp;
+            return this;
+        }
+
+        public com.solvd.bankapp.domain.Transaction getTransaction() {
+            return transaction;
+        }
     }
 }

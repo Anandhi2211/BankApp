@@ -1,4 +1,4 @@
-package com.solvd.bankapp.service.Impl;
+package com.solvd.bankapp.service;
 
 import com.solvd.bankapp.domain.SavingsAccount;
 import com.solvd.bankapp.exception.BankException;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class SavingAccountUtil {
     private final SavingsAccountDAO savingsAccountDAO;
-    private final AccountUtil accountUtil;
+    private final com.solvd.bankapp.service.Impl.AccountUtil accountUtil;
     private final TransactionUtil transactionUtil;
     private static final Logger logger = LogManager.getLogger(SavingAccountUtil.class);
     Scanner in = new Scanner(System.in);
@@ -20,7 +20,7 @@ public class SavingAccountUtil {
     public SavingAccountUtil() {
         this.savingsAccountDAO = new SavingsAccountDAOImpl();
         this.transactionUtil = new TransactionUtil();
-        this.accountUtil = new AccountUtil();
+        this.accountUtil = new com.solvd.bankapp.service.Impl.AccountUtil();
     }
 
     public void savingAccountPage(long accountNumber) {

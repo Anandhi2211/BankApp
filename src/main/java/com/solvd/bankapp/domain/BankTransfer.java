@@ -20,18 +20,36 @@ public class BankTransfer {
         this.transactionId = transactionId;
     }
 
-    public BigDecimal getTransferAmount() {
-        return transferAmount;
+    public BankTransfer() {
+
     }
 
     public void setTransferAmount(BigDecimal transferAmount) {
         this.transferAmount = transferAmount;
     }
 
+    public void setCharge(BigDecimal charge) {
+        this.charge = charge;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public void setTransferTimestamp(Timestamp transferTimestamp) {
+        this.transferTimestamp = transferTimestamp;
+    }
+
+    public BigDecimal getTransferAmount() {
+        return transferAmount;
+    }
     public long getBeneficiaryAccountNumber() {
         return beneficiaryAccountNumber;
     }
-
     public void setBeneficiaryAccountNumber(long beneficiaryAccountNumber) {
         this.beneficiaryAccountNumber = beneficiaryAccountNumber;
     }
@@ -39,35 +57,15 @@ public class BankTransfer {
     public BigDecimal getCharge() {
         return charge;
     }
-
-    public void setCharge(BigDecimal charge) {
-        this.charge = charge;
-    }
-
     public String getUsername() {
         return username;
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public int getTransactionId() {
         return transactionId;
     }
-
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
-    }
-
     public Timestamp getTransferTimestamp() {
         return transferTimestamp;
     }
-
-    public void setTransferTimestamp(Timestamp transferTimestamp) {
-        this.transferTimestamp = transferTimestamp;
-    }
-
     @Override
     public String toString() {
         return "BankTransfer{" +
@@ -79,4 +77,47 @@ public class BankTransfer {
                 ", transferTimestamp=" + transferTimestamp +
                 '}';
     }
-}
+
+    public static Builder builder() {
+        return new Builder(new BankTransfer());
+    }
+    public static class Builder {
+          private final BankTransfer bankTransfer;
+        public Builder(BankTransfer bankTransfer) {
+            this.bankTransfer = bankTransfer;
+        }
+        public Builder setTransferAmount(BigDecimal transferAmount) {
+            bankTransfer.transferAmount = transferAmount;
+            return this;
+        }
+
+        public Builder setBeneficiaryAccountNumber(long beneficiaryAccountNumber) {
+            bankTransfer.beneficiaryAccountNumber = beneficiaryAccountNumber;
+            return this;
+        }
+
+        public Builder setCharge(BigDecimal charge) {
+            bankTransfer.charge = charge;
+            return this;
+        }
+
+        public Builder setUsername(String username) {
+            bankTransfer.username = username;
+            return this;
+        }
+
+        public Builder setTransactionId(int transactionId) {
+            bankTransfer.transactionId = transactionId;
+            return this;
+        }
+
+        public Builder setTransferTimestamp(Timestamp transferTimestamp) {
+            bankTransfer.transferTimestamp = transferTimestamp;
+            return this;
+        }
+
+        public BankTransfer getBankTransfer() {
+            return bankTransfer;
+        }
+    }
+    }

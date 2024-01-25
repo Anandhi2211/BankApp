@@ -12,9 +12,7 @@ import com.solvd.bankapp.persistence.mybatis.AccountDAOImpl;
 import com.solvd.bankapp.persistence.mybatis.CustomerDAOImpl;
 import com.solvd.bankapp.persistence.mybatis.LoginCredentialDAOImpl;
 import com.solvd.bankapp.persistence.mybatis.TransactionDAOImpl;
-import com.solvd.bankapp.service.IAccount;
-import com.solvd.bankapp.service.ICustomer;
-import com.solvd.bankapp.service.ITransaction;
+import com.solvd.bankapp.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
