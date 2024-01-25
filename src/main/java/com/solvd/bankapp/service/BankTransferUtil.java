@@ -43,6 +43,7 @@ public class BankTransferUtil implements IBankTransfers {
                 case 2:
                     boolean flag = false;
                     logger.info("List all Beneficiaries");
+
                     ArrayList<Beneficiary> beneficiaryList = (ArrayList<Beneficiary>) this.beneficiaryDAO.getAll();//this will fetch all the record of all the customer so we need to pass accounmber as parameter
                     for(Beneficiary beneficiary1 : beneficiaryList){ // we can modify the code
                         if(accountNumber == beneficiary1.getAccountNumber()){
