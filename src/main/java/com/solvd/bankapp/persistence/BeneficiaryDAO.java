@@ -10,5 +10,5 @@ public interface BeneficiaryDAO extends BaseDAO<Beneficiary> {
 
     Optional<Beneficiary> findByName(String beneficiaryName);
 
-    List<Beneficiary> getAll();
+    List<Beneficiary> getAll(); //done
 }

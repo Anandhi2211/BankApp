@@ -21,7 +21,7 @@
 
     <select id="getAll" resultMap="beneficiariesResultMap" >
         <include refid="beneficiariesColumns"/>
-        SELECT * FROM beneficiaries;
+        where beneficiary_account_number = #{beneficiaryAccountNumber}
     </select>
 
     <resultMap id="beneficiariesResultMap" type="com.solvd.bankapp.domain.Beneficiary" autoMapping="false">

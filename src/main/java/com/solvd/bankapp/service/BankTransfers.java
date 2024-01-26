@@ -1,5 +1,6 @@
 package com.solvd.bankapp.service.Impl;
 
+import com.solvd.bankapp.service.DashBoard;
 import com.solvd.bankapp.service.IBankTransfers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

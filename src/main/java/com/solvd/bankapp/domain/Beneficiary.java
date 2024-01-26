@@ -5,34 +5,14 @@ public class Beneficiary {
     private long beneficiaryAccountNumber;
     private long accountNumber;
 
-    public Beneficiary(String beneficiaryName, long beneficiaryAccountNumber, long accountNumber) {
-        this.beneficiaryName = beneficiaryName;
-        this.beneficiaryAccountNumber = beneficiaryAccountNumber;
-        this.accountNumber = accountNumber;
-    }
-
     public String getBeneficiaryName() {
         return beneficiaryName;
     }
-
-    public void setBeneficiaryName(String beneficiaryName) {
-        this.beneficiaryName = beneficiaryName;
-    }
-
     public long getBeneficiaryAccountNumber() {
         return beneficiaryAccountNumber;
     }
-
-    public void setBeneficiaryAccountNumber(long beneficiaryAccountNumber) {
-        this.beneficiaryAccountNumber = beneficiaryAccountNumber;
-    }
-
     public long getAccountNumber() {
         return accountNumber;
-    }
-
-    public void setAccountNumber(long accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     @Override
@@ -43,4 +23,33 @@ public class Beneficiary {
                 ", accountNumber=" + accountNumber +
                 '}';
     }
-}
+
+    public static BeneficiaryBuilder builder() {
+        return new Builder(new Beneficiary());
+    }
+    public static class Builder {
+        private final Beneficiary beneficiary;
+        public Builder(Beneficiary beneficiary) {
+            this.beneficiary = beneficiary;
+        }
+
+        public Builder setBeneficiaryName(String beneficiaryName) {
+            beneficiary.beneficiaryName = beneficiaryName;
+            return this;
+        }
+
+        public Builder setBeneficiaryAccountNumber(long beneficiaryAccountNumber) {
+            beneficiary.beneficiaryAccountNumber = beneficiaryAccountNumber;
+            return this;
+        }
+
+        public Builder setAccountNumber(long accountNumber) {
+            beneficiary.accountNumber = accountNumber;
+            return this;
+        }
+
+        public Beneficiary getBeneficiary() {
+            return beneficiary;
+        }
+    }
+    }

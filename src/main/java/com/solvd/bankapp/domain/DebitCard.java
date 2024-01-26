@@ -8,52 +8,22 @@ public class DebitCard {
     private int cvvNumber;
     private String customerFullName;
     private long ssn;
-    public DebitCard(long cardNumber, Timestamp expirationDate, int cvvNumber, String customerFullName, long ssn) {
-        this.cardNumber = cardNumber;
-        this.expirationDate = expirationDate;
-        this.cvvNumber = cvvNumber;
-        this.customerFullName = customerFullName;
-        this.ssn = ssn;
-    }
+
 
     public long getCardNumber() {
         return cardNumber;
     }
-
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
     public Timestamp getExpirationDate() {
         return expirationDate;
     }
-
-    public void setExpirationDate(Timestamp expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
     public int getCvvNumber() {
         return cvvNumber;
     }
-
-    public void setCvvNumber(int cvvNumber) {
-        this.cvvNumber = cvvNumber;
-    }
-
     public String getCustomerFullName() {
         return customerFullName;
     }
-
-    public void setCustomerFullName(String customerFullName) {
-        this.customerFullName = customerFullName;
-    }
-
     public long getSsn() {
         return ssn;
-    }
-
-    public void setSsn(long ssn) {
-        this.ssn = ssn;
     }
 
     @Override
@@ -65,5 +35,45 @@ public class DebitCard {
                 ", customerFullName='" + customerFullName + '\'' +
                 ", ssn=" + ssn +
                 '}';
+    }
+
+    public  static Builder builder(){
+        return  new Builder(new DebitCard());
+    }
+
+    public static class Builder{
+        private final DebitCard debitCard;
+
+        public Builder(DebitCard debitCard) {
+            this.debitCard = debitCard;
+        }
+
+        public Builder setCardNumber(long cardNumber) {
+            debitCard.cardNumber = cardNumber;
+            return this;
+        }
+
+        public Builder setExpirationDate(Timestamp expirationDate) {
+            debitCard.expirationDate = expirationDate;
+            return this;
+        }
+
+        public Builder setCvvNumber(int cvvNumber) {
+            debitCard.cvvNumber = cvvNumber;
+            return this;
+        }
+
+        public Builder setCustomerFullName(String customerFullName) {
+            debitCard.customerFullName = customerFullName;
+            return this;
+        }
+        public Builder setSsn(long ssn) {
+            debitCard.ssn = ssn;
+            return this;
+        }
+
+        public com.solvd.bankapp.domain.DebitCard getDebitCard() {
+            return debitCard;
+        }
     }
 }

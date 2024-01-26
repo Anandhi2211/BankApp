@@ -1,5 +1,5 @@
-package com.solvd.bankapp.service.Impl;
-
+package com.solvd.bankapp.service;
+import com.solvd.bankapp.service.AccountUtil;
 import com.solvd.bankapp.domain.SavingsAccount;
 import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.persistence.SavingsAccountDAO;
@@ -26,7 +26,8 @@ public class SavingAccountUtil {
     public void savingAccountPage(long accountNumber) {
         do{
             logger.info("1. Add amount to Saving Account");
-            logger.info("2. Take out amount from Saving Account");
+            logger.info("2. Transfer amount from Saving Account");
+            logger.info("3. Exit");
             logger.info("Enter your options: ");
             int answer = in.nextInt();
             if (!(answer >= 1) || !(answer <= 2)) {
@@ -61,8 +62,11 @@ public class SavingAccountUtil {
                         logger.info("Amount is not sufficient to add into Checking account");
                     }
                     break;
+                case 3:
+                    logger.info("Exiting");
+                    break;
                 default:
-                    logger.info("Exit");
+                    logger.info("Enter correct option");
                     break;
             }
         }

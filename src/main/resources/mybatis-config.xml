@@ -16,19 +16,19 @@
             </dataSource>
         </environment>
     </environments>
+        <mappers>
+            <mapper resource="mappers/Account.xml"/>
+            <mapper resource="mappers/BankTransfer.xml"/>
+            <mapper resource="mappers/Beneficiary.xml"/>
+            <mapper resource="mappers/Customer.xml"/>
+            <mapper resource="mappers/DebitCard.xml"/>
+            <mapper resource="mappers/Deposit.xml"/>
+            <mapper resource="mappers/LoginCredential.xml"/>
+            <mapper resource="mappers/Payment.xml"/>
+            <mapper resource="mappers/PurchaseProduct.xml"/>
+            <mapper resource="mappers/SavingsAccount.xml"/>
+            <mapper resource="mappers/Transaction.xml"/>
+            <mapper resource="mappers/Withdrawal.xml"/>
 
-    <mappers>
-        <mapper resource="mappers/Account.xml"/>
-        <mapper resource="mappers/BankTransfer.xml"/>
-        <mapper resource="mappers/Beneficiary.xml"/>
-        <mapper resource="mappers/Customer.xml"/>
-        <mapper resource="mappers/DebitCard.xml"/>
-        <mapper resource="mappers/Deposit.xml"/>
-        <mapper resource="mappers/LoginCredential.xml"/>
-        <mapper resource="mappers/Payment.xml"/>
-        <mapper resource="mappers/PurchaseProduct.xml"/>
-        <mapper resource="mappers/SavingsAccount.xml"/>
-        <mapper resource="mappers/Transaction.xml"/>
-        <mapper resource="mappers/Withdrawal.xml"/>
     </mappers>
 </configuration>

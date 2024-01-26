@@ -11,70 +11,33 @@ public class Payment {
     private int transactionId;
     private long ssn;
     private Timestamp paymentTimestamp;
-    public Payment(int companyAccountNumber, String companyName, BigDecimal billAmount,
-                   String username, int transactionId, long ssn) {
-        this.companyAccountNumber = companyAccountNumber;
-        this.companyName = companyName;
-        this.billAmount = billAmount;
-        this.username = username;
-        this.transactionId = transactionId;
-        this.ssn = ssn;;
-    }
 
     public int getCompanyAccountNumber() {
         return companyAccountNumber;
-    }
-
-    public void setCompanyAccountNumber(int companyAccountNumber) {
-        this.companyAccountNumber = companyAccountNumber;
     }
 
     public String getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
     public BigDecimal getBillAmount() {
         return billAmount;
-    }
-
-    public void setBillAmount(BigDecimal billAmount) {
-        this.billAmount = billAmount;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public int getTransactionId() {
         return transactionId;
-    }
-
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
     }
 
     public long getSsn() {
         return ssn;
     }
 
-    public void setSsn(long ssn) {
-        this.ssn = ssn;
-    }
-
     public Timestamp getPaymentTimestamp() {
         return paymentTimestamp;
-    }
-
-    public void setPaymentTimestamp(Timestamp paymentTimestamp) {
-        this.paymentTimestamp = paymentTimestamp;
     }
 
     @Override
@@ -88,5 +51,56 @@ public class Payment {
                 ", ssn=" + ssn +
                 ", paymentTimestamp=" + paymentTimestamp +
                 '}';
+    }
+
+    public static  Builder builder(){
+        return new Builder (new Payment());
+    }
+
+    public static class Builder{
+        private final Payment payment;
+
+        public Builder(Payment payment) {
+            this.payment = payment;
+        }
+
+        public Builder setCompanyAccountNumber(int companyAccountNumber) {
+            payment.companyAccountNumber = companyAccountNumber;
+            return this;
+        }
+
+        public Builder setCompanyName(String companyName) {
+            payment.companyName = companyName;
+            return this;
+        }
+
+        public Builder setBillAmount(BigDecimal billAmount) {
+            payment.billAmount = billAmount;
+            return this;
+        }
+
+        public Builder setUsername(String username) {
+            payment.username = username;
+            return this;
+        }
+
+        public Builder setTransactionId(int transactionId) {
+            payment.transactionId = transactionId;
+            return this;
+        }
+
+        public Builder setSsn(long ssn) {
+            payment.ssn = ssn;
+            return this;
+        }
+
+        public Builder setPaymentTimestamp(Timestamp paymentTimestamp) {
+            payment.paymentTimestamp = paymentTimestamp;
+            return this;
+        }
+
+        public com.solvd.bankapp.domain.Payment getPayment() {
+            return payment;
+        }
     }
 }

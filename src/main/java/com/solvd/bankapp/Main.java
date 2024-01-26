@@ -1,10 +1,8 @@
 package com.solvd.bankapp;
 
-import com.solvd.bankapp.domain.Customer;
 import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.service.DashBoard;
 import com.solvd.bankapp.service.NewCustomer;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,10 +18,11 @@ public class Main {
             do {
                 logger.info("daaa sdfsdf!");
                 logger.info("Enter the choices: ");
-                logger.info("1.Register");
-                logger.info("2.Login");
-                logger.info("3.Deposit to ATM");
-                logger.info("4.Withdrawal from ATM");
+                logger.info("1. Register");
+                logger.info("2. Login");
+                logger.info("3. Deposit to ATM");
+                logger.info("4. Withdrawal from ATM");
+                logger.info("5. Purchases with Debit Card");
                 logger.info("5.Exit");
                 answer = in.nextInt();
                 if (!(answer >= 1) || !(answer <= 5)) {
