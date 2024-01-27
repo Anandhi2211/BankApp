@@ -1,4 +1,4 @@
-package com.solvd.bankapp.service;
+package com.solvd.bankapp.domain;
 
 public interface IRate {
 
