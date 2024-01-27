@@ -7,16 +7,21 @@ public class Transaction {
     private int transactionId;
     private BigDecimal amount;
     private boolean transactionStatus;
-    private long accountNumber;
+    private Long accountNumber;
     private String transactionTimestamp;
     public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus,
-                       long accountNumber, String currentTime) {
+                       Long accountNumber, String currentTime) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.transactionStatus = transactionStatus;
         this.accountNumber = accountNumber;
         this.transactionTimestamp = currentTime;
     }
+
+    public Transaction() {
+
+    }
+
     public int getTransactionId() {
         return transactionId;
     }

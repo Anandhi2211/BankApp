@@ -10,4 +10,5 @@ public interface BaseListDAO<T> {
     Optional<T> findById(int transactionId);
 
     List<T> getAll();
+
 }

@@ -1,7 +1,9 @@
 package com.solvd.bankapp.persistence.mybatis;
 
 import com.solvd.bankapp.domain.Customer;
+import com.solvd.bankapp.domain.LoginCredential;
 import com.solvd.bankapp.persistence.CustomerDAO;
+import com.solvd.bankapp.persistence.LoginCredentialDAO;
 import com.solvd.bankapp.util.Config;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
@@ -58,5 +60,22 @@ public class CustomerDAOImpl implements CustomerDAO {
         } finally {
             sqlSession.close();
         }
+    }
+
+    @Override
+    public Customer display(String username) {
+        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
+        Customer customer = null;
+        try {
+            CustomerDAO customerDAO = sqlSession.getMapper(CustomerDAO.class);
+            customer = customerDAO.display(username);
+            sqlSession.commit();
+        } catch (PersistenceException e) {
+            LOGGER.error("Error finding Customer details by username", e);
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return customer;
     }
 }

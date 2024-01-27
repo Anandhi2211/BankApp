@@ -11,6 +11,10 @@ public class Beneficiary {
         this.accountNumber = accountNumber;
     }
 
+    public Beneficiary() {
+
+    }
+
     public String getBeneficiaryName() {
         return beneficiaryName;
     }

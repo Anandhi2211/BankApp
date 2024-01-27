@@ -12,6 +12,10 @@ public class SavingsAccount {
         this.interestRate = interestRate;
     }
 
+    public SavingsAccount() {
+
+    }
+
     public BigDecimal getSavingsBalance() {
         return savingsBalance;
     }

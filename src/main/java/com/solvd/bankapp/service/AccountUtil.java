@@ -13,13 +13,16 @@ import com.solvd.bankapp.persistence.mybatis.CustomerDAOImpl;
 import com.solvd.bankapp.persistence.mybatis.LoginCredentialDAOImpl;
 import com.solvd.bankapp.persistence.mybatis.TransactionDAOImpl;
 import com.solvd.bankapp.service.IAccount;
-import com.solvd.bankapp.service.ICustomer;
+//import com.solvd.bankapp.service.ICustomer;
 import com.solvd.bankapp.service.ITransaction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AccountUtil implements IAccount {
 
@@ -27,9 +30,6 @@ public class AccountUtil implements IAccount {
     private final AccountDAO accountDAO;
     private final LoginCredentialDAO loginCredentialDAO;
     private final CustomerDAO customerDAO;
-//    private final TransactionDAO transactionDAO;
-//    private final ITransaction iTransaction;
-//    private final ICustomer iCustomer;
     private static final Logger logger = LogManager.getLogger(AccountUtil.class);
     Scanner in = new Scanner(System.in);
 
@@ -37,11 +37,8 @@ public class AccountUtil implements IAccount {
         this.accountDAO = new AccountDAOImpl();
         this.loginCredentialDAO = new LoginCredentialDAOImpl();
         this.customerDAO = new CustomerDAOImpl();
-//        this.transactionDAO = new TransactionDAOImpl();
-//        this.iTransaction = new TransactionUtil();
-//        this.iCustomer = new NewCustomer();
-
     }
+
     public void createAccount(Customer customer) {
         Account account;
         if (customer != null) {
@@ -61,7 +58,8 @@ public class AccountUtil implements IAccount {
                         this.customerDAO.create(customer);
                         this.loginCredentialDAO.create(customer.getLoginCredential());
                         this.accountDAO.create(customer.getAccount());
-                        transactionUtil.addTransactions(customer.getAccount().getAccountNumber(), amt);
+                        Transaction transaction = transactionUtil.addTransactions(customer.getAccount().getAccountNumber(), amt);
+                        customer.getAccount().setTransactionList(transaction);
                     } else {
                         customer = null;
                     }
@@ -75,6 +73,7 @@ public class AccountUtil implements IAccount {
             }
         }
     }
+
     public Customer setLoginDetails(Account account, Customer customer) {
         LoginCredential loginCredential;
         logger.info("Enter NetBanking Password");
@@ -83,7 +82,7 @@ public class AccountUtil implements IAccount {
         String retypePassword = in.next();
         if (password.equals(retypePassword)) {
             int pin = Integer.parseInt(Long.toString(customer.getSsn()).substring(Long.toString(customer.getSsn()).length() - 4));
-            logger.info(pin);
+            logger.info("You Pin Number: "+pin);
             loginCredential = new LoginCredential(account.getUsername(), password, true, pin, customer.getSsn());
             customer.setLoginCredential(loginCredential);
         } else {
@@ -92,16 +91,31 @@ public class AccountUtil implements IAccount {
         }
         return customer;
     }
-    public void displayAccountDetails(Account account) {
-//        this.accountDAO.display(userName);
+    public void displayAccountDetails(String username) {
+        //can add update methods to update account
         logger.info("Account Details");
+        Account account = accountDAO.findAccountByUsername(username);
+        Customer customer = customerDAO.display(username);
+        logger.info("Account number: " + account.getAccountNumber());
+        logger.info("Account balance" + account.getTotalBalance());
+        logger.info("Account UserName" + account.getUsername());
+        logger.info("First Name: "+customer.getFirstName());
+        logger.info("Last Name: "+customer.getLastName());
     }
+
+//    public BigDecimal getTotaleBalance(long accountNumber) {
+//        return accountDAO.displayTotalBalance(accountNumber);
+//    }
+
     @Override
-    public long getAccountNumber(String userName) {
-        return accountDAO.findAccountNumberByUsername(userName);
+    public void updateAmount(long accountNumber, BigDecimal amount) {
+        this.accountDAO.update(accountNumber, amount);
     }
+
     @Override
-    public BigDecimal getTotaleBalance(long accountNumber) {
-        return accountDAO.displayTotalBalance(accountNumber);
+    public Account getAccount(String userName) {
+        return accountDAO.findAccountByUsername(userName);
     }
+
+
 }

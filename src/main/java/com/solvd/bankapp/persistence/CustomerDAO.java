@@ -10,4 +10,6 @@ public interface CustomerDAO extends BaseDAO<Customer> {
     void update(Customer customer);
 
     void delete(Customer customer);
+
+    Customer display(@Param("username") String username);
 }

@@ -29,22 +29,22 @@ public class LoginCredentialDAOImpl implements LoginCredentialDAO {
         }
     }
 
-    @Override
-    public void findByUserName(String username) {
-
-        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
-        try {
-            LoginCredentialDAO loginCredentialDAO = sqlSession.getMapper(LoginCredentialDAO.class);
-            loginCredentialDAO.findByUserName(username);
-            sqlSession.commit();
-        } catch (PersistenceException e) {
-            LOGGER.error("Error creating login credentials", e);
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
-
-    }
+//    @Override
+//    public void findByUserName(String username) {
+//
+//        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
+//        try {
+//            LoginCredentialDAO loginCredentialDAO = sqlSession.getMapper(LoginCredentialDAO.class);
+//            loginCredentialDAO.findByUserName(username);
+//            sqlSession.commit();
+//        } catch (PersistenceException e) {
+//            LOGGER.error("Error creating login credentials", e);
+//            sqlSession.rollback();
+//        } finally {
+//            sqlSession.close();
+//        }
+//
+//    }
 
     @Override
     public void update(LoginCredential credentials) {

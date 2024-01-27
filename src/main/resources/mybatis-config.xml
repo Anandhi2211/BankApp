@@ -29,6 +29,5 @@
             <mapper resource="mappers/SavingsAccount.xml"/>
             <mapper resource="mappers/Transaction.xml"/>
             <mapper resource="mappers/Withdrawal.xml"/>
-
     </mappers>
 </configuration>

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.math.BigDecimal;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public interface AccountDAO extends BaseDAO<Account> {
     @Override
@@ -13,7 +14,13 @@ public interface AccountDAO extends BaseDAO<Account> {
 
     void delete(Account account);
 
-    long findAccountNumberByUsername(String username);
+//    long findAccountNumberByUsername(String username);
+    Account findAccountByUsername(String username);
 
-    BigDecimal displayTotalBalance(long accountNumber);
+    void update(@Param("accountNumber") long accountNumber,@Param("amount") BigDecimal amount);
+
+//    BigDecimal displayTotalBalance(long accountNumber);
+
+    long getAccountNumber();
+
 }

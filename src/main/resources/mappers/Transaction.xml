@@ -4,23 +4,28 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.bankapp.persistence.TransactionDAO">
 
-    <insert id="create" keyColumn="transaction_id" keyProperty="transactionId" useGeneratedKeys="true" >
+    <insert id="create">
         Insert into transactions (transaction_id, amount, transaction_status, account_number,transaction_timestamp )
         values (#{transaction.transactionId}, #{transaction.amount}, #{transaction.transactionStatus}, #{transaction.accountNumber},#{transaction.transactionTimestamp})
     </insert>
 
     <sql id="transactionsColumns">
-        Select * From transactions
+        Select * from transactions
     </sql>
 
+    <select id="getTransactionHistory"
+            resultType="java.util.ArrayList">
+        <include refid="transactionsColumns"/>
+        where account_number = #{accountNumber}
+    </select>
+
     <select id="findById" resultMap="transactionsResultMap">
-      <include refid="transactionsColumns"/>
+        <include refid="transactionsColumns"/>
         where transaction_id = #{transactionId}
     </select>
 
-    <select id="getAll" resultMap="transactionsResultMap" >
+    <select id="getAll" resultMap="transactionsResultMap">
         <include refid="transactionsColumns"/>
-        where account_number = #{accountNumber}
     </select>
 
     <resultMap id="transactionsResultMap" type="com.solvd.bankapp.domain.Transaction" autoMapping="false">
@@ -28,6 +33,7 @@
         <result column="amount" property="amount"/>
         <result column="transaction_status" property="transactionStatus"/>
         <result column="account_number" property="accountNumber"/>
+        <result column="transaction_timestamp" property="transactionTimestamp"/>
     </resultMap>
 
 </mapper>

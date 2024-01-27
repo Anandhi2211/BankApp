@@ -10,7 +10,7 @@ public class BankTransfer {
     private BigDecimal charge;
     private String username;
     private int transactionId;
-    private Timestamp transferTimestamp;
+//    private Timestamp transferTimestamp;
     public BankTransfer(BigDecimal transferAmount, long beneficiaryAccountNumber,
                         BigDecimal charge, String username, int transactionId) {
         this.transferAmount = transferAmount;
@@ -60,13 +60,13 @@ public class BankTransfer {
         this.transactionId = transactionId;
     }
 
-    public Timestamp getTransferTimestamp() {
-        return transferTimestamp;
-    }
+//    public Timestamp getTransferTimestamp() {
+//        return transferTimestamp;
+//    }
 
-    public void setTransferTimestamp(Timestamp transferTimestamp) {
-        this.transferTimestamp = transferTimestamp;
-    }
+//    public void setTransferTimestamp(Timestamp transferTimestamp) {
+//        this.transferTimestamp = transferTimestamp;
+//    }
 
     @Override
     public String toString() {
@@ -76,7 +76,7 @@ public class BankTransfer {
                 ", charge=" + charge +
                 ", username='" + username + '\'' +
                 ", transactionId=" + transactionId +
-                ", transferTimestamp=" + transferTimestamp +
+//                ", transferTimestamp=" + transferTimestamp +
                 '}';
     }
 }

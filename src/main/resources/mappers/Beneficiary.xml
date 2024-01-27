@@ -2,16 +2,15 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.solvd.bankapp.persistence.BeneficiaryDAO">
 
-    <insert id="create"  >
+    <insert id="create" useGeneratedKeys="true">
         Insert into beneficiaries (beneficiary_name, beneficiary_account_number, account_number)
         values (#{beneficiaryName}, #{beneficiaryAccountNumber}, #{accountNumber})
     </insert>
 
     <sql id="beneficiariesColumns">
-        Select * From beneficiaries
+        Select * from beneficiaries
     </sql>
 
     <select id="findByName" resultMap="beneficiariesResultMap">
@@ -19,9 +18,9 @@
         where beneficiary_name = #{beneficiaryName}
     </select>
 
-    <select id="getAll" resultMap="beneficiariesResultMap" >
+    <select id="getAll" resultMap="beneficiariesResultMap"  >
         <include refid="beneficiariesColumns"/>
-        where beneficiary_account_number = #{beneficiaryAccountNumber}
+         where account_number = #{accountNumber}
     </select>
 
     <resultMap id="beneficiariesResultMap" type="com.solvd.bankapp.domain.Beneficiary" autoMapping="false">
@@ -29,4 +28,5 @@
         <result column="beneficiary_account_number" property="beneficiaryAccountNumber"/>
         <result column="account_number" property="accountNumber"/>
     </resultMap>
+
 </mapper>

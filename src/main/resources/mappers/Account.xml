@@ -15,7 +15,7 @@
 
     <update id="update" >
         UPDATE accounts
-        SET total_balance
+        SET total_balance = #{amount}
         WHERE account_number = #{accountNumber};
     </update>
 
@@ -23,13 +23,13 @@
         select total_balance, logincredentials_username from accounts
     </sql>
 
-    <select id="findAccountNumberByUsername" resultMap="accountsResultMap">
-        <include refid="accountColumns"/>
-        select account_number from accounts where logincredentials_username = #{username}
+    <select id="findAccountByUsername" resultMap="accountsResultMap">
+<!--        <include refid="accountColumns"/>-->
+        select * from accounts where logincredentials_username = #{username}
     </select>
 
     <select id="displayTotalBalance" resultMap="accountsResultMap">
-        <include refid="accountColumns"/>
+<!--        <include refid="accountColumns"/>-->
         select  total_balance from accounts where account_number= #{accountNumber}
     </select>
 
@@ -37,7 +37,7 @@
         <id column="account_number" property="accountNumber"/>
         <result column="total_balance" property="totalBalance"/>
         <result column="logincredentials_username" property="username"/>
-        <collection property="transactionList" resultMap="com.solvd.bankapp.persistence.TransactionDAO.transactionsResultMap"/>
+<!--        <collection property="transactionList" ofType="com.solvd.bankapp.domain.Transaction"-->
+<!--                    resultMap="com.solvd.bankapp.persistence.TransactionDAO.transactionsResultMap"/>-->
     </resultMap>
-
 </mapper>

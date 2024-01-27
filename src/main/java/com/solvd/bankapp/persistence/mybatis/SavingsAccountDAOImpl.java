@@ -1,6 +1,8 @@
 package com.solvd.bankapp.persistence.mybatis;
 
+import com.solvd.bankapp.domain.LoginCredential;
 import com.solvd.bankapp.domain.SavingsAccount;
+import com.solvd.bankapp.persistence.LoginCredentialDAO;
 import com.solvd.bankapp.persistence.SavingsAccountDAO;
 import com.solvd.bankapp.util.Config;
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -8,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,21 +33,38 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
         }
     }
 
+//    @Override
+//    public Optional<SavingsAccount> findByNumber(long accountNumber) {
+//        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
+//        Optional<SavingsAccount> optionalSavingsAccount = Optional.empty();
+//        try {
+//            SavingsAccountDAO savingsAccountDAO= sqlSession.getMapper(SavingsAccountDAO.class);
+//            optionalSavingsAccount = savingsAccountDAO.findByNumber(accountNumber);
+//            sqlSession.commit();
+//        } catch (PersistenceException e) {
+//            LOGGER.error("Error finding savings account by account number", e);
+//            sqlSession.rollback();
+//        } finally {
+//            sqlSession.close();
+//        }
+//        return optionalSavingsAccount;
+//    }
+
     @Override
-    public Optional<SavingsAccount> findByNumber(long accountNumber) {
+    public SavingsAccount findSavingByNumber(long accountNumber) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
-        Optional<SavingsAccount> optionalSavingsAccount = Optional.empty();
+        SavingsAccount savingsAccount = new SavingsAccount();
         try {
-            SavingsAccountDAO savingsAccountDAO= sqlSession.getMapper(SavingsAccountDAO.class);
-            optionalSavingsAccount = savingsAccountDAO.findByNumber(accountNumber);
+            SavingsAccountDAO savingsAccountDAO = sqlSession.getMapper(SavingsAccountDAO.class);
+            savingsAccount = savingsAccountDAO.findSavingByNumber(accountNumber);
             sqlSession.commit();
         } catch (PersistenceException e) {
-            LOGGER.error("Error finding savings account by account number", e);
+            LOGGER.error("Error finding Saving Account by username", e);
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        return optionalSavingsAccount;
+        return savingsAccount;
     }
 
     @Override
@@ -63,14 +83,29 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
     }
 
     @Override
-    public void delete(SavingsAccount savingsAccount) {
+    public void delete(long accountNumber) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
         try {
             SavingsAccountDAO savingsAccountDAO = sqlSession.getMapper(SavingsAccountDAO.class);
-            savingsAccountDAO.delete(savingsAccount);
+            savingsAccountDAO.delete(accountNumber);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error deleting savings account", e);
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Override
+    public void update(long accountNumber, BigDecimal amount) {
+        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
+        try {
+            SavingsAccountDAO savingsAccountDAO = sqlSession.getMapper(SavingsAccountDAO.class);
+            savingsAccountDAO.update(accountNumber,amount);
+            sqlSession.commit();
+        } catch (PersistenceException e) {
+            LOGGER.error("Error Updating savings account", e);
             sqlSession.rollback();
         } finally {
             sqlSession.close();

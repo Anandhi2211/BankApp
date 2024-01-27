@@ -21,7 +21,14 @@
     <delete id="delete">
         Delete from customers where ssn = #{ssn};
     </delete>
-    
+
+
+    <select id="display" resultMap="customerResultMap">
+        select c.ssn, c.first_name,c.last_name, c.email, c.phone_number From customers c left join
+        login_credentials l on l.customers_ssn = c.ssn
+        left join accounts a on a.logincredentials_username = l.username where l.username = #{username}
+    </select>
+
     <resultMap id="customerResultMap" type="com.solvd.bankapp.domain.Customer" autoMapping="false">
         <id column="ssn" property="ssn"/>
         <result column="first_name" property="firstName"/>

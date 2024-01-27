@@ -1,10 +1,9 @@
 package com.solvd.bankapp.service;
 
- 
-
 import com.solvd.bankapp.domain.Account;
 import com.solvd.bankapp.domain.LoginCredential;
 import com.solvd.bankapp.exception.BankException;
+import com.solvd.bankapp.persistence.AccountDAO;
 import com.solvd.bankapp.persistence.LoginCredentialDAO;
 import com.solvd.bankapp.persistence.mybatis.LoginCredentialDAOImpl;
 import org.apache.logging.log4j.LogManager;
@@ -37,15 +36,9 @@ public class DashBoard {
     public void welcomePage() {
         int answer;
         String userName = loginVerification();
-        long accountNumber = accountUtil.getAccountNumber(userName) ;
-        BigDecimal totaleBalance = accountUtil.getTotaleBalance(accountNumber);
-        Account account = new Account();
-        account.setAccountNumber(accountNumber);
-        account.setUsername(userName);
-        account.setTotalBalance(totaleBalance);
-        //find account number here from username from table
         if(userName!=null){
             do{
+                Account account = accountUtil.getAccount(userName);
                 logger.info("1. Account Details");
                 logger.info("2. Saving Account");
                 logger.info("3. Bank Transfers");
@@ -55,38 +48,37 @@ public class DashBoard {
                 logger.info("7. Log out");
                 logger.info("Enter your options: ");
                 answer = in.nextInt();
-                if (!(answer >= 1) || !(answer <= 6)) {
+                if (!(answer >= 1) || !(answer <= 7)) {
                     throw new BankException("Invalid Input");
                 }
                 switch (answer){
                     case 1: {
-                        accountUtil.displayAccountDetails(account);//add DAO
+                        accountUtil.displayAccountDetails(account.getUsername());
                     }
                         break;
                     case 2:{
-                        savingAccountUtil.savingAccountPage(accountNumber);//add DAO
+                        savingAccountUtil.savingAccountPage(account.getUsername());
                     }
                         break;
                     case 3:{
-                        bankTransferUtil.bankTransferPage(account);//add DAO
+                        bankTransferUtil.bankTransferPage(account);
                     }
                         break;
                     case 4:{
                         this.transactionUtil.transactionPage(account);
-                        //need to chk  about transaction DAO code
                     }
                         break;
                     case 5:{
-                        this.debitCardUtil.debitCardPage(account);
+                        this.debitCardUtil.debitCardPage(account);//work on
                     }
                         break;
                     case 6:{
-
+                        logger.info("BILLS");
                     }
                         break;
                     case 7:
                         logger.info("Exiting");
-                        break;
+                        return;
                     default:
                         logger.info("Enter correct options");
                         return;
@@ -102,16 +94,7 @@ public class DashBoard {
     private String loginVerification( ) {
         logger.info("Enter user Name");
         String username = in.next();
-//        Optional<LoginCredential> customerUserName = loginCredentialDAO.findByUsername(username);
-//        if(customerUserName.isPresent()){
-//            customerUserName.stream().collect(Collectors.toList());
-//            for(){
-//
-//            }
-//        }
-//        LoginCredential loginCredential = loginCredentialDAO.findByUserName(username); // code fetch from login table
-        LoginCredential loginCredential = new LoginCredential();
-
+        LoginCredential loginCredential = loginCredentialDAO.findByUsername(username);
         if(loginCredential!=null){
             if(loginCredential.getUsername().equals(username)){
                 logger.info("Enter the password");
@@ -126,6 +109,7 @@ public class DashBoard {
         }
         else {
             logger.info("username not found");
+            username =null;
         }
         return username;
     }

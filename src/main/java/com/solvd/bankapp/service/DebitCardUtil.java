@@ -59,8 +59,6 @@ public class DebitCardUtil {
                     logger.info("Enter valid option");
                     return;
             }
-
-
         }while (true);
     }
 }

@@ -1,5 +1,6 @@
 package com.solvd.bankapp.service;
 
+import com.solvd.bankapp.domain.Account;
 import com.solvd.bankapp.domain.SavingsAccount;
 import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.persistence.SavingsAccountDAO;
@@ -23,51 +24,76 @@ public class SavingAccountUtil {
         this.accountUtil = new AccountUtil();
     }
 
-    public void savingAccountPage(long accountNumber) {
+    public void savingAccountPage(String username) {
         do{
+            Account account = accountUtil.getAccount(username);
             logger.info("1. Add amount to Saving Account");
             logger.info("2. Transfer amount from Saving Account");
-            logger.info("3. Exit");
+            logger.info("3. Delete Savings Account");
+            logger.info("4. Exit");
             logger.info("Enter your options: ");
             int answer = in.nextInt();
-            if (!(answer >= 1) || !(answer <= 2)) {
+            if (!(answer >= 1) || !(answer <= 4)) {
                 throw new BankException("Invalid Input");
             }
             switch (answer){
                 case 1:
                     logger.info("Enter the amount to be added to saving account");
                     BigDecimal amount = in.nextBigDecimal();
-                    BigDecimal amountBalance = BigDecimal.valueOf(0); //code to get amount balance
+                    BigDecimal amountBalance = account.getTotalBalance();
                     if(amount.compareTo(amountBalance) == -1 ){
                         int rate = 4;//can add in enum
-                        SavingsAccount savingsAccount = new SavingsAccount(amount,accountNumber,rate);
-                        this.savingsAccountDAO.create(savingsAccount);
-                        this.transactionUtil.addTransactions(accountNumber,amount);
-//                        this.accountUtil.update(accountNumber,amountBalance.subtract(amount));//created code
+                        SavingsAccount savingsAccount = savingsAccountDAO.findSavingByNumber(account.getAccountNumber());
+                        if(savingsAccount==null){
+                            savingsAccount = new SavingsAccount(amount,account.getAccountNumber(),rate);
+                            this.savingsAccountDAO.create(savingsAccount);
+                            this.transactionUtil.addTransactions(account.getAccountNumber(),amount);
+                            this.accountUtil.updateAmount(account.getAccountNumber(),amountBalance.subtract(amount));
+                            logger.info("********* UPDATED AMT" + amountBalance.subtract(amount));
+                        }
+                        else{
+                            this.savingsAccountDAO.update(account.getAccountNumber(),amount.add(savingsAccount.getSavingsBalance()));
+                            this.transactionUtil.addTransactions(account.getAccountNumber(),amount);
+                            this.accountUtil.updateAmount(account.getAccountNumber(),amountBalance.subtract(amount));
+                            logger.info("********* UPDATED AMT" + amountBalance.subtract(amount));
+                        }
                     }
                     else{
                         logger.info("Amount is not sufficient to add into saving account");
                     }
                     break;
                 case 2:
-                    logger.info("Enter the amount to change it to checking account");
+                    logger.info("Enter the amount to transfer it to checking account");
                     amount = in.nextBigDecimal();
-                    amountBalance = BigDecimal.valueOf(0); //code to get amount balance
-                    if(amount.compareTo(amountBalance) == -1 ){
-//                        this.savingsAccountDAO.update
-                        this.transactionUtil.addTransactions(accountNumber,amount);
-//                        this.accountUtil.update(accountNumber,amountBalance.subtract(amount));//created code
+                    SavingsAccount savingsAccount = savingsAccountDAO.findSavingByNumber(account.getAccountNumber()); //code to get amount balance from saving table
+                    if(savingsAccount!=null){
+                        logger.info("TEST**********"+ savingsAccount.getSavingsBalance());
+                        if(amount.compareTo(savingsAccount.getSavingsBalance()) == -1 ){
+                            this.savingsAccountDAO.update(account.getAccountNumber(),savingsAccount.getSavingsBalance().subtract(amount));
+                            this.transactionUtil.addTransactions(account.getAccountNumber(),amount);
+                            this.accountUtil.updateAmount(account.getAccountNumber(),amount.add(account.getTotalBalance()));
+                        }
+                        else{
+                            logger.info("Amount is not sufficient to add into Checking account");
+                        }
                     }
                     else{
-                        logger.info("Amount is not sufficient to add into Checking account");
+                        logger.info("No Savings Account");
                     }
                     break;
                 case 3:
-                    logger.info("Exiting");
+                    logger.info("Deleting Savings Account");
+                    savingsAccount = savingsAccountDAO.findSavingByNumber(account.getAccountNumber());
+                    accountUtil.updateAmount(account.getAccountNumber(),account.getTotalBalance().add(savingsAccount.getSavingsBalance()));
+                    transactionUtil.addTransactions(account.getAccountNumber(),savingsAccount.getSavingsBalance());
+                    savingsAccountDAO.delete(savingsAccount.getAccountNumber());
                     break;
+                case 4:
+                    logger.info("Exiting");
+                    return;
                 default:
                     logger.info("Enter correct option");
-                    break;
+                    return;
             }
         }
         while (true);
