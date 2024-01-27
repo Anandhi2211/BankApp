@@ -1,11 +1,13 @@
 package com.solvd.bankapp.domain;
 
+import com.solvd.bankapp.service.InterestRates;
+
 import java.math.BigDecimal;
 
 public class SavingsAccount {
     private BigDecimal savingsBalance;
     private long accountNumber;
-    private int interestRate;
+    private InterestRates interestRate;
 
     private SavingsAccount() {
     }
@@ -22,7 +24,7 @@ public class SavingsAccount {
         return accountNumber;
     }
 
-    public int getInterestRate() {
+    public InterestRates getInterestRate() {
         return interestRate;
     }
 
@@ -44,7 +46,12 @@ public class SavingsAccount {
 
         private Builder() {
             this.savingsAccount = new SavingsAccount();
-            this.savingsAccount.interestRate = 0; // Default interest rate
+            this.savingsAccount.savingsBalance = BigDecimal.ZERO;
+        }
+
+        public Builder setSavingsBalance(BigDecimal savingsBalance) {
+            this.savingsAccount.savingsBalance = savingsBalance;
+            return this;
         }
 
         public Builder setAccountNumber(long accountNumber) {
@@ -52,7 +59,7 @@ public class SavingsAccount {
             return this;
         }
 
-        public Builder setInterestRate(int interestRate) {
+        public Builder setInterestRate(InterestRates interestRate) {
             this.savingsAccount.interestRate = interestRate;
             return this;
         }
