@@ -7,62 +7,60 @@ public class SavingsAccount {
     private long accountNumber;
     private int interestRate;
 
-    public SavingsAccount(BigDecimal savingsBalance, long accountNumber, int interestRate) {
-        this.savingsBalance = savingsBalance;
-        this.accountNumber = accountNumber;
-        this.interestRate = interestRate;
-    }
-
-    public SavingsAccount() {
-
+    private SavingsAccount() {
     }
 
     public BigDecimal getSavingsBalance() {
         return savingsBalance;
     }
+
+    public void setSavingsBalance(BigDecimal savingsBalance) {
+        this.savingsBalance = savingsBalance;
+    }
+
     public long getAccountNumber() {
         return accountNumber;
     }
+
     public int getInterestRate() {
         return interestRate;
     }
 
     @Override
     public String toString() {
-        return "SavingAccount{" +
+        return "SavingsAccount{" +
                 "savingsBalance=" + savingsBalance +
                 ", accountNumber=" + accountNumber +
                 ", interestRate=" + interestRate +
                 '}';
     }
 
-    public static  Builder builder(){
-        return new Builder (new SavingsAccount());
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public static class Builder{
+    public static class Builder {
         private final SavingsAccount savingsAccount;
 
-        public Builder(com.solvd.bankapp.domain.SavingsAccount savingsAccount) {
-            this.savingsAccount = savingsAccount;
-        }
-
-        public Builder setSavingsBalance(BigDecimal savingsBalance) {
-            savingsAccount.savingsBalance = savingsBalance;
-            return this;
+        private Builder() {
+            this.savingsAccount = new SavingsAccount();
+            this.savingsAccount.interestRate = 0; // Default interest rate
         }
 
         public Builder setAccountNumber(long accountNumber) {
-            savingsAccount.accountNumber = accountNumber;
+            this.savingsAccount.accountNumber = accountNumber;
             return this;
         }
 
         public Builder setInterestRate(int interestRate) {
-            savingsAccount.interestRate = interestRate;
+            this.savingsAccount.interestRate = interestRate;
             return this;
         }
 
-        public com.solvd.bankapp.domain.SavingsAccount getSavingsAccount() {
+        public SavingsAccount build() {
+            if (savingsAccount.savingsBalance == null || savingsAccount.accountNumber == 0) {
+                throw new IllegalStateException("savingsBalance and accountNumber are required.");
+            }
             return savingsAccount;
         }
     }
