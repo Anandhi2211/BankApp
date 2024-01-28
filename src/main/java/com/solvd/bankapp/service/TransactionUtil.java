@@ -17,7 +17,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class TransactionUtil implements ITransaction {
-//    private static int transactionID = 20000;
+    //    private static int transactionID = 20000;
     private final TransactionDAO transactionDAO;
     private final AccountUtil accountUtil;
     Scanner in = new Scanner(System.in);
@@ -90,6 +90,7 @@ public class TransactionUtil implements ITransaction {
                 }
                 break;
                 case 4:
+                    logger.info("Exiting");
                     return;
                 default:
                     return;
@@ -101,8 +102,8 @@ public class TransactionUtil implements ITransaction {
     public Transaction addTransactions(long accountNumber, BigDecimal amount) {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         int transactionID = transactionDAO.getTransactionId();
-        logger.info("CURRENT TRANSACTION ID "+transactionID);
-        transactionID = (transactionID != 0) ? transactionID +1 : 20000;
+        logger.info("CURRENT TRANSACTION ID " + transactionID);
+        transactionID = (transactionID != 0) ? transactionID + 1 : 20000;
         Transaction transaction = new Transaction(transactionID, amount, true, accountNumber, currentTime.toString());
         this.transactionDAO.create(transaction);
         return transaction;

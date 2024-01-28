@@ -16,6 +16,10 @@ public class DebitCard {
         this.ssn = ssn;
     }
 
+    public DebitCard() {
+
+    }
+
     public long getCardNumber() {
         return cardNumber;
     }

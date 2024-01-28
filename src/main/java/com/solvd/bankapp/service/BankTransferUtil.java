@@ -40,9 +40,10 @@ public class BankTransferUtil implements IBankTransfers {
             logger.info("1. Add Beneficiary");
             logger.info("2. View all Beneficiary");
             logger.info("3. Bank to Bank Transfer");
-            logger.info("4. Exit");
+            logger.info("4. Bank to Bank Transfer History");
+            logger.info("5. Exit");
             int answer = in.nextInt();
-            if (!(answer >= 1) || !(answer <= 4)) {
+            if (!(answer >= 1) || !(answer <= 5)) {
                 throw new BankException("Invalid Input");
             }
             switch (answer){
@@ -84,7 +85,7 @@ public class BankTransferUtil implements IBankTransfers {
                                     flag=true;
                                     Transaction transaction = transactionUtil.addTransactions(account.getAccountNumber(),amountToTransfer);
                                     accountUtil.updateAmount(account.getAccountNumber(),account.getTotalBalance().subtract(amountToTransfer));
-                                    BankTransfer bankTransfer = new BankTransfer(amountToTransfer,beneficiary1.getAccountNumber(),new BigDecimal(10),account.getUsername(),transaction.getTransactionId());
+                                    BankTransfer bankTransfer = new BankTransfer(amountToTransfer,beneficiary1.getAccountNumber(),new BigDecimal(10),account.getUsername(),transaction.getTransactionId(),transaction.getTransactionTimestamp());
                                     logger.info(bankTransfer);
                                     logger.info(bankTransfer.getTransferAmount());
                                     logger.info(bankTransfer.getCharge());
@@ -107,6 +108,9 @@ public class BankTransferUtil implements IBankTransfers {
                     }
                     break;
                 case 4:
+                    logger.info("Bank to bank Transfer History");
+                    break;
+                case 5:
                     logger.info("Exiting");
                     return;
                 default:

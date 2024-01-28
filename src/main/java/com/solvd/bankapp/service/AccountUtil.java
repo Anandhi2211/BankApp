@@ -36,7 +36,8 @@ public class AccountUtil implements IAccount {
     public AccountUtil() {
         this.accountDAO = new AccountDAOImpl();
         this.loginCredentialDAO = new LoginCredentialDAOImpl();
-        this.customerDAO = new CustomerDAOImpl();
+        customerDAO = new CustomerDAOImpl();
+
     }
 
     public void createAccount(Customer customer) {
@@ -116,6 +117,5 @@ public class AccountUtil implements IAccount {
     public Account getAccount(String userName) {
         return accountDAO.findAccountByUsername(userName);
     }
-
 
 }

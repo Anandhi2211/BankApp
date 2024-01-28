@@ -11,5 +11,7 @@ public interface CustomerDAO extends BaseDAO<Customer> {
 
     void delete(Customer customer);
 
+    Customer findBySsn(long ssn);
+
     Customer display(@Param("username") String username);
 }

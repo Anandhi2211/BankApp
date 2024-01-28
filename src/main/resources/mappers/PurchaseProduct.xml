@@ -6,7 +6,7 @@
 
     <insert id="create"  >
         Insert into purchase_products (debitcards_card_number, purchase_description, amount, transactions_transaction_id, customers_ssn, purchase_timestamp)
-        values (#{cardNumber}, #{purchaseDescription}, #{amount}, #{transactionId}, #{ssn}, #{purchaseTimestamp})
+        values (#{purchase.cardNumber}, #{purchase.purchaseDescription}, #{purchase.amount}, #{purchase.transactionId}, #{purchase.ssn}, #{purchase.purchaseTimestamp})
     </insert>
 
     <sql id="purchase_productsColumns">

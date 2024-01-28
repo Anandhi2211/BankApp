@@ -3,16 +3,12 @@ package com.solvd.bankapp.service;
 import com.solvd.bankapp.domain.Account;
 import com.solvd.bankapp.domain.LoginCredential;
 import com.solvd.bankapp.exception.BankException;
-import com.solvd.bankapp.persistence.AccountDAO;
 import com.solvd.bankapp.persistence.LoginCredentialDAO;
 import com.solvd.bankapp.persistence.mybatis.LoginCredentialDAOImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class DashBoard {
     private static final Logger logger = LogManager.getLogger(DashBoard.class);
@@ -21,6 +17,7 @@ public class DashBoard {
     private final BankTransferUtil bankTransferUtil;
     private final TransactionUtil transactionUtil;
     private final DebitCardUtil debitCardUtil;
+    private final PaymentUtil paymentUtil;
     private final LoginCredentialDAO loginCredentialDAO;
     Scanner in = new Scanner(System.in);
 
@@ -31,6 +28,7 @@ public class DashBoard {
         this.transactionUtil = new TransactionUtil();
         this.debitCardUtil = new DebitCardUtil();
         this.loginCredentialDAO = new LoginCredentialDAOImpl();
+        this.paymentUtil = new PaymentUtil();
     }
 
     public void welcomePage() {
@@ -73,6 +71,8 @@ public class DashBoard {
                     }
                         break;
                     case 6:{
+                        this.paymentUtil.PayBillPage(account);
+
                         logger.info("BILLS");
                     }
                         break;

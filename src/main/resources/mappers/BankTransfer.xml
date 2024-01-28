@@ -5,8 +5,8 @@
 <mapper namespace="com.solvd.bankapp.persistence.BankTransferDAO">
 
     <insert id="create"  useGeneratedKeys="true" >
-        Insert into bank_transfers (transfer_amount, beneficiary_account_number, charge, logincredentials_username, transactions_transaction_id )
-        values (#{transfer.transferAmount}, #{transfer.beneficiaryAccountNumber}, #{transfer.charge}, #{transfer.username}, #{transfer.transactionId})
+        Insert into bank_transfers (transfer_amount, beneficiary_account_number, charge, logincredentials_username, transactions_transaction_id,transfer_timestamp )
+        values (#{transfer.transferAmount}, #{transfer.beneficiaryAccountNumber}, #{transfer.charge}, #{transfer.username}, #{transfer.transactionId},#{transfer.transferTimestamp})
     </insert>
 
     <sql id="bankTransferColumns">
@@ -29,5 +29,6 @@
         <result column="charge" property="charge"/>
         <result column="logincredentials_username" property="username"/>
         <result column="transactions_transaction_id" property="transactionId"/>
+        <result column="transfer_timestamp" property="transferTimestamp"/>
     </resultMap>
 </mapper>

@@ -23,6 +23,14 @@
     </delete>
 
 
+
+    <select id="findBySsn" resultMap="customerResultMap">
+        select * From customers where ssn = #{ssn};
+    </select>
+
+
+
+
     <select id="display" resultMap="customerResultMap">
         select c.ssn, c.first_name,c.last_name, c.email, c.phone_number From customers c left join
         login_credentials l on l.customers_ssn = c.ssn

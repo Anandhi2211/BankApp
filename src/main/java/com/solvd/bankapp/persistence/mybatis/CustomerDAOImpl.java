@@ -63,6 +63,22 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
+    public Customer findBySsn(long ssn) {
+        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
+        Customer customer = null;
+        try {
+            CustomerDAO customerDAO = sqlSession.getMapper(CustomerDAO.class);
+            customer = customerDAO.findBySsn(ssn);
+            sqlSession.commit();
+        } catch (PersistenceException e) {
+            LOGGER.error("Error finding Customer details by ssn", e);
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return customer;    }
+
+    @Override
     public Customer display(String username) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
         Customer customer = null;

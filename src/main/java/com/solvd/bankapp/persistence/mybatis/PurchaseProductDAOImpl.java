@@ -1,6 +1,8 @@
 package com.solvd.bankapp.persistence.mybatis;
 
+import com.solvd.bankapp.ConnectionPool;
 import com.solvd.bankapp.domain.PurchaseProduct;
+import com.solvd.bankapp.domain.Transaction;
 import com.solvd.bankapp.persistence.PurchaseProductDAO;
 import com.solvd.bankapp.util.Config;
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -8,10 +10,17 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class PurchaseProductDAOImpl implements PurchaseProductDAO {
+
+    private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.bankapp.persistence.mybatis.PurchaseProductDAOImpl.class);
 
@@ -48,17 +57,38 @@ public class PurchaseProductDAOImpl implements PurchaseProductDAO {
     }
 
     @Override
-    public List<PurchaseProduct> getAll() {
-        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
-        List<PurchaseProduct> purchases = null;
+    public ArrayList<PurchaseProduct> getAll() {
+        ArrayList<PurchaseProduct> purchaseProducts;
+        Connection connection = CONNECTION_POOL.getConnection();
         try {
-            purchases = sqlSession.selectList("com.solvd.bankapp.persistence.PurchaseProductDAO.getAll");
-        } catch (PersistenceException e) {
-            LOGGER.error("Error getting all purchases", e);
-            sqlSession.rollback();
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("Select * from purchase_products");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            purchaseProducts = displayResultsProducts(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
-            sqlSession.close();
+            CONNECTION_POOL.releaseConnection(connection);
         }
-        return purchases;
+        return purchaseProducts;
+    }
+
+    private ArrayList<PurchaseProduct> displayResultsProducts(ResultSet resultSet) {
+        ArrayList<PurchaseProduct> purchaseProducts = new ArrayList<>();
+        try {
+            while (resultSet.next()) {
+                PurchaseProduct purchaseProduct = new PurchaseProduct();
+                purchaseProduct.setCardNumber(resultSet.getLong("debitcards_card_number"));
+                purchaseProduct.setPurchaseDescription(resultSet.getString("purchase_description"));
+                purchaseProduct.setAmount(resultSet.getBigDecimal("amount"));
+                purchaseProduct.setTransactionId(resultSet.getInt("transactions_transaction_id"));
+                purchaseProduct.setSsn(resultSet.getLong("customers_ssn"));
+                purchaseProduct.setPurchaseTimestamp(resultSet.getString("purchase_timestamp"));
+                purchaseProducts.add(purchaseProduct);
+            }
+            return purchaseProducts;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
