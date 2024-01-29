@@ -5,12 +5,17 @@ public class Beneficiary {
     private long beneficiaryAccountNumber;
     private long accountNumber;
 
+    private Beneficiary() {
+    }
+
     public String getBeneficiaryName() {
         return beneficiaryName;
     }
+
     public long getBeneficiaryAccountNumber() {
         return beneficiaryAccountNumber;
     }
+
     public long getAccountNumber() {
         return accountNumber;
     }
@@ -24,12 +29,14 @@ public class Beneficiary {
                 '}';
     }
 
-    public static BeneficiaryBuilder builder() {
+    public static Builder builder() {
         return new Builder(new Beneficiary());
     }
+
     public static class Builder {
         private final Beneficiary beneficiary;
-        public Builder(Beneficiary beneficiary) {
+
+        private Builder(Beneficiary beneficiary) {
             this.beneficiary = beneficiary;
         }
 
@@ -48,8 +55,12 @@ public class Beneficiary {
             return this;
         }
 
-        public Beneficiary getBeneficiary() {
+        public Beneficiary build() {
+            // Validate that essential fields are set
+            if (beneficiary.beneficiaryName == null || beneficiary.beneficiaryAccountNumber == 0 || beneficiary.accountNumber == 0) {
+                throw new IllegalStateException("BeneficiaryName, BeneficiaryAccountNumber, and AccountNumber are required.");
+            }
             return beneficiary;
         }
     }
-    }
+}

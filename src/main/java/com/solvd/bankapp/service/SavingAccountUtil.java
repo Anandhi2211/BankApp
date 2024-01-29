@@ -1,5 +1,5 @@
 package com.solvd.bankapp.service;
-import com.solvd.bankapp.service.AccountUtil;
+import com.solvd.bankapp.domain.InterestRates;
 import com.solvd.bankapp.domain.SavingsAccount;
 import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.persistence.SavingsAccountDAO;
@@ -40,7 +40,11 @@ public class SavingAccountUtil {
                     BigDecimal amountBalance = BigDecimal.valueOf(0); //code to get amount balance
                     if(amount.compareTo(amountBalance) == -1 ){
                         int rate = 4;//can add in enum
-                        SavingsAccount savingsAccount = new SavingsAccount(amount,accountNumber,rate);
+                        SavingsAccount savingsAccount = SavingsAccount.builder()
+                                .setSavingsBalance(BigDecimal.valueOf(1000.00))
+                                .setAccountNumber(123456789)
+                                .setInterestRate(InterestRates.HIGH_YIELD) // Set the interest rate using the enum
+                                .build();
                         this.savingsAccountDAO.create(savingsAccount);
                         this.transactionUtil.addTransactions(accountNumber,amount);
 //                        this.accountUtil.update(accountNumber,amountBalance.subtract(amount));//created code

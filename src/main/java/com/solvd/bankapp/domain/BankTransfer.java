@@ -1,123 +1,92 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 public class BankTransfer {
-    private BigDecimal transferAmount;
-    private long beneficiaryAccountNumber;
-    // create enum class
-    private BigDecimal charge;
-    private String username;
-    private int transactionId;
-    private Timestamp transferTimestamp;
-    public BankTransfer(BigDecimal transferAmount, long beneficiaryAccountNumber,
-                        BigDecimal charge, String username, int transactionId) {
-        this.transferAmount = transferAmount;
-        this.beneficiaryAccountNumber = beneficiaryAccountNumber;
-        this.charge = charge;
-        this.username = username;
-        this.transactionId = transactionId;
+    private long transferId;
+    private Account sourceAccount;
+    private Account destinationAccount;
+    private BigDecimal amount;
+    private String transferTimestamp;
+
+    private BankTransfer() {
     }
 
-    public BankTransfer() {
-
+    public long getTransferId() {
+        return transferId;
     }
 
-    public void setTransferAmount(BigDecimal transferAmount) {
-        this.transferAmount = transferAmount;
+    public Account getSourceAccount() {
+        return sourceAccount;
     }
 
-    public void setCharge(BigDecimal charge) {
-        this.charge = charge;
+    public Account getDestinationAccount() {
+        return destinationAccount;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public void setTransferTimestamp(Timestamp transferTimestamp) {
-        this.transferTimestamp = transferTimestamp;
-    }
-
-    public BigDecimal getTransferAmount() {
-        return transferAmount;
-    }
-    public long getBeneficiaryAccountNumber() {
-        return beneficiaryAccountNumber;
-    }
-    public void setBeneficiaryAccountNumber(long beneficiaryAccountNumber) {
-        this.beneficiaryAccountNumber = beneficiaryAccountNumber;
-    }
-
-    public BigDecimal getCharge() {
-        return charge;
-    }
-    public String getUsername() {
-        return username;
-    }
-    public int getTransactionId() {
-        return transactionId;
-    }
-    public Timestamp getTransferTimestamp() {
+    public String getTransferTimestamp() {
         return transferTimestamp;
     }
+
     @Override
     public String toString() {
         return "BankTransfer{" +
-                "transferAmount=" + transferAmount +
-                ", beneficiaryAccountNumber=" + beneficiaryAccountNumber +
-                ", charge=" + charge +
-                ", username='" + username + '\'' +
-                ", transactionId=" + transactionId +
-                ", transferTimestamp=" + transferTimestamp +
+                "transferId=" + transferId +
+                ", sourceAccount=" + sourceAccount +
+                ", destinationAccount=" + destinationAccount +
+                ", amount=" + amount +
+                ", transferDate=" + transferTimestamp +
                 '}';
     }
 
     public static Builder builder() {
-        return new Builder(new BankTransfer());
+        return new Builder();
     }
+
     public static class Builder {
-          private final BankTransfer bankTransfer;
-        public Builder(BankTransfer bankTransfer) {
-            this.bankTransfer = bankTransfer;
+        private final BankTransfer bankTransfer;
+
+        private Builder() {
+            this.bankTransfer = new BankTransfer();
+            // Set default values if needed
         }
-        public Builder setTransferAmount(BigDecimal transferAmount) {
-            bankTransfer.transferAmount = transferAmount;
+
+        public Builder transferId(long transferId) {
+            bankTransfer.transferId = transferId;
             return this;
         }
 
-        public Builder setBeneficiaryAccountNumber(long beneficiaryAccountNumber) {
-            bankTransfer.beneficiaryAccountNumber = beneficiaryAccountNumber;
+        public Builder sourceAccount(Account sourceAccount) {
+            bankTransfer.sourceAccount = sourceAccount;
             return this;
         }
 
-        public Builder setCharge(BigDecimal charge) {
-            bankTransfer.charge = charge;
+        public Builder destinationAccount(Account destinationAccount) {
+            bankTransfer.destinationAccount = destinationAccount;
             return this;
         }
 
-        public Builder setUsername(String username) {
-            bankTransfer.username = username;
+        public Builder amount(BigDecimal amount) {
+            bankTransfer.amount = amount;
             return this;
         }
 
-        public Builder setTransactionId(int transactionId) {
-            bankTransfer.transactionId = transactionId;
+        public Builder transferDate(String transferDate) {
+            bankTransfer.transferTimestamp = transferDate;
             return this;
         }
 
-        public Builder setTransferTimestamp(Timestamp transferTimestamp) {
-            bankTransfer.transferTimestamp = transferTimestamp;
-            return this;
-        }
-
-        public BankTransfer getBankTransfer() {
+        public BankTransfer build() {
+            if (bankTransfer.transferId == 0 || bankTransfer.sourceAccount == null ||
+                    bankTransfer.destinationAccount == null || bankTransfer.amount == null ||
+                    bankTransfer.transferTimestamp == null) {
+                throw new IllegalStateException("TransferId, SourceAccount, DestinationAccount, Amount, and TransferDate are required.");
+            }
             return bankTransfer;
         }
     }
-    }
+}

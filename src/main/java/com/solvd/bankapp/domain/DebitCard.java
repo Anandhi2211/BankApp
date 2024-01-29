@@ -9,19 +9,25 @@ public class DebitCard {
     private String customerFullName;
     private long ssn;
 
+    private DebitCard() {
+    }
 
     public long getCardNumber() {
         return cardNumber;
     }
+
     public Timestamp getExpirationDate() {
         return expirationDate;
     }
+
     public int getCvvNumber() {
         return cvvNumber;
     }
+
     public String getCustomerFullName() {
         return customerFullName;
     }
+
     public long getSsn() {
         return ssn;
     }
@@ -37,42 +43,47 @@ public class DebitCard {
                 '}';
     }
 
-    public  static Builder builder(){
-        return  new Builder(new DebitCard());
+    public static DebitCardBuilder builder() {
+        return new DebitCardBuilder(new DebitCard());
     }
 
-    public static class Builder{
+    public static class DebitCardBuilder {
         private final DebitCard debitCard;
 
-        public Builder(DebitCard debitCard) {
+        private DebitCardBuilder(DebitCard debitCard) {
             this.debitCard = debitCard;
         }
 
-        public Builder setCardNumber(long cardNumber) {
+        public DebitCardBuilder setCardNumber(long cardNumber) {
             debitCard.cardNumber = cardNumber;
             return this;
         }
 
-        public Builder setExpirationDate(Timestamp expirationDate) {
+        public DebitCardBuilder setExpirationDate(Timestamp expirationDate) {
             debitCard.expirationDate = expirationDate;
             return this;
         }
 
-        public Builder setCvvNumber(int cvvNumber) {
+        public DebitCardBuilder setCvvNumber(int cvvNumber) {
             debitCard.cvvNumber = cvvNumber;
             return this;
         }
 
-        public Builder setCustomerFullName(String customerFullName) {
+        public DebitCardBuilder setCustomerFullName(String customerFullName) {
             debitCard.customerFullName = customerFullName;
             return this;
         }
-        public Builder setSsn(long ssn) {
+
+        public DebitCardBuilder setSsn(long ssn) {
             debitCard.ssn = ssn;
             return this;
         }
 
-        public com.solvd.bankapp.domain.DebitCard getDebitCard() {
+        public DebitCard build() {
+            if (debitCard.cardNumber == 0 || debitCard.expirationDate == null || debitCard.cvvNumber == 0 ||
+                    debitCard.customerFullName == null || debitCard.ssn == 0) {
+                throw new IllegalStateException("CardNumber, ExpirationDate, CvvNumber, CustomerFullName, and Ssn are required.");
+            }
             return debitCard;
         }
     }
