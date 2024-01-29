@@ -8,6 +8,7 @@ public class BankTransfer {
     private Account sourceAccount;
     private Account destinationAccount;
     private BigDecimal amount;
+    private BigDecimal transferCharge;
     private Timestamp transferTimestamp;
 
     private BankTransfer() {
@@ -29,8 +30,27 @@ public class BankTransfer {
         return amount;
     }
 
+    public BigDecimal getTransferCharge() {
+        return transferCharge;
+    }
+
     public Timestamp getTransferTimestamp() {
         return transferTimestamp;
+    }
+
+    private void calculateSurcharges() {
+        if (amount != null) {
+            TransferCharges charge;
+            if (amount.compareTo(BigDecimal.valueOf(500)) <= 0) {
+                charge = TransferCharges.UNDER_500;
+            } else if (amount.compareTo(BigDecimal.valueOf(1000)) <= 0) {
+                charge = TransferCharges.BETWEEN_500_AND_1000;
+            } else {
+                charge = TransferCharges.OVER_1000;
+            }
+
+            transferCharge = amount.multiply(BigDecimal.valueOf(charge.getRate()));
+        }
     }
 
     @Override
@@ -40,6 +60,7 @@ public class BankTransfer {
                 ", sourceAccount=" + sourceAccount +
                 ", destinationAccount=" + destinationAccount +
                 ", amount=" + amount +
+                ", transactionCharge=" + transferCharge +
                 ", transferDate=" + transferTimestamp +
                 '}';
     }
@@ -75,6 +96,11 @@ public class BankTransfer {
             return this;
         }
 
+        public Builder transactionCharge(BigDecimal transactionCharge) {
+            bankTransfer.transferCharge = transactionCharge;
+            return this;
+        }
+
         public Builder transferDate(Timestamp transferDate) {
             bankTransfer.transferTimestamp = transferDate;
             return this;
@@ -86,6 +112,8 @@ public class BankTransfer {
                     bankTransfer.transferTimestamp == null) {
                 throw new IllegalArgumentException("TransferId, SourceAccount, DestinationAccount, Amount, and TransferDate are required.");
             }
+            bankTransfer.calculateSurcharges();
+
             return bankTransfer;
         }
     }
