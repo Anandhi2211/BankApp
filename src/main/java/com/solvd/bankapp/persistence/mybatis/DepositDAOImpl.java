@@ -36,7 +36,7 @@ public class DepositDAOImpl implements DepositDAO {
         Optional<Deposit> optionalDeposit = Optional.empty();
         try {
             DepositDAO depositDAO = sqlSession.getMapper(DepositDAO.class);
-            depositDAO.findById(transactionId);
+            optionalDeposit = depositDAO.findById(transactionId);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error finding deposit by transaction ID", e);

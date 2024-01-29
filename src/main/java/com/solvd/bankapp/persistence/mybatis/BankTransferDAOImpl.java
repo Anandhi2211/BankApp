@@ -36,7 +36,7 @@ public class BankTransferDAOImpl implements BankTransferDAO {
         Optional<BankTransfer> optionalTransfer = Optional.empty();
         try {
             BankTransferDAO bankTransferDAO = sqlSession.getMapper(BankTransferDAO.class);
-            bankTransferDAO.findById(transactionId);
+            optionalTransfer = bankTransferDAO.findById(transactionId);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error finding bank transfer by transaction ID", e);

@@ -82,7 +82,7 @@ public class DebitCard {
         public DebitCard build() {
             if (debitCard.cardNumber == 0 || debitCard.expirationDate == null || debitCard.cvvNumber == 0 ||
                     debitCard.customerFullName == null || debitCard.ssn == 0) {
-                throw new IllegalStateException("CardNumber, ExpirationDate, CvvNumber, CustomerFullName, and Ssn are required.");
+                throw new IllegalArgumentException("CardNumber, ExpirationDate, CvvNumber, CustomerFullName, and Ssn are required.");
             }
             return debitCard;
         }

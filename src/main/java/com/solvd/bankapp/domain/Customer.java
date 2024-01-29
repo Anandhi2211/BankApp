@@ -41,7 +41,7 @@ public class Customer {
 
     public LoginCredential getLoginCredential() {
         if (loginCredential == null) {
-            loginCredential = new LoginCredential();
+            throw new IllegalStateException("Login credentials not initialized. Please set login credentials.");
         }
         return loginCredential;
     }
@@ -110,7 +110,7 @@ public class Customer {
         public Customer build() {
             if (customer.ssn == 0 || customer.firstName == null || customer.lastName == null ||
                     customer.email == null || customer.phoneNumber == null) {
-                throw new IllegalStateException("SSN, FirstName, LastName, Email, and PhoneNumber are required.");
+                throw new IllegalArgumentException("SSN, FirstName, LastName, Email, and PhoneNumber are required.");
             }
             return customer;
         }

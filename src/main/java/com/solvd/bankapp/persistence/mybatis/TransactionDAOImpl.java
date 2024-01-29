@@ -36,7 +36,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         Optional<Transaction> optionalTransaction = Optional.empty();
         try {
             TransactionDAO transactionDAO = sqlSession.getMapper(TransactionDAO.class);
-            transactionDAO.findById(transactionId);
+            optionalTransaction = transactionDAO.findById(transactionId);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error finding transaction by ID", e);

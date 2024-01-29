@@ -64,7 +64,7 @@ public class SavingsAccount {
 
         public SavingsAccount build() {
             if (savingsAccount.savingsBalance == null || savingsAccount.accountNumber == 0) {
-                throw new IllegalStateException("savingsBalance and accountNumber are required.");
+                throw new IllegalArgumentException("savingsBalance and accountNumber are required.");
             }
             return savingsAccount;
         }

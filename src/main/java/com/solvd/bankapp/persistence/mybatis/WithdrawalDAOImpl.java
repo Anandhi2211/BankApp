@@ -34,7 +34,7 @@ public class WithdrawalDAOImpl implements WithdrawalDAO {
         Optional<Withdrawal> optionalWithdrawal = Optional.empty();
         try {
             WithdrawalDAO withdrawalDAO = sqlSession.getMapper(WithdrawalDAO.class);
-            withdrawalDAO.findById(transactionId);
+            optionalWithdrawal = withdrawalDAO.findById(transactionId);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error finding withdrawal by transaction ID", e);

@@ -36,7 +36,7 @@ public class PurchaseProductDAOImpl implements PurchaseProductDAO {
         Optional<PurchaseProduct> optionalPurchase = Optional.empty();
         try {
             PurchaseProductDAO purchaseProductDAO = sqlSession.getMapper(PurchaseProductDAO.class);
-            purchaseProductDAO.findById(transactionId);
+            optionalPurchase = purchaseProductDAO.findById(transactionId);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error finding purchase by transaction ID", e);

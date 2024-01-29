@@ -56,9 +56,8 @@ public class Beneficiary {
         }
 
         public Beneficiary build() {
-            // Validate that essential fields are set
             if (beneficiary.beneficiaryName == null || beneficiary.beneficiaryAccountNumber == 0 || beneficiary.accountNumber == 0) {
-                throw new IllegalStateException("BeneficiaryName, BeneficiaryAccountNumber, and AccountNumber are required.");
+                throw new IllegalArgumentException("BeneficiaryName, BeneficiaryAccountNumber, and AccountNumber are required.");
             }
             return beneficiary;
         }

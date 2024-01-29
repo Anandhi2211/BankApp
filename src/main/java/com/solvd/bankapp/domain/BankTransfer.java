@@ -84,7 +84,7 @@ public class BankTransfer {
             if (bankTransfer.transferId == 0 || bankTransfer.sourceAccount == null ||
                     bankTransfer.destinationAccount == null || bankTransfer.amount == null ||
                     bankTransfer.transferTimestamp == null) {
-                throw new IllegalStateException("TransferId, SourceAccount, DestinationAccount, Amount, and TransferDate are required.");
+                throw new IllegalArgumentException("TransferId, SourceAccount, DestinationAccount, Amount, and TransferDate are required.");
             }
             return bankTransfer;
         }

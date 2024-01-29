@@ -82,7 +82,7 @@ public class Account {
 
         public Account build() {
             if (account.accountNumber == 0 || account.totalBalance == null || account.username == null) {
-                throw new IllegalStateException("AccountNumber, TotalBalance, and Username are required.");
+                throw new IllegalArgumentException("AccountNumber, TotalBalance, and Username are required.");
             }
             return account;
         }

@@ -79,7 +79,7 @@ public class LoginCredential {
 
         public LoginCredential build() {
             if (loginCredential.username == null || loginCredential.userPassword == null) {
-                throw new IllegalStateException("Username and UserPassword are required.");
+                throw new IllegalArgumentException("Username and UserPassword are required.");
             }
             return loginCredential;
         }
