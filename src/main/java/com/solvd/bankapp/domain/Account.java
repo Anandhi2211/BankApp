@@ -48,14 +48,14 @@ public class Account {
     }
 
     public ArrayList<Transaction> getTransactionList() {
-        if(this.transactionList==null){
+        if (this.transactionList == null) {
             this.transactionList = new ArrayList<>();
         }
         return this.transactionList;
     }
 
     public void setTransactionList(Transaction transaction) {
-        if(this.transactionList==null){
+        if (this.transactionList == null) {
             this.transactionList = new ArrayList<>();
         }
         this.transactionList.add(transaction);

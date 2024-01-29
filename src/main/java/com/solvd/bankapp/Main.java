@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
+
     public static void main(String[] args) {
         int answer;
         Scanner in = new Scanner(System.in);

@@ -10,10 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -83,7 +80,7 @@ public class PurchaseProductDAOImpl implements PurchaseProductDAO {
                 purchaseProduct.setAmount(resultSet.getBigDecimal("amount"));
                 purchaseProduct.setTransactionId(resultSet.getInt("transactions_transaction_id"));
                 purchaseProduct.setSsn(resultSet.getLong("customers_ssn"));
-                purchaseProduct.setPurchaseTimestamp(resultSet.getString("purchase_timestamp"));
+                purchaseProduct.setPurchaseTimestamp(Timestamp.valueOf(resultSet.getString("purchase_timestamp")));
                 purchaseProducts.add(purchaseProduct);
             }
             return purchaseProducts;

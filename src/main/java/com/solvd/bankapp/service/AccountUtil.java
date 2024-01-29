@@ -36,8 +36,7 @@ public class AccountUtil implements IAccount {
     public AccountUtil() {
         this.accountDAO = new AccountDAOImpl();
         this.loginCredentialDAO = new LoginCredentialDAOImpl();
-        customerDAO = new CustomerDAOImpl();
-
+        this.customerDAO = new CustomerDAOImpl();
     }
 
     public void createAccount(Customer customer) {
@@ -83,7 +82,7 @@ public class AccountUtil implements IAccount {
         String retypePassword = in.next();
         if (password.equals(retypePassword)) {
             int pin = Integer.parseInt(Long.toString(customer.getSsn()).substring(Long.toString(customer.getSsn()).length() - 4));
-            logger.info("You Pin Number: "+pin);
+            logger.info("You Pin Number: " + pin);
             loginCredential = new LoginCredential(account.getUsername(), password, true, pin, customer.getSsn());
             customer.setLoginCredential(loginCredential);
         } else {
@@ -92,18 +91,17 @@ public class AccountUtil implements IAccount {
         }
         return customer;
     }
+
     public void displayAccountDetails(String username) {
-        //can add update methods to update account
         logger.info("Account Details");
-        Account account = accountDAO.findAccountByUsername(username);
-        Customer customer = customerDAO.display(username);
+        Account account = this.accountDAO.findAccountByUsername(username);
+        Customer customer = this.customerDAO.display(username);
         logger.info("Account number: " + account.getAccountNumber());
         logger.info("Account balance" + account.getTotalBalance());
         logger.info("Account UserName" + account.getUsername());
-        logger.info("First Name: "+customer.getFirstName());
-        logger.info("Last Name: "+customer.getLastName());
+        logger.info("First Name: " + customer.getFirstName());
+        logger.info("Last Name: " + customer.getLastName());
     }
-
 //    public BigDecimal getTotaleBalance(long accountNumber) {
 //        return accountDAO.displayTotalBalance(accountNumber);
 //    }
@@ -117,5 +115,4 @@ public class AccountUtil implements IAccount {
     public Account getAccount(String userName) {
         return accountDAO.findAccountByUsername(userName);
     }
-
 }

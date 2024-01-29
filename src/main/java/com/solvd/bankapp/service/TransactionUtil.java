@@ -22,12 +22,10 @@ public class TransactionUtil implements ITransaction {
     private final AccountUtil accountUtil;
     Scanner in = new Scanner(System.in);
     private static final Logger logger = LogManager.getLogger(TransactionUtil.class);
-
     public TransactionUtil() {
         this.transactionDAO = new TransactionDAOImpl();
         this.accountUtil = new AccountUtil();
     }
-
     @Override
     public void transactionPage(Account account) {
         do {
@@ -51,41 +49,58 @@ public class TransactionUtil implements ITransaction {
                             logger.info("Transaction Amount: " + transaction.getAmount());
                             logger.info("Transaction Status: " + transaction.isTransactionStatus());
                             logger.info("Transaction Time: " + transaction.getTransactionTimestamp());
+                            logger.info("******");
                         }
                     }
                 }
                 break;
                 case 2: {
+                    boolean flag = false;
                     logger.info("Enter the date in YYYY-MM-DD Format: ");
                     String date = in.next();
                     ArrayList<Transaction> transactions = this.transactionDAO.getTransactionHistory(account.getAccountNumber());
                     if (!transactions.isEmpty()) {
                         for (Transaction transaction : transactions) {
-                            if (transaction.getTransactionTimestamp().contains(date)) {
+                            if (transaction.getTransactionTimestamp().toString().contains(date)) {
+                                flag = true;
                                 logger.info("Account Number: " + account.getAccountNumber());
                                 logger.info("Transaction Number: " + transaction.getTransactionId());
                                 logger.info("Transaction Amount: " + transaction.getAmount());
                                 logger.info("Transaction Status: " + transaction.isTransactionStatus());
                                 logger.info("Transaction Time: " + transaction.getTransactionTimestamp());
+                                logger.info("******");
                             }
                         }
+                        if (!flag) {
+                            logger.info("No Transaction History for that Date");
+                        }
+                    } else {
+                        logger.info("No Transaction History");
                     }
                 }
                 break;
                 case 3: {
+                    boolean flag = false;
                     logger.info("Enter the Transaction ID: ");
                     int transactionId = in.nextInt();
                     ArrayList<Transaction> transactions = this.transactionDAO.getTransactionHistory(account.getAccountNumber());
                     if (transactions != null) {
                         for (Transaction transaction : transactions) {
                             if (transaction.getTransactionId() == transactionId) {
+                                flag = true;
                                 logger.info("Account Number: " + account.getAccountNumber());
                                 logger.info("Transaction Number: " + transaction.getTransactionId());
                                 logger.info("Transaction Amount: " + transaction.getAmount());
                                 logger.info("Transaction Status: " + transaction.isTransactionStatus());
                                 logger.info("Transaction Time: " + transaction.getTransactionTimestamp());
+                                logger.info("******");
                             }
                         }
+                        if (!flag) {
+                            logger.info("No Transaction found");
+                        }
+                    } else {
+                        logger.info("No Transaction History");
                     }
                 }
                 break;
@@ -104,7 +119,7 @@ public class TransactionUtil implements ITransaction {
         int transactionID = transactionDAO.getTransactionId();
         logger.info("CURRENT TRANSACTION ID " + transactionID);
         transactionID = (transactionID != 0) ? transactionID + 1 : 20000;
-        Transaction transaction = new Transaction(transactionID, amount, true, accountNumber, currentTime.toString());
+        Transaction transaction = new Transaction(transactionID, amount, true, accountNumber, currentTime);
         this.transactionDAO.create(transaction);
         return transaction;
     }

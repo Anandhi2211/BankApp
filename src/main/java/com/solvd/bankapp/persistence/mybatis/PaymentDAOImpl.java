@@ -31,6 +31,23 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
+    public Payment findPaymentById(long billAccountNumber) {
+        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
+        Payment payment = null;
+        try {
+            PaymentDAO paymentDAO = sqlSession.getMapper(PaymentDAO.class);
+            payment = paymentDAO.findPaymentById(billAccountNumber);
+            sqlSession.commit();
+        } catch (PersistenceException e) {
+            LOGGER.error("Error finding Payment By bill Account Number", e);
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return payment;
+    }
+
+    @Override
     public Optional<Payment> findById(int transactionId) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
         Optional<Payment> optionalPayment = Optional.empty();

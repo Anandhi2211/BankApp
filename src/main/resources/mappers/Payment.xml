@@ -13,6 +13,13 @@
         Select * From payments
     </sql>
 
+
+    <select id="findPaymentById" resultMap="paymentsResultMap">
+        <include refid="paymentsColumns"/>
+        where company_account_number = #{billAccountNumber}
+    </select>
+
+
     <select id="findById" resultMap="paymentsResultMap">
     <include refid="paymentsColumns"/>
         where transactions_transaction_id = #{transactionId}

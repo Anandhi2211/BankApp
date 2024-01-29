@@ -34,6 +34,7 @@ public class PurchaseUtil {
         loginCredentialDAO = new LoginCredentialDAOImpl();
         customer = new NewCustomer();
     }
+
     public void purchaseItems() {
         do {
             logger.info("1. Purchase");
@@ -54,13 +55,12 @@ public class PurchaseUtil {
                             String desc = in.next();
                             logger.info("Enter the Amount:");
                             BigDecimal amt = in.nextBigDecimal();
-                            logger.info("Enter the Pin");
-                            int pin = in.nextInt();
+                            logger.info("Enter the cvv");
+                            int cvv = in.nextInt();
                             ArrayList<Account> accountList = debitCardDAO.findAccountBySsn(debitCard.getSsn());
                             if (accountList != null) {
                                 for (Account account : accountList) {
-                                    LoginCredential loginCredential = loginCredentialDAO.findByUsername(account.getUsername());
-                                    if (loginCredential.getPin() == pin && loginCredential.getSsn() == debitCard.getSsn()) {
+                                    if (debitCard.getCvvNumber() == cvv) {
                                         if (amt.compareTo(account.getTotalBalance()) == -1) {
                                             accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amt));
                                             Transaction transaction = transactionUtil.addTransactions(account.getAccountNumber(), amt);
@@ -71,11 +71,15 @@ public class PurchaseUtil {
                                             logger.info("Not Much Balance");
                                         }
                                     } else {
-                                        logger.info("Pin Dont Match");
+                                        logger.info("Cvv Don't Match");
                                     }
                                 }
                             }
+                        } else {
+                            logger.info("Wrong Debit Card Number");
                         }
+                    } else {
+                        logger.info("No Debit Card List");
                     }
                     break;
                 case 2: {

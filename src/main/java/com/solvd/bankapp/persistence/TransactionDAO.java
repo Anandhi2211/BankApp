@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.spi.AbstractResourceBundleProvider;
 
 public interface TransactionDAO extends BaseListDAO<Transaction> {
     @Override
@@ -21,5 +20,4 @@ public interface TransactionDAO extends BaseListDAO<Transaction> {
     ArrayList<Transaction> getTransactionHistory(long accountNumber);
 
     int getTransactionId();
-
 }

@@ -12,10 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.AnnotatedType;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -132,12 +129,12 @@ public class TransactionDAOImpl implements TransactionDAO {
         ArrayList<Transaction> transactions = new ArrayList<>();
         try {
             while (resultSet.next()) {
-
                 Transaction transaction = new Transaction();
                 transaction.setTransactionId(resultSet.getInt("transaction_id"));
                 transaction.setAmount(resultSet.getBigDecimal("amount"));
                 transaction.setAccountNumber(resultSet.getLong("account_number"));
-                transaction.setTransactionTimestamp(resultSet.getString("transaction_timestamp"));
+                transaction.setTransactionStatus(resultSet.getBoolean("transaction_status"));
+                transaction.setTransactionTimestamp(Timestamp.valueOf(resultSet.getString("transaction_timestamp")));
                 transactions.add(transaction);
             }
             return transactions;

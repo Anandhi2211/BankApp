@@ -34,8 +34,8 @@ public class DashBoard {
     public void welcomePage() {
         int answer;
         String userName = loginVerification();
-        if(userName!=null){
-            do{
+        if (userName != null) {
+            do {
                 Account account = accountUtil.getAccount(userName);
                 logger.info("1. Account Details");
                 logger.info("2. Saving Account");
@@ -49,33 +49,32 @@ public class DashBoard {
                 if (!(answer >= 1) || !(answer <= 7)) {
                     throw new BankException("Invalid Input");
                 }
-                switch (answer){
+                switch (answer) {
                     case 1: {
                         accountUtil.displayAccountDetails(account.getUsername());
                     }
-                        break;
-                    case 2:{
+                    break;
+                    case 2: {
                         savingAccountUtil.savingAccountPage(account.getUsername());
                     }
-                        break;
-                    case 3:{
+                    break;
+                    case 3: {
                         bankTransferUtil.bankTransferPage(account);
                     }
-                        break;
-                    case 4:{
+                    break;
+                    case 4: {
                         this.transactionUtil.transactionPage(account);
                     }
-                        break;
-                    case 5:{
-                        this.debitCardUtil.debitCardPage(account);//work on
+                    break;
+                    case 5: {
+                        this.debitCardUtil.debitCardPage(account);
                     }
-                        break;
-                    case 6:{
+                    break;
+                    case 6: {
                         this.paymentUtil.PayBillPage(account);
-
                         logger.info("BILLS");
                     }
-                        break;
+                    break;
                     case 7:
                         logger.info("Exiting");
                         return;
@@ -83,33 +82,29 @@ public class DashBoard {
                         logger.info("Enter correct options");
                         return;
                 }
-
-            }while (true);
-
-        }
-        else{
+            } while (true);
+        } else {
             logger.info("Error with the LoginDetails");
         }
     }
-    private String loginVerification( ) {
+
+    private String loginVerification() {
         logger.info("Enter user Name");
         String username = in.next();
         LoginCredential loginCredential = loginCredentialDAO.findByUsername(username);
-        if(loginCredential!=null){
-            if(loginCredential.getUsername().equals(username)){
+        if (loginCredential != null) {
+            if (loginCredential.getUsername().equals(username)) {
                 logger.info("Enter the password");
                 String password = in.next();
-                if (loginCredential.getUserPassword().equals(password)){
+                if (loginCredential.getUserPassword().equals(password)) {
                     logger.info("Login Success");
-                }
-                else{
+                } else {
                     logger.info("Password wrong");
                 }
             }
-        }
-        else {
+        } else {
             logger.info("username not found");
-            username =null;
+            username = null;
         }
         return username;
     }

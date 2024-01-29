@@ -25,7 +25,7 @@ public class SavingAccountUtil {
     }
 
     public void savingAccountPage(String username) {
-        do{
+        do {
             Account account = accountUtil.getAccount(username);
             logger.info("1. Add amount to Saving Account");
             logger.info("2. Transfer amount from Saving Account");
@@ -36,29 +36,27 @@ public class SavingAccountUtil {
             if (!(answer >= 1) || !(answer <= 4)) {
                 throw new BankException("Invalid Input");
             }
-            switch (answer){
+            switch (answer) {
                 case 1:
                     logger.info("Enter the amount to be added to saving account");
                     BigDecimal amount = in.nextBigDecimal();
                     BigDecimal amountBalance = account.getTotalBalance();
-                    if(amount.compareTo(amountBalance) == -1 ){
+                    if (amount.compareTo(amountBalance) == -1) {
                         int rate = 4;//can add in enum
                         SavingsAccount savingsAccount = savingsAccountDAO.findSavingByNumber(account.getAccountNumber());
-                        if(savingsAccount==null){
-                            savingsAccount = new SavingsAccount(amount,account.getAccountNumber(),rate);
+                        if (savingsAccount == null) {
+                            savingsAccount = new SavingsAccount(amount, account.getAccountNumber(), rate);
                             this.savingsAccountDAO.create(savingsAccount);
-                            this.transactionUtil.addTransactions(account.getAccountNumber(),amount);
-                            this.accountUtil.updateAmount(account.getAccountNumber(),amountBalance.subtract(amount));
+                            this.transactionUtil.addTransactions(account.getAccountNumber(), amount);
+                            this.accountUtil.updateAmount(account.getAccountNumber(), amountBalance.subtract(amount));
+                            logger.info("********* UPDATED AMT" + amountBalance.subtract(amount));
+                        } else {
+                            this.savingsAccountDAO.update(account.getAccountNumber(), amount.add(savingsAccount.getSavingsBalance()));
+                            this.transactionUtil.addTransactions(account.getAccountNumber(), amount);
+                            this.accountUtil.updateAmount(account.getAccountNumber(), amountBalance.subtract(amount));
                             logger.info("********* UPDATED AMT" + amountBalance.subtract(amount));
                         }
-                        else{
-                            this.savingsAccountDAO.update(account.getAccountNumber(),amount.add(savingsAccount.getSavingsBalance()));
-                            this.transactionUtil.addTransactions(account.getAccountNumber(),amount);
-                            this.accountUtil.updateAmount(account.getAccountNumber(),amountBalance.subtract(amount));
-                            logger.info("********* UPDATED AMT" + amountBalance.subtract(amount));
-                        }
-                    }
-                    else{
+                    } else {
                         logger.info("Amount is not sufficient to add into saving account");
                     }
                     break;
@@ -66,26 +64,24 @@ public class SavingAccountUtil {
                     logger.info("Enter the amount to transfer it to checking account");
                     amount = in.nextBigDecimal();
                     SavingsAccount savingsAccount = savingsAccountDAO.findSavingByNumber(account.getAccountNumber()); //code to get amount balance from saving table
-                    if(savingsAccount!=null){
-                        logger.info("TEST**********"+ savingsAccount.getSavingsBalance());
-                        if(amount.compareTo(savingsAccount.getSavingsBalance()) == -1 ){
-                            this.savingsAccountDAO.update(account.getAccountNumber(),savingsAccount.getSavingsBalance().subtract(amount));
-                            this.transactionUtil.addTransactions(account.getAccountNumber(),amount);
-                            this.accountUtil.updateAmount(account.getAccountNumber(),amount.add(account.getTotalBalance()));
-                        }
-                        else{
+                    if (savingsAccount != null) {
+                        logger.info("TEST**********" + savingsAccount.getSavingsBalance());
+                        if (amount.compareTo(savingsAccount.getSavingsBalance()) == -1) {
+                            this.savingsAccountDAO.update(account.getAccountNumber(), savingsAccount.getSavingsBalance().subtract(amount));
+                            this.transactionUtil.addTransactions(account.getAccountNumber(), amount);
+                            this.accountUtil.updateAmount(account.getAccountNumber(), amount.add(account.getTotalBalance()));
+                        } else {
                             logger.info("Amount is not sufficient to add into Checking account");
                         }
-                    }
-                    else{
+                    } else {
                         logger.info("No Savings Account");
                     }
                     break;
                 case 3:
                     logger.info("Deleting Savings Account");
                     savingsAccount = savingsAccountDAO.findSavingByNumber(account.getAccountNumber());
-                    accountUtil.updateAmount(account.getAccountNumber(),account.getTotalBalance().add(savingsAccount.getSavingsBalance()));
-                    transactionUtil.addTransactions(account.getAccountNumber(),savingsAccount.getSavingsBalance());
+                    accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().add(savingsAccount.getSavingsBalance()));
+                    transactionUtil.addTransactions(account.getAccountNumber(), savingsAccount.getSavingsBalance());
                     savingsAccountDAO.delete(savingsAccount.getAccountNumber());
                     break;
                 case 4:

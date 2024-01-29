@@ -8,6 +8,8 @@ public interface PaymentDAO extends BaseListDAO<Payment> {
     @Override
     void create(Payment payment);
 
+    Payment findPaymentById(long billAccountNumber);
+
     @Override
     Optional<Payment> findById(int transactionId);
 

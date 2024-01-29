@@ -9,10 +9,10 @@ public class PurchaseProduct {
     private BigDecimal amount;
     private int transactionId;
     private long ssn;
-    private String purchaseTimestamp;
+    private Timestamp purchaseTimestamp;
 
     public PurchaseProduct(long cardNumber, String purchaseDescription, BigDecimal amount,
-                           int transactionId, long ssn, String purchaseTimestamp) {
+                           int transactionId, long ssn, Timestamp purchaseTimestamp) {
         this.cardNumber = cardNumber;
         this.purchaseDescription = purchaseDescription;
         this.amount = amount;
@@ -65,11 +65,11 @@ public class PurchaseProduct {
         this.ssn = ssn;
     }
 
-    public String getPurchaseTimestamp() {
+    public Timestamp getPurchaseTimestamp() {
         return purchaseTimestamp;
     }
 
-    public void setPurchaseTimestamp(String purchaseTimestamp) {
+    public void setPurchaseTimestamp(Timestamp purchaseTimestamp) {
         this.purchaseTimestamp = purchaseTimestamp;
     }
 

@@ -21,12 +21,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class BeneficiaryDAOImpl implements BeneficiaryDAO {
-
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.bankapp.persistence.mybatis.BeneficiaryDAOImpl.class);
-
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
-
-
 
     @Override
     public void create(Beneficiary beneficiary) {

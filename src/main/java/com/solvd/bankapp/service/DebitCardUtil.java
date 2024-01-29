@@ -45,7 +45,7 @@ public class DebitCardUtil {
                 case 1: {
                     logger.info("Create Debit Card");
                     Customer customer = customerDAO.display(account.getUsername());
-                    if(debitCardDAO.findBySsn(customer.getSsn())==null){
+                    if (debitCardDAO.findBySsn(customer.getSsn()) == null) {
                         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
                         LocalDate date = LocalDate.parse(currentTime.toString().substring(0, 10));
                         date = date.plusYears(3);
@@ -54,22 +54,21 @@ public class DebitCardUtil {
                         DebitCard debitCard = new DebitCard(debitCardNumber++, Timestamp.valueOf(date.atStartOfDay()), cvv, customer.getFirstName(), customer.getSsn());
                         logger.info(debitCard);
                         this.debitCardDAO.create(debitCard);
-                    }
-                    else{
+                    } else {
                         logger.info("CARD ALREADY exist");
                     }
                 }
                 break;
                 case 2: {
                     logger.info("Delete Debit Card");
+                    logger.info("Enter Debit Card Number:");
                     long debitCardNumberToDelete = in.nextLong();
                     DebitCard debitCard = debitCardDAO.findByCardNumber(debitCardNumberToDelete);
-                    if(debitCard!=null){
-                        if(debitCard.getCardNumber() == debitCardNumberToDelete){
+                    if (debitCard != null) {
+                        if (debitCard.getCardNumber() == debitCardNumberToDelete) {
                             this.debitCardDAO.delete(debitCardNumberToDelete);
                         }
-                    }
-                    else{
+                    } else {
                         logger.info("No Debit Card Found");
                     }
                 }

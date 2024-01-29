@@ -10,10 +10,10 @@ public class BankTransfer {
     private BigDecimal charge;
     private String username;
     private int transactionId;
-    private String transferTimestamp;
+    private Timestamp transferTimestamp;
 
     public BankTransfer(BigDecimal transferAmount, long beneficiaryAccountNumber,
-                        BigDecimal charge, String username, int transactionId, String transferTimestamp) {
+                        BigDecimal charge, String username, int transactionId, Timestamp transferTimestamp) {
         this.transferAmount = transferAmount;
         this.beneficiaryAccountNumber = beneficiaryAccountNumber;
         this.charge = charge;
@@ -63,11 +63,11 @@ public class BankTransfer {
         this.transactionId = transactionId;
     }
 
-    public String getTransferTimestamp() {
+    public Timestamp getTransferTimestamp() {
         return transferTimestamp;
     }
 
-    public void setTransferTimestamp(String transferTimestamp) {
+    public void setTransferTimestamp(Timestamp transferTimestamp) {
         this.transferTimestamp = transferTimestamp;
     }
 
