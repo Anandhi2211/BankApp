@@ -4,13 +4,18 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Transaction {
-    private int transactionId;
-    private BigDecimal amount;
-    private boolean transactionStatus;
-    private long accountNumber;
-    private Timestamp transactionTimestamp;
+    private final int transactionId;
+    private final BigDecimal amount;
+    private final boolean transactionStatus;
+    private final long accountNumber;
+    private final Timestamp transactionTimestamp;
 
-    public Transaction() {
+    private Transaction(Builder builder) {
+        this.transactionId = builder.transactionId;
+        this.amount = builder.amount;
+        this.transactionStatus = builder.transactionStatus;
+        this.accountNumber = builder.accountNumber;
+        this.transactionTimestamp = builder.transactionTimestamp;
     }
 
     public int getTransactionId() {
@@ -38,49 +43,56 @@ public class Transaction {
         return "Transaction{" +
                 "transactionId=" + transactionId +
                 ", amount=" + amount +
-                ", transactionStatus='" + transactionStatus + '\'' +
+                ", transactionStatus=" + transactionStatus +
                 ", accountNumber=" + accountNumber +
                 ", transactionTimestamp=" + transactionTimestamp +
                 '}';
     }
-    public static Builder builder(){
-        return new Builder (new Transaction());
+
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public static class Builder{
-        private final Transaction transaction;
+    public static class Builder {
+        private int transactionId;
+        private BigDecimal amount;
+        private boolean transactionStatus;
+        private long accountNumber;
+        private Timestamp transactionTimestamp;
 
-        public Builder(com.solvd.bankapp.domain.Transaction transaction) {
-            this.transaction = transaction;
+        private Builder() {
         }
 
         public Builder setTransactionId(int transactionId) {
-            transaction.transactionId = transactionId;
+            this.transactionId = transactionId;
             return this;
         }
 
         public Builder setAmount(BigDecimal amount) {
-            transaction.amount = amount;
+            this.amount = amount;
             return this;
         }
 
         public Builder setTransactionStatus(boolean transactionStatus) {
-            transaction.transactionStatus = transactionStatus;
+            this.transactionStatus = transactionStatus;
             return this;
         }
 
         public Builder setAccountNumber(long accountNumber) {
-            transaction.accountNumber = accountNumber;
+            this.accountNumber = accountNumber;
             return this;
         }
 
         public Builder setTransactionTimestamp(Timestamp transactionTimestamp) {
-            transaction.transactionTimestamp = transactionTimestamp;
+            this.transactionTimestamp = transactionTimestamp;
             return this;
         }
 
-        public com.solvd.bankapp.domain.Transaction getTransaction() {
-            return transaction;
+        public Transaction build() {
+            if (transactionId == 0 || amount == null) {
+                throw new IllegalArgumentException("transactionId and amount are required.");
+            }
+            return new Transaction(this);
         }
     }
 }

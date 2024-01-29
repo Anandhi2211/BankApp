@@ -1,7 +1,6 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 public class BankTransfer {
@@ -54,7 +53,6 @@ public class BankTransfer {
 
         private Builder() {
             this.bankTransfer = new BankTransfer();
-            // Set default values if needed
         }
 
         public Builder transferId(long transferId) {
