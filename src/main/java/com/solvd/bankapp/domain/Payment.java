@@ -2,6 +2,8 @@ package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Payment {
     private int companyAccountNumber;
@@ -11,6 +13,8 @@ public class Payment {
     private int transactionId;
     private long ssn;
     private Timestamp paymentTimestamp;
+    private boolean notificationStatus;
+    private List<PaymentObserver> observers = new ArrayList<>();
 
     public int getCompanyAccountNumber() {
         return companyAccountNumber;
@@ -40,11 +44,23 @@ public class Payment {
         return paymentTimestamp;
     }
 
+    public boolean isNotificationStatus() {
+        return notificationStatus;
+    }
+
+    public void setNotificationStatus(boolean notificationStatus) {
+        this.notificationStatus = notificationStatus;
+    }
+
+    public List<PaymentObserver> getObservers() {
+        return observers;
+    }
+
     @Override
     public String toString() {
         return "Payment{" +
-                "companyAccountNumber" + companyAccountNumber +
-                "companyName='" + companyName + '\'' +
+                "companyAccountNumber=" + companyAccountNumber +
+                ", companyName='" + companyName + '\'' +
                 ", billAmount=" + billAmount +
                 ", username='" + username + '\'' +
                 ", transactionId=" + transactionId +
@@ -99,8 +115,23 @@ public class Payment {
             return this;
         }
 
-        public com.solvd.bankapp.domain.Payment getPayment() {
+        public com.solvd.bankapp.domain.Payment build() {
             return payment;
         }
+    }
+
+    public void addObserver(PaymentObserver observer) {
+        observers.add(observer);
+    }
+
+    private void notifyObservers() {
+        for (PaymentObserver observer : observers) {
+            observer.update(this);
+        }
+    }
+
+    public void markAsPaid() {
+        // put payment logic
+        notifyObservers();
     }
 }

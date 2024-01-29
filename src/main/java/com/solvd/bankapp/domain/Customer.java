@@ -34,7 +34,7 @@ public class Customer {
 
     public Account getAccount() {
         if (account == null) {
-            account = new Account();
+            throw new IllegalStateException("No account exists for this customer. Please create an account.");
         }
         return account;
     }
