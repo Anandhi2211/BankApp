@@ -14,7 +14,7 @@ public class Payment {
     private long ssn;
     private Timestamp paymentTimestamp;
     private boolean notificationStatus;
-    private List<PaymentObserver> observers = new ArrayList<>();
+    private final List<PaymentObserver> observers = new ArrayList<>();
 
     public int getCompanyAccountNumber() {
         return companyAccountNumber;
