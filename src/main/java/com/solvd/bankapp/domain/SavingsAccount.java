@@ -48,17 +48,17 @@ public class SavingsAccount {
         }
 
         public Builder setSavingsBalance(BigDecimal savingsBalance) {
-            this.savingsAccount.savingsBalance = savingsBalance;
+            savingsAccount.savingsBalance = savingsBalance;
             return this;
         }
 
         public Builder setAccountNumber(long accountNumber) {
-            this.savingsAccount.accountNumber = accountNumber;
+            savingsAccount.accountNumber = accountNumber;
             return this;
         }
 
         public Builder setInterestRate(InterestRates interestRate) {
-            this.savingsAccount.interestRate = interestRate;
+            savingsAccount.interestRate = interestRate;
             return this;
         }
 

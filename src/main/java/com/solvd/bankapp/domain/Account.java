@@ -58,17 +58,17 @@ public class Account {
         }
 
         public Builder setAccountNumber(long accountNumber) {
-            this.account.accountNumber = accountNumber;
+            account.accountNumber = accountNumber;
             return this;
         }
 
         public Builder setTotalBalance(BigDecimal totalBalance) {
-            this.account.totalBalance = totalBalance;
+            account.totalBalance = totalBalance;
             return this;
         }
 
         public Builder setUsername(String username) {
-            this.account.username = username;
+            account.username = username;
             return this;
         }
 

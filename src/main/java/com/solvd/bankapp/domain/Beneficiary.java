@@ -3,7 +3,7 @@ package com.solvd.bankapp.domain;
 public class Beneficiary {
     private String beneficiaryName;
     private long beneficiaryAccountNumber;
-    private long accountNumber;
+    private long sourceAccountNumber;
 
     private Beneficiary() {
     }
@@ -16,8 +16,8 @@ public class Beneficiary {
         return beneficiaryAccountNumber;
     }
 
-    public long getAccountNumber() {
-        return accountNumber;
+    public long getSourceAccountNumber() {
+        return sourceAccountNumber;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class Beneficiary {
         return "Beneficiary{" +
                 "beneficiaryName='" + beneficiaryName + '\'' +
                 ", beneficiaryAccountNumber=" + beneficiaryAccountNumber +
-                ", accountNumber=" + accountNumber +
+                ", accountNumber=" + sourceAccountNumber +
                 '}';
     }
 
@@ -51,12 +51,12 @@ public class Beneficiary {
         }
 
         public Builder setAccountNumber(long accountNumber) {
-            beneficiary.accountNumber = accountNumber;
+            beneficiary.sourceAccountNumber = accountNumber;
             return this;
         }
 
         public Beneficiary build() {
-            if (beneficiary.beneficiaryName == null || beneficiary.beneficiaryAccountNumber == 0 || beneficiary.accountNumber == 0) {
+            if (beneficiary.beneficiaryName == null || beneficiary.beneficiaryAccountNumber == 0 || beneficiary.sourceAccountNumber == 0) {
                 throw new IllegalArgumentException("BeneficiaryName, BeneficiaryAccountNumber, and AccountNumber are required.");
             }
             return beneficiary;
