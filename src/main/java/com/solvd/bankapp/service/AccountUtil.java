@@ -7,22 +7,15 @@ import com.solvd.bankapp.domain.Transaction;
 import com.solvd.bankapp.persistence.AccountDAO;
 import com.solvd.bankapp.persistence.CustomerDAO;
 import com.solvd.bankapp.persistence.LoginCredentialDAO;
-import com.solvd.bankapp.persistence.TransactionDAO;
 import com.solvd.bankapp.persistence.mybatis.AccountDAOImpl;
 import com.solvd.bankapp.persistence.mybatis.CustomerDAOImpl;
 import com.solvd.bankapp.persistence.mybatis.LoginCredentialDAOImpl;
-import com.solvd.bankapp.persistence.mybatis.TransactionDAOImpl;
-import com.solvd.bankapp.service.IAccount;
 //import com.solvd.bankapp.service.ICustomer;
-import com.solvd.bankapp.service.ITransaction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class AccountUtil implements IAccount {
 
@@ -31,7 +24,6 @@ public class AccountUtil implements IAccount {
     private final LoginCredentialDAO loginCredentialDAO;
     private final CustomerDAO customerDAO;
     private static final Logger logger = LogManager.getLogger(AccountUtil.class);
-    Scanner in = new Scanner(System.in);
 
     public AccountUtil() {
         this.accountDAO = new AccountDAOImpl();
@@ -39,7 +31,7 @@ public class AccountUtil implements IAccount {
         this.customerDAO = new CustomerDAOImpl();
     }
 
-    public void createAccount(Customer customer) {
+    public void createAccount(Customer customer, Scanner in) {
         Account account;
         if (customer != null) {
             logger.info("Deposit minimum balance of 100$");
@@ -52,7 +44,7 @@ public class AccountUtil implements IAccount {
                     String userName = customer.getFirstName() + "_" + customer.getSsn();
                     account = new Account(accountNumber++, amt, userName);
                     customer.setAccount(account);
-                    customer = setLoginDetails(account, customer);
+                    customer = setLoginDetails(account, customer, in);
                     if (customer != null) {
                         TransactionUtil transactionUtil = new TransactionUtil();
                         this.customerDAO.create(customer);
@@ -74,7 +66,7 @@ public class AccountUtil implements IAccount {
         }
     }
 
-    public Customer setLoginDetails(Account account, Customer customer) {
+    public Customer setLoginDetails(Account account, Customer customer, Scanner in) {
         LoginCredential loginCredential;
         logger.info("Enter NetBanking Password");
         String password = in.next();
@@ -92,7 +84,7 @@ public class AccountUtil implements IAccount {
         return customer;
     }
 
-    public void displayAccountDetails(String username) {
+    public void displayAccountDetails(String username, Scanner in) {
         logger.info("Account Details");
         Account account = this.accountDAO.findAccountByUsername(username);
         Customer customer = this.customerDAO.display(username);

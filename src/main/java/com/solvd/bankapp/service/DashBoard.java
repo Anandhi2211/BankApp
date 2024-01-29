@@ -19,7 +19,6 @@ public class DashBoard {
     private final DebitCardUtil debitCardUtil;
     private final PaymentUtil paymentUtil;
     private final LoginCredentialDAO loginCredentialDAO;
-    Scanner in = new Scanner(System.in);
 
     public DashBoard() {
         this.bankTransferUtil = new BankTransferUtil();
@@ -31,12 +30,12 @@ public class DashBoard {
         this.paymentUtil = new PaymentUtil();
     }
 
-    public void welcomePage() {
+    public void welcomePage(Scanner in) {
         int answer;
-        String userName = loginVerification();
+        String userName = loginVerification(in);
         if (userName != null) {
             do {
-                Account account = accountUtil.getAccount(userName);
+                Account account = this.accountUtil.getAccount(userName);
                 logger.info("1. Account Details");
                 logger.info("2. Saving Account");
                 logger.info("3. Bank Transfers");
@@ -51,32 +50,32 @@ public class DashBoard {
                 }
                 switch (answer) {
                     case 1: {
-                        accountUtil.displayAccountDetails(account.getUsername());
+                        this.accountUtil.displayAccountDetails(account.getUsername(),in);
                     }
                     break;
                     case 2: {
-                        savingAccountUtil.savingAccountPage(account.getUsername());
+                        this.savingAccountUtil.savingAccountPage(account.getUsername(),in);
                     }
                     break;
                     case 3: {
-                        bankTransferUtil.bankTransferPage(account);
+                        this.bankTransferUtil.bankTransferPage(account,in);
                     }
                     break;
                     case 4: {
-                        this.transactionUtil.transactionPage(account);
+                        this.transactionUtil.transactionPage(account,in);
                     }
                     break;
                     case 5: {
-                        this.debitCardUtil.debitCardPage(account);
+                        this.debitCardUtil.debitCardPage(account,in);
                     }
                     break;
                     case 6: {
-                        this.paymentUtil.PayBillPage(account);
+                        this.paymentUtil.PayBillPage(account,in);
                         logger.info("BILLS");
                     }
                     break;
                     case 7:
-                        logger.info("Exiting");
+                        logger.info("Exit");
                         return;
                     default:
                         logger.info("Enter correct options");
@@ -88,7 +87,7 @@ public class DashBoard {
         }
     }
 
-    private String loginVerification() {
+    private String loginVerification(Scanner in) {
         logger.info("Enter user Name");
         String username = in.next();
         LoginCredential loginCredential = loginCredentialDAO.findByUsername(username);

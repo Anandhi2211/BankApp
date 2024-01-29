@@ -16,15 +16,12 @@ public class SavingAccountUtil {
     private final AccountUtil accountUtil;
     private final TransactionUtil transactionUtil;
     private static final Logger logger = LogManager.getLogger(SavingAccountUtil.class);
-    Scanner in = new Scanner(System.in);
-
     public SavingAccountUtil() {
         this.savingsAccountDAO = new SavingsAccountDAOImpl();
         this.transactionUtil = new TransactionUtil();
         this.accountUtil = new AccountUtil();
     }
-
-    public void savingAccountPage(String username) {
+    public void savingAccountPage(String username, Scanner in) {
         do {
             Account account = accountUtil.getAccount(username);
             logger.info("1. Add amount to Saving Account");
@@ -43,7 +40,7 @@ public class SavingAccountUtil {
                     BigDecimal amountBalance = account.getTotalBalance();
                     if (amount.compareTo(amountBalance) == -1) {
                         int rate = 4;//can add in enum
-                        SavingsAccount savingsAccount = savingsAccountDAO.findSavingByNumber(account.getAccountNumber());
+                        SavingsAccount savingsAccount = this.savingsAccountDAO.findSavingByNumber(account.getAccountNumber());
                         if (savingsAccount == null) {
                             savingsAccount = new SavingsAccount(amount, account.getAccountNumber(), rate);
                             this.savingsAccountDAO.create(savingsAccount);
@@ -63,7 +60,7 @@ public class SavingAccountUtil {
                 case 2:
                     logger.info("Enter the amount to transfer it to checking account");
                     amount = in.nextBigDecimal();
-                    SavingsAccount savingsAccount = savingsAccountDAO.findSavingByNumber(account.getAccountNumber()); //code to get amount balance from saving table
+                    SavingsAccount savingsAccount = this.savingsAccountDAO.findSavingByNumber(account.getAccountNumber()); //code to get amount balance from saving table
                     if (savingsAccount != null) {
                         logger.info("TEST**********" + savingsAccount.getSavingsBalance());
                         if (amount.compareTo(savingsAccount.getSavingsBalance()) == -1) {
@@ -79,13 +76,13 @@ public class SavingAccountUtil {
                     break;
                 case 3:
                     logger.info("Deleting Savings Account");
-                    savingsAccount = savingsAccountDAO.findSavingByNumber(account.getAccountNumber());
-                    accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().add(savingsAccount.getSavingsBalance()));
-                    transactionUtil.addTransactions(account.getAccountNumber(), savingsAccount.getSavingsBalance());
-                    savingsAccountDAO.delete(savingsAccount.getAccountNumber());
+                    savingsAccount = this.savingsAccountDAO.findSavingByNumber(account.getAccountNumber());
+                    this.accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().add(savingsAccount.getSavingsBalance()));
+                    this.transactionUtil.addTransactions(account.getAccountNumber(), savingsAccount.getSavingsBalance());
+                    this.savingsAccountDAO.delete(savingsAccount.getAccountNumber());
                     break;
                 case 4:
-                    logger.info("Exiting");
+                    logger.info("Exit");
                     return;
                 default:
                     logger.info("Enter correct option");

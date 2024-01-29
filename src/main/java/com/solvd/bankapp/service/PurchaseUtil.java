@@ -13,29 +13,23 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class PurchaseUtil {
-    Scanner in = new Scanner(System.in);
     private static final Logger logger = LogManager.getLogger(DashBoard.class);
     private final DebitCardDAO debitCardDAO;
     private final PurchaseProductDAO purchaseProductDAO;
     private final AccountUtil accountUtil;
-    private final LoginCredentialDAO loginCredentialDAO;
     private final TransactionUtil transactionUtil;
-    private final NewCustomer customer;
 
     public PurchaseUtil() {
         this.debitCardDAO = new DebitCardDAOImpl();
         this.accountUtil = new AccountUtil();
         transactionUtil = new TransactionUtil();
         purchaseProductDAO = new PurchaseProductDAOImpl();
-        loginCredentialDAO = new LoginCredentialDAOImpl();
-        customer = new NewCustomer();
     }
 
-    public void purchaseItems() {
+    public void purchaseItems(Scanner in) {
         do {
             logger.info("1. Purchase");
             logger.info("2. Purchase History");
@@ -48,7 +42,7 @@ public class PurchaseUtil {
                 case 1:
                     logger.info("Enter the debit card Number");
                     long cardNumber = in.nextLong();
-                    DebitCard debitCard = debitCardDAO.findByCardNumber(cardNumber);
+                    DebitCard debitCard = this.debitCardDAO.findByCardNumber(cardNumber);
                     if (debitCard != null) {
                         if (cardNumber == debitCard.getCardNumber()) {
                             logger.info("Purchase Desc: ");
@@ -57,15 +51,15 @@ public class PurchaseUtil {
                             BigDecimal amt = in.nextBigDecimal();
                             logger.info("Enter the cvv");
                             int cvv = in.nextInt();
-                            ArrayList<Account> accountList = debitCardDAO.findAccountBySsn(debitCard.getSsn());
+                            ArrayList<Account> accountList = this.debitCardDAO.findAccountBySsn(debitCard.getSsn());
                             if (accountList != null) {
                                 for (Account account : accountList) {
                                     if (debitCard.getCvvNumber() == cvv) {
                                         if (amt.compareTo(account.getTotalBalance()) == -1) {
-                                            accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amt));
-                                            Transaction transaction = transactionUtil.addTransactions(account.getAccountNumber(), amt);
+                                            this.accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amt));
+                                            Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amt);
                                             PurchaseProduct purchaseProduct = new PurchaseProduct(debitCard.getCardNumber(), desc, amt, transaction.getTransactionId(), debitCard.getSsn(), transaction.getTransactionTimestamp());
-                                            purchaseProductDAO.create(purchaseProduct);
+                                            this.purchaseProductDAO.create(purchaseProduct);
                                             logger.info("Purchased Bill Generated to Purchase Table");
                                         } else {
                                             logger.info("Not Much Balance");
@@ -83,7 +77,7 @@ public class PurchaseUtil {
                     }
                     break;
                 case 2: {
-                    ArrayList<PurchaseProduct> purchaseProductList = purchaseProductDAO.getAll();
+                    ArrayList<PurchaseProduct> purchaseProductList = this.purchaseProductDAO.getAll();
                     if (purchaseProductList != null) {
                         for (PurchaseProduct purchaseProduct : purchaseProductList) {
                             logger.info(purchaseProduct);

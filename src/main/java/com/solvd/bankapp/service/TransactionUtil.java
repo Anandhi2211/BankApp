@@ -17,23 +17,21 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class TransactionUtil implements ITransaction {
-    //    private static int transactionID = 20000;
     private final TransactionDAO transactionDAO;
     private final AccountUtil accountUtil;
-    Scanner in = new Scanner(System.in);
     private static final Logger logger = LogManager.getLogger(TransactionUtil.class);
     public TransactionUtil() {
         this.transactionDAO = new TransactionDAOImpl();
         this.accountUtil = new AccountUtil();
     }
     @Override
-    public void transactionPage(Account account) {
+    public void transactionPage(Account account,Scanner in) {
         do {
             account = this.accountUtil.getAccount(account.getUsername());
             logger.info("1. Transaction History");
             logger.info("2. Filter by Date");
             logger.info("3. Find by Transaction Number");
-            logger.info("4. Exiting");
+            logger.info("4. Exit");
             logger.info("Enter your options: ");
             int answer = in.nextInt();
             if (!(answer >= 1) || !(answer <= 4)) {
@@ -105,18 +103,17 @@ public class TransactionUtil implements ITransaction {
                 }
                 break;
                 case 4:
-                    logger.info("Exiting");
+                    logger.info("Exit");
                     return;
                 default:
                     return;
             }
         } while (true);
     }
-
     @Override
     public Transaction addTransactions(long accountNumber, BigDecimal amount) {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        int transactionID = transactionDAO.getTransactionId();
+        int transactionID = this.transactionDAO.getTransactionId();
         logger.info("CURRENT TRANSACTION ID " + transactionID);
         transactionID = (transactionID != 0) ? transactionID + 1 : 20000;
         Transaction transaction = new Transaction(transactionID, amount, true, accountNumber, currentTime);

@@ -13,8 +13,6 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class PaymentUtil {
-    Scanner in = new Scanner(System.in);
-
     private static final Logger logger = LogManager.getLogger(DashBoard.class);
     private final TransactionUtil transactionUtil;
     private final NewCustomer customer;
@@ -28,12 +26,12 @@ public class PaymentUtil {
         this.loginCredentialDAO = new LoginCredentialDAOImpl();
     }
 
-    public void PayBillPage(Account account) {
+    public void PayBillPage(Account account, Scanner in) {
         do {
             logger.info("1. Add Bills");
             logger.info("2. Pay Bill");
             logger.info("3. Payed Bill History");
-            logger.info("4. Exiting");
+            logger.info("4. Exit");
             logger.info("Enter your options: ");
             int answer = in.nextInt();
             if (!(answer >= 1) || !(answer <= 4)) {
@@ -68,7 +66,7 @@ public class PaymentUtil {
                 case 3:
                     break;
                 case 4:
-                    logger.info("Exiting");
+                    logger.info("Exit");
                     return;
                 default:
                     return;

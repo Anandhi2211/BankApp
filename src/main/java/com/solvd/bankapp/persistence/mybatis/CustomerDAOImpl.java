@@ -18,7 +18,6 @@ public class CustomerDAOImpl implements CustomerDAO {
     public void create(Customer customer) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
         try {
-            System.out.println("im here");
             CustomerDAO customerDAO = sqlSession.getMapper(CustomerDAO.class);
             customerDAO.create(customer);
             sqlSession.commit();

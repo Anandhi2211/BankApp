@@ -24,17 +24,16 @@ public class BankTransferUtil implements IBankTransfers {
     private final AccountUtil accountUtil;
     private final BankTransferDAO bankTransferDAO;
     private static final Logger logger = LogManager.getLogger(DashBoard.class);
-    Scanner in = new Scanner(System.in);
 
     public BankTransferUtil() {
         this.beneficiaryDAO = new BeneficiaryDAOImpl();
         this.transactionUtil = new TransactionUtil();
         this.accountUtil = new AccountUtil();
-        bankTransferDAO = new BankTransferDAOImpl();
+        this.bankTransferDAO = new BankTransferDAOImpl();
     }
 
     @Override
-    public void bankTransferPage(Account account) {
+    public void bankTransferPage(Account account, Scanner in) {
         do {
             account = this.accountUtil.getAccount(account.getUsername());
             logger.info("1. Add Beneficiary");
@@ -66,8 +65,7 @@ public class BankTransferUtil implements IBankTransfers {
                                 logger.info("***");
                             }
                         }
-                    }
-                    else {
+                    } else {
                         logger.info("No Beneficiary List");
                     }
 
@@ -85,10 +83,10 @@ public class BankTransferUtil implements IBankTransfers {
                                 if (amountToTransfer.compareTo(account.getTotalBalance()) == -1) {
                                     flag = true;
                                     BigDecimal transferCharge = new BigDecimal(10);
-                                    Transaction transaction = transactionUtil.addTransactions(account.getAccountNumber(), amountToTransfer.add(transferCharge));
-                                    accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amountToTransfer.add(transferCharge)));
+                                    Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amountToTransfer.add(transferCharge));
+                                    this.accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amountToTransfer.add(transferCharge)));
                                     BankTransfer bankTransfer = new BankTransfer(amountToTransfer, beneficiary1.getAccountNumber(), transferCharge, account.getUsername(), transaction.getTransactionId(), transaction.getTransactionTimestamp());
-                                    bankTransferDAO.create(bankTransfer);
+                                    this.bankTransferDAO.create(bankTransfer);
                                 } else {
                                     logger.info("Don't have enough Account Balance to do Transfer");
                                 }
@@ -105,7 +103,7 @@ public class BankTransferUtil implements IBankTransfers {
                     logger.info("Bank to bank Transfer History");
                     break;
                 case 5:
-                    logger.info("Exiting");
+                    logger.info("Exit");
                     return;
                 default:
                     logger.info("Enter correct option");

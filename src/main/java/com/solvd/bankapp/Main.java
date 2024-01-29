@@ -31,12 +31,12 @@ public class Main {
                 switch (answer) {
                     case 1: {
                         NewCustomer newCustomer = new NewCustomer();
-                        newCustomer.addNewCustomer();
+                        newCustomer.addNewCustomer(in);
                         break;
                     }
                     case 2: {
                         DashBoard dashBoard = new DashBoard();
-                        dashBoard.welcomePage();
+                        dashBoard.welcomePage(in);
                         break;
                     }
                     case 3: {
@@ -50,7 +50,7 @@ public class Main {
                     case 5:
                         logger.info("PurchaseUtil product with Debit Card");
                         PurchaseUtil purchaseUtil = new PurchaseUtil();
-                        purchaseUtil.purchaseItems();
+                        purchaseUtil.purchaseItems(in);
 
                         break;
                     case 6:
