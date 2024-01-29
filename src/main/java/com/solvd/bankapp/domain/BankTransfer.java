@@ -1,13 +1,15 @@
 package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 public class BankTransfer {
     private long transferId;
     private Account sourceAccount;
     private Account destinationAccount;
     private BigDecimal amount;
-    private String transferTimestamp;
+    private Timestamp transferTimestamp;
 
     private BankTransfer() {
     }
@@ -28,7 +30,7 @@ public class BankTransfer {
         return amount;
     }
 
-    public String getTransferTimestamp() {
+    public Timestamp getTransferTimestamp() {
         return transferTimestamp;
     }
 
@@ -75,7 +77,7 @@ public class BankTransfer {
             return this;
         }
 
-        public Builder transferDate(String transferDate) {
+        public Builder transferDate(Timestamp transferDate) {
             bankTransfer.transferTimestamp = transferDate;
             return this;
         }

@@ -8,18 +8,9 @@ public class Transaction {
     private BigDecimal amount;
     private boolean transactionStatus;
     private long accountNumber;
-    private String transactionTimestamp;
-
-    public Transaction(int transactionId, BigDecimal amount, boolean transactionStatus, long accountNumber, String transactionTimestamp) {
-        this.transactionId = transactionId;
-        this.amount = amount;
-        this.transactionStatus = transactionStatus;
-        this.accountNumber = accountNumber;
-        this.transactionTimestamp = transactionTimestamp;
-    }
+    private Timestamp transactionTimestamp;
 
     public Transaction() {
-
     }
 
     public int getTransactionId() {
@@ -38,10 +29,9 @@ public class Transaction {
         return accountNumber;
     }
 
-    public String getTransactionTimestamp() {
+    public Timestamp getTransactionTimestamp() {
         return transactionTimestamp;
     }
-
 
     @Override
     public String toString() {
@@ -53,7 +43,7 @@ public class Transaction {
                 ", transactionTimestamp=" + transactionTimestamp +
                 '}';
     }
-    public static  Builder builder(){
+    public static Builder builder(){
         return new Builder (new Transaction());
     }
 
@@ -84,7 +74,7 @@ public class Transaction {
             return this;
         }
 
-        public Builder setTransactionTimestamp(String transactionTimestamp) {
+        public Builder setTransactionTimestamp(Timestamp transactionTimestamp) {
             transaction.transactionTimestamp = transactionTimestamp;
             return this;
         }
