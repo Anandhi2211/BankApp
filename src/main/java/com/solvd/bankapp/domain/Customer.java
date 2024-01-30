@@ -14,7 +14,7 @@ public class Customer {
 
     public long getSsn() {
         return ssn;
-        }
+    }
 
     public String getFirstName() {
         return firstName;
@@ -71,42 +71,42 @@ public class Customer {
 
         private Builder() {
             this.customer = new Customer();
-    }
+        }
 
         public Builder ssn(long ssn) {
             customer.ssn = ssn;
             return this;
-    }
+        }
 
         public Builder firstName(String firstName) {
             customer.firstName = firstName;
             return this;
-    }
+        }
 
         public Builder lastName(String lastName) {
             customer.lastName = lastName;
             return this;
-    }
+        }
 
         public Builder email(String email) {
             customer.email = email;
             return this;
-    }
+        }
 
         public Builder phoneNumber(String phoneNumber) {
             customer.phoneNumber = phoneNumber;
             return this;
-    }
+        }
 
         public Builder account(Account account) {
             customer.account = account;
             return this;
-    }
+        }
 
         public Builder loginCredential(LoginCredential loginCredential) {
             customer.loginCredential = loginCredential;
             return this;
-    }
+        }
 
         public Customer build() {
             if (customer.ssn == 0 || customer.firstName == null || customer.lastName == null ||

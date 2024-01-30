@@ -2,7 +2,6 @@ package com.solvd.bankapp.service;
 
 import com.solvd.bankapp.domain.Account;
 import com.solvd.bankapp.domain.InterestRates;
-import com.solvd.bankapp.domain.NotificationService;
 import com.solvd.bankapp.domain.SavingsAccount;
 import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.persistence.SavingsAccountDAO;
@@ -18,11 +17,13 @@ public class SavingAccountUtil {
     private final AccountUtil accountUtil;
     private final TransactionUtil transactionUtil;
     private static final Logger logger = LogManager.getLogger(SavingAccountUtil.class);
+
     public SavingAccountUtil() {
         this.savingsAccountDAO = new SavingsAccountDAOImpl();
         this.transactionUtil = new TransactionUtil();
         this.accountUtil = new AccountUtil();
     }
+
     public void savingAccountPage(String username, Scanner in) {
         do {
             Account account = accountUtil.getAccount(username);
@@ -51,8 +52,6 @@ public class SavingAccountUtil {
                             this.transactionUtil.addTransactions(account.getAccountNumber(), amount);
                             this.accountUtil.updateAmount(account.getAccountNumber(), amountBalance.subtract(amount));
                             logger.info("********* UPDATED AMT***********" + amountBalance.subtract(amount));
-
-
                         } else {
                             this.savingsAccountDAO.update(account.getAccountNumber(), amount.add(savingsAccount.getSavingsBalance()));
                             this.transactionUtil.addTransactions(account.getAccountNumber(), amount);

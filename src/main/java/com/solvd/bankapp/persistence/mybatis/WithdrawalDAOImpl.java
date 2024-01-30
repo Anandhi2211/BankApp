@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class WithdrawalDAOImpl implements WithdrawalDAO {
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.bankapp.persistence.mybatis.WithdrawalDAOImpl.class);
+
     @Override
     public void create(Withdrawal withdrawal) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);

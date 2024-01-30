@@ -28,9 +28,6 @@ public class CustomerDAOImpl implements CustomerDAO {
             sqlSession.close();
         }
     }
-
-
-
     @Override
     public void update(Customer customer) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
@@ -45,7 +42,6 @@ public class CustomerDAOImpl implements CustomerDAO {
             sqlSession.close();
         }
     }
-
     @Override
     public void delete(Customer customer) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
@@ -75,7 +71,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         } finally {
             sqlSession.close();
         }
-        return customer;    }
+        return customer;
+    }
 
     @Override
     public Customer display(String username) {

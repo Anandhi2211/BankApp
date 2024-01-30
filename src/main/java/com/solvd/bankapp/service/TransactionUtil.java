@@ -20,12 +20,14 @@ public class TransactionUtil implements ITransaction {
     private final TransactionDAO transactionDAO;
     private final AccountUtil accountUtil;
     private static final Logger logger = LogManager.getLogger(TransactionUtil.class);
+
     public TransactionUtil() {
         this.transactionDAO = new TransactionDAOImpl();
         this.accountUtil = new AccountUtil();
     }
+
     @Override
-    public void transactionPage(Account account,Scanner in) {
+    public void transactionPage(Account account, Scanner in) {
         do {
             account = this.accountUtil.getAccount(account.getUsername());
             logger.info("1. Transaction History");
@@ -110,13 +112,13 @@ public class TransactionUtil implements ITransaction {
             }
         } while (true);
     }
+
     @Override
     public Transaction addTransactions(long accountNumber, BigDecimal amount) {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         int transactionID = this.transactionDAO.getTransactionId();
         logger.info("CURRENT TRANSACTION ID " + transactionID);
         transactionID = (transactionID != 0) ? transactionID + 1 : 20000;
-
         Transaction transaction = Transaction.builder()
                 .setTransactionId(transactionID)
                 .setTransactionStatus(true)

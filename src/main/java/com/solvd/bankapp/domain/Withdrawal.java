@@ -42,14 +42,14 @@ public class Withdrawal {
                 '}';
     }
 
-    public static  Builder builder(){
-        return new Builder (new Withdrawal());
+    public static Builder builder() {
+        return new Builder(new Withdrawal());
     }
 
-    public static class Builder{
+    public static class Builder {
         private final Withdrawal withdrawal;
 
-        public Builder(com.solvd.bankapp.domain.Withdrawal withdrawal) {
+        public Builder(Withdrawal withdrawal) {
             this.withdrawal = withdrawal;
         }
 
@@ -78,7 +78,7 @@ public class Withdrawal {
             return this;
         }
 
-        public com.solvd.bankapp.domain.Withdrawal getWithdrawal() {
+        public Withdrawal getWithdrawal() {
             return withdrawal;
         }
     }

@@ -54,24 +54,6 @@ public class TransactionDAOImpl implements TransactionDAO {
         }
         return optionalTransaction;
     }
-//
-//    @Override
-//    public ArrayList<Transaction> getTransactionHistory(long accountNumber) {
-//        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
-//        ArrayList<Transaction> transactionArrayList = null;
-//        try {
-//            TransactionDAO transactionDAO= sqlSession.getMapper(TransactionDAO.class);
-//            transactionArrayList = transactionDAO.getTransactionHistory(accountNumber);
-//            sqlSession.commit();
-//        } catch (PersistenceException e) {
-//            LOGGER.error("Error finding transaction History by account number", e);
-//            sqlSession.rollback();
-//        } finally {
-//            sqlSession.close();
-//        }
-//        return transactionArrayList;
-//    }
-
 
     @Override
     public ArrayList<Transaction> getAll() {
@@ -129,25 +111,13 @@ public class TransactionDAOImpl implements TransactionDAO {
         ArrayList<Transaction> transactions = new ArrayList<>();
         try {
             while (resultSet.next()) {
-//                Transaction transaction = new Transaction();
-
-                 Transaction transaction = Transaction.builder()
+                Transaction transaction = Transaction.builder()
                         .setTransactionId(resultSet.getInt("transaction_id"))
                         .setAmount(resultSet.getBigDecimal("amount"))
                         .setAccountNumber(resultSet.getLong("account_number"))
                         .setTransactionStatus(resultSet.getBoolean("transaction_status"))
                         .setTransactionTimestamp(Timestamp.valueOf(resultSet.getString("transaction_timestamp")))
-                                .build();
-
-
-//
-//                transaction.setTransactionId(resultSet.getInt("transaction_id"));
-//                transaction.setAmount(resultSet.getBigDecimal("amount"));
-//                transaction.setAccountNumber(resultSet.getLong("account_number"));
-//                transaction.setTransactionStatus(resultSet.getBoolean("transaction_status"));
-//                transaction.setTransactionTimestamp((resultSet.getTimestamp("transaction_timestamp")));
-
-
+                        .build();
                 transactions.add(transaction);
             }
             return transactions;

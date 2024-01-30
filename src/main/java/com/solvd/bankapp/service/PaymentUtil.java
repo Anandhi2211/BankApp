@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class PaymentUtil {
-    private static final Logger logger = LogManager.getLogger(DashBoard.class);
+    private static final Logger logger = LogManager.getLogger(PaymentUtil.class);
     private final TransactionUtil transactionUtil;
     private final NewCustomer customer;
     private final LoginCredentialDAO loginCredentialDAO;
@@ -29,12 +29,10 @@ public class PaymentUtil {
     public void PayBillPage(Account account, Scanner in) {
         do {
             logger.info("1. Add Bills");
-            logger.info("2. Pay Bill");
-            logger.info("3. Payed Bill History");
-            logger.info("4. Exit");
+            logger.info("2. Exit");
             logger.info("Enter your options: ");
             int answer = in.nextInt();
-            if (!(answer >= 1) || !(answer <= 4)) {
+            if (!(answer >= 1) || !(answer <= 2)) {
                 throw new BankException("Invalid Input");
             }
             switch (answer) {
@@ -51,7 +49,6 @@ public class PaymentUtil {
                             LoginCredential loginCredential = this.loginCredentialDAO.findByUsername(account.getUsername());
                             Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amt);
                             Customer customer = this.customer.getCustomerByUserName(loginCredential.getUsername());
-
                             payment = Payment.builder()
                                     .setCompanyAccountNumber(billAccountNumber)
                                     .setCompanyName(billCompanyName)
@@ -61,8 +58,6 @@ public class PaymentUtil {
                                     .setPaymentTimestamp(transaction.getTransactionTimestamp())
                                     .setTransactionId(transaction.getTransactionId()).build();
                             this.paymentDAO.create(payment);
-
-
                         } else {
                             logger.info("Not sufficient Balance");
                         }
@@ -72,10 +67,6 @@ public class PaymentUtil {
                 }
                 break;
                 case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
                     logger.info("Exit");
                     return;
                 default:

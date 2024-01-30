@@ -10,7 +10,6 @@ import java.util.Optional;
 public interface LoginCredentialDAO extends BaseDAO<LoginCredential> {
     @Override
     void create(@Param("credentials") LoginCredential credentials);
-//    void findByUserName(String username);
     void update(LoginCredential credentials);
 
     LoginCredential findByUsername(String username);

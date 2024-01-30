@@ -11,10 +11,6 @@ public interface TransactionDAO extends BaseListDAO<Transaction> {
     @Override
     void create(@Param("transaction") Transaction transaction);
 
-//    @Override
-//    Optional<Transaction> findById(@Param("transactionId") int transactionId);
-
-//    @Override
     ArrayList<Transaction> getAll(); // we can remove this
 
     ArrayList<Transaction> getTransactionHistory(long accountNumber);

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PurchaseUtil {
-    private static final Logger logger = LogManager.getLogger(DashBoard.class);
+    private static final Logger logger = LogManager.getLogger(PurchaseUtil.class);
     private final DebitCardDAO debitCardDAO;
     private final PurchaseProductDAO purchaseProductDAO;
     private final AccountUtil accountUtil;
@@ -58,7 +58,6 @@ public class PurchaseUtil {
                                         if (amt.compareTo(account.getTotalBalance()) == -1) {
                                             this.accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amt));
                                             Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amt);
-//                                            PurchaseProduct purchaseProduct = new PurchaseProduct(debitCard.getCardNumber(), desc, amt, transaction.getTransactionId(), debitCard.getSsn(), transaction.getTransactionTimestamp());
                                             PurchaseProduct purchaseProduct = PurchaseProduct.builder()
                                                     .setPurchaseDescription(desc)
                                                     .setTransactionId(transaction.getTransactionId())
@@ -67,7 +66,6 @@ public class PurchaseUtil {
                                                     .setCardNumber(debitCard.getCardNumber())
                                                     .setSsn(debitCard.getSsn())
                                                     .getPurchaseProduct();
-
                                             this.purchaseProductDAO.create(purchaseProduct);
                                             logger.info("Purchased Bill Generated to Purchase Table");
                                         } else {

@@ -33,25 +33,6 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
         }
     }
 
-//    @Override
-//    public Optional<SavingsAccount> findByNumber(long accountNumber) {
-//        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
-//        Optional<SavingsAccount> optionalSavingsAccount = Optional.empty();
-//        try {
-//            SavingsAccountDAO savingsAccountDAO= sqlSession.getMapper(SavingsAccountDAO.class);
-//            optionalSavingsAccount = savingsAccountDAO.findByNumber(accountNumber);
-//            sqlSession.commit();
-//        } catch (PersistenceException e) {
-//            LOGGER.error("Error finding savings account by account number", e);
-//            sqlSession.rollback();
-//        } finally {
-//            sqlSession.close();
-//        }
-//        return optionalSavingsAccount;
-//    }
-
-
-
     @Override
     public SavingsAccount findSavingByNumber(long accountNumber) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
@@ -104,7 +85,7 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
         try {
             SavingsAccountDAO savingsAccountDAO = sqlSession.getMapper(SavingsAccountDAO.class);
-            savingsAccountDAO.update(accountNumber,amount);
+            savingsAccountDAO.update(accountNumber, amount);
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error Updating savings account", e);

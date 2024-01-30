@@ -90,8 +90,8 @@ public class DebitCardDAOImpl implements DebitCardDAO {
         try {
             while (resultSet.next()) {
                 Account account = Account.builder()
-                .setAccountNumber(resultSet.getLong("account_number"))
-                .setUsername(resultSet.getString("logincredentials_username")).build();
+                        .setAccountNumber(resultSet.getLong("account_number"))
+                        .setUsername(resultSet.getString("logincredentials_username")).build();
                 account.setTotalBalance(resultSet.getBigDecimal("total_balance"));
                 accounts.add(account);
             }
@@ -110,20 +110,12 @@ public class DebitCardDAOImpl implements DebitCardDAO {
                     .prepareStatement("select * from debit_cards where customers_ssn = " + ssn);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                debitCard =  DebitCard.builder()
-                .setCardNumber(resultSet.getLong("card_number"))
-                .setSsn(resultSet.getLong("customers_ssn"))
-                .setExpirationDate(resultSet.getTimestamp("expiration_date"))
-                .setCvvNumber(resultSet.getInt("cvv_number"))
-                .setCustomerFullName(resultSet.getString("customer_full_name")).build();
-
-
-//                debitCard.setCardNumber(resultSet.getLong("card_number"));
-//                debitCard.setSsn(resultSet.getLong("customers_ssn"));
-//                debitCard.setExpirationDate(resultSet.getTimestamp("expiration_date"));
-//                debitCard.setCvvNumber(resultSet.getInt("cvv_number"));
-//                debitCard.setCustomerFullName(resultSet.getString("customer_full_name"));
-//
+                debitCard = DebitCard.builder()
+                        .setCardNumber(resultSet.getLong("card_number"))
+                        .setSsn(resultSet.getLong("customers_ssn"))
+                        .setExpirationDate(resultSet.getTimestamp("expiration_date"))
+                        .setCvvNumber(resultSet.getInt("cvv_number"))
+                        .setCustomerFullName(resultSet.getString("customer_full_name")).build();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -132,22 +124,4 @@ public class DebitCardDAOImpl implements DebitCardDAO {
         }
         return debitCard;
     }
-
-//    private ArrayList<DebitCard> getDebitCards(ResultSet resultSet) {
-//        ArrayList<DebitCard> debitCards = new ArrayList<>();
-//        try {
-//            while (resultSet.next()) {
-//                DebitCard debitCard = new DebitCard();
-//                debitCard.setCardNumber(resultSet.getLong("card_number"));
-//                debitCard.setExpirationDate(resultSet.getTimestamp("expiration_date"));
-//                debitCard.setCvvNumber(resultSet.getInt("cvv_number"));
-//                debitCard.setCustomerFullName(resultSet.getString("customer_full_name"));
-//                debitCard.setSsn(resultSet.getLong("customers_ssn"));
-//                debitCards.add(debitCard);
-//            }
-//            return debitCards;
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 }

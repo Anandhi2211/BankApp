@@ -62,13 +62,12 @@ public class BeneficiaryDAOImpl implements BeneficiaryDAO {
         Connection connection = CONNECTION_POOL.getConnection();
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("Select * from beneficiaries where account_number = "+accountNumber);
+                    .prepareStatement("Select * from beneficiaries where account_number = " + accountNumber);
             ResultSet resultSet = preparedStatement.executeQuery();
             beneficiaries = displayTheResults(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
         return beneficiaries;
@@ -79,48 +78,15 @@ public class BeneficiaryDAOImpl implements BeneficiaryDAO {
         try {
             while (resultSet.next()) {
                 Beneficiary beneficiary = Beneficiary.builder()
-                .setBeneficiaryName(resultSet.getString("beneficiary_name"))
-                .setBeneficiaryAccountNumber(resultSet.getLong("beneficiary_account_number"))
-                .setAccountNumber(resultSet.getLong("account_number")).build();
+                        .setBeneficiaryName(resultSet.getString("beneficiary_name"))
+                        .setBeneficiaryAccountNumber(resultSet.getLong("beneficiary_account_number"))
+                        .setAccountNumber(resultSet.getLong("account_number")).build();
 
-            beneficiaries.add(beneficiary);
+                beneficiaries.add(beneficiary);
             }
             return beneficiaries;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-//    @Override
-//    public List<Beneficiary> getAll(long accountNumber) {
-//        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
-//        List<Beneficiary> beneficiaries = null;
-//        try {
-//            BeneficiaryDAO beneficiaryDAO = sqlSession.getMapper(BeneficiaryDAO.class);
-//            beneficiaries = beneficiaryDAO.getAll(accountNumber);
-//        } catch (PersistenceException e) {
-//            LOGGER.error("Error getting all beneficiaries", e);
-//            sqlSession.rollback();
-//        } finally {
-//            sqlSession.close();
-//        }
-//        return beneficiaries;
-//    }
-
-//    @Override
-//    public Optional<Beneficiary> getAllBeneficiary(long accountNumber) {
-//        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
-//        Optional<Beneficiary> optionalBeneficiary =  Optional.empty();
-//        try {
-//            BeneficiaryDAO beneficiaryDAO = sqlSession.getMapper(BeneficiaryDAO.class);
-//            optionalBeneficiary = beneficiaryDAO.getAllBeneficiary(accountNumber);
-//            sqlSession.commit();
-//        } catch (PersistenceException e) {
-//            LOGGER.error("Error finding Beneficiary by customer_account number", e);
-//            sqlSession.rollback();
-//        } finally {
-//            sqlSession.close();
-//        }
-//        return optionalBeneficiary;
-//    }
 }

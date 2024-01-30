@@ -17,7 +17,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class DebitCardUtil {
-    private static final Logger logger = LogManager.getLogger(DashBoard.class);
+    private static final Logger logger = LogManager.getLogger(DebitCardUtil.class);
     private final DebitCardDAO debitCardDAO;
     private final CustomerDAO customerDAO;
     private static long debitCardNumber = 1004586965;
@@ -46,17 +46,11 @@ public class DebitCardUtil {
                         date = date.plusYears(3);
                         Random random = new Random();
                         int cvv = random.nextInt(999);
-//                        DebitCard debitCard = new DebitCard(debitCardNumber++, Timestamp.valueOf(date.atStartOfDay()), cvv, customer.getFirstName(), customer.getSsn());
-
                         DebitCard debitCard = DebitCard.builder().setCardNumber(debitCardNumber++)
                                 .setExpirationDate(Timestamp.valueOf(date.atStartOfDay()))
                                 .setCvvNumber(cvv)
                                 .setSsn(customer.getSsn())
-                                .setCustomerFullName(customer.getFirstName()+" "+customer.getLastName()).build();
-
-//                                (debitCardNumber++, Timestamp.valueOf(date.atStartOfDay()), cvv, customer.getFirstName(), customer.getSsn());
-
-
+                                .setCustomerFullName(customer.getFirstName() + " " + customer.getLastName()).build();
                         logger.info(debitCard);
                         this.debitCardDAO.create(debitCard);
                     } else {

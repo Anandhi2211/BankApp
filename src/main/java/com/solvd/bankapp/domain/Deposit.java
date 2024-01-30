@@ -25,15 +25,19 @@ public class Deposit {
     public BigDecimal getDepositAmount() {
         return depositAmount;
     }
+
     public long getAccountNumber() {
         return accountNumber;
     }
+
     public String getUsername() {
         return username;
     }
+
     public int getTransactionId() {
         return transactionId;
     }
+
     public Timestamp getDepositTimestamp() {
         return depositTimestamp;
     }
@@ -49,10 +53,11 @@ public class Deposit {
                 '}';
     }
 
-    public static  Builder builder(){
+    public static Builder builder() {
         return new Builder(new Deposit());
     }
-    public static class Builder{
+
+    public static class Builder {
 
         private final Deposit deposit;
 
