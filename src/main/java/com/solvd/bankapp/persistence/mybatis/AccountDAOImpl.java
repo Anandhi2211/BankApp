@@ -1,6 +1,7 @@
 package com.solvd.bankapp.persistence.mybatis;
 
 import com.solvd.bankapp.domain.Account;
+import com.solvd.bankapp.domain.NotificationService;
 import com.solvd.bankapp.persistence.AccountDAO;
 import com.solvd.bankapp.util.Config;
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -20,6 +21,7 @@ public class AccountDAOImpl implements AccountDAO {
         try {
             AccountDAO admissionDAO = sqlSession.getMapper(AccountDAO.class);
             admissionDAO.create(account);
+            account.addObserver(new NotificationService());
             sqlSession.commit();
         } catch (PersistenceException e) {
             LOGGER.error("Error creating account", e);

@@ -4,11 +4,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Account {
+public class Account implements Subject {
     private long accountNumber;
     private BigDecimal totalBalance;
     private String username;
     private ArrayList<Transaction> transactionList;
+    private final List<PaymentObserver> observers = new ArrayList<>();
 
     Account() {
     }
@@ -34,6 +35,27 @@ public class Account {
             transactionList = new ArrayList<>();
         }
         return transactionList;
+    }
+
+    public boolean isBalanceBelowThreshold(BigDecimal threshold) {
+        return totalBalance.compareTo(threshold) < 0;
+    }
+
+    @Override
+    public void addObserver(PaymentObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(PaymentObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (PaymentObserver observer : observers) {
+            observer.update(this);
+        }
     }
 
     @Override

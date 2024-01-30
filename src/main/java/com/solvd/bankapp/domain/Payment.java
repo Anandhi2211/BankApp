@@ -119,19 +119,4 @@ public class Payment {
             return payment;
         }
     }
-
-    public void addObserver(PaymentObserver observer) {
-        observers.add(observer);
-    }
-
-    private void notifyObservers() {
-        for (PaymentObserver observer : observers) {
-            observer.update(this);
-        }
-    }
-
-    public void markAsPaid() {
-        // put payment logic
-        notifyObservers();
-    }
 }
