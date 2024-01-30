@@ -2,8 +2,6 @@ package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Payment {
     private int companyAccountNumber;
@@ -13,7 +11,6 @@ public class Payment {
     private int transactionId;
     private long ssn;
     private Timestamp paymentTimestamp;
-    private final List<PaymentObserver> observers = new ArrayList<>();
 
     public int getCompanyAccountNumber() {
         return companyAccountNumber;
@@ -41,10 +38,6 @@ public class Payment {
 
     public Timestamp getPaymentTimestamp() {
         return paymentTimestamp;
-    }
-
-    public List<PaymentObserver> getObservers() {
-        return observers;
     }
 
     @Override
