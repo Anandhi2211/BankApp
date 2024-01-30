@@ -7,17 +7,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
-
 public class NewCustomer {
     private static final Logger logger = LogManager.getLogger(NewCustomer.class);
     private final AccountUtil accountUtil;
     private final CustomerDAO customerDAO;
-
     public NewCustomer() {
         customerDAO = new CustomerDAOImpl();
         this.accountUtil = new AccountUtil();
     }
-
     public void addNewCustomer(Scanner in) {
         logger.info("New Customer details");
 //        logger.info("Enter your SSN: ");
@@ -37,7 +34,6 @@ public class NewCustomer {
                 .lastName("Jayapal")
                 .email("anandhirmk@gmail.com")
                 .phoneNumber("9999999999").build();
-//        Customer customer = new Customer(1234567, "Anandhi", "Jayapal", "anandhirmk@gmail.com", "9999999999");
         accountUtil.createAccount(customer, in);
     }
 

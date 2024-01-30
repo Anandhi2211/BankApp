@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class BankTransferDAOImpl implements BankTransferDAO {
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.bankapp.persistence.mybatis.BankTransferDAOImpl.class);
+
     @Override
     public void create(BankTransfer transfer) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);

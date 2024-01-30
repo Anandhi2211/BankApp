@@ -40,7 +40,6 @@ public class BankTransfer {
     }
 
 
-
     private void calculateSurcharges() {
         if (amount != null) {
             TransferCharges charge;
@@ -78,10 +77,11 @@ public class BankTransfer {
             this.bankTransfer = new BankTransfer();
         }
 
-        public Builder username(String username){
+        public Builder username(String username) {
             bankTransfer.username = username;
             return this;
         }
+
         public Builder transferId(int transferId) {
             bankTransfer.transferId = transferId;
             return this;

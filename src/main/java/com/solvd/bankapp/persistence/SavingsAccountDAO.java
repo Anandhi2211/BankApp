@@ -10,7 +10,6 @@ import java.util.Optional;
 public interface SavingsAccountDAO extends BaseDAO<SavingsAccount> {
     @Override
     void create(@Param("savingsAccount") SavingsAccount savingsAccount);
-//    Optional<SavingsAccount> findByNumber(long accountNumber);
     SavingsAccount findSavingByNumber(@Param("accountNumber") long accountNumber);
     List<SavingsAccount> getAll();//we can remove
     void delete(long accountNumber);

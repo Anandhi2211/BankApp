@@ -12,6 +12,4 @@ public interface BeneficiaryDAO extends BaseDAO<Beneficiary> {
     void create(Beneficiary beneficiary);
     Beneficiary findByName(@Param("beneficiaryName") String beneficiaryName);
     ArrayList<Beneficiary> getAll(long accountNumber);
-
-//    Optional<Beneficiary> getAllBeneficiary(long accountNumber);
 }

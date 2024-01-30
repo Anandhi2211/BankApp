@@ -34,7 +34,7 @@ public class Beneficiary {
     }
 
     public static class Builder {
-        private Beneficiary beneficiary;//changed from final
+        private Beneficiary beneficiary;
 
         private Builder(Beneficiary beneficiary) {
             this.beneficiary = beneficiary;

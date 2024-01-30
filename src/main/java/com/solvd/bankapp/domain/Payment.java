@@ -13,8 +13,6 @@ public class Payment {
     private int transactionId;
     private long ssn;
     private Timestamp paymentTimestamp;
-//    private boolean notificationStatus;
-//    private final List<PaymentObserver> observers = new ArrayList<>();
 
     public int getCompanyAccountNumber() {
         return companyAccountNumber;
@@ -44,18 +42,6 @@ public class Payment {
         return paymentTimestamp;
     }
 
-//    public boolean isNotificationStatus() {
-//        return notificationStatus;
-//    }
-//
-//    public void setNotificationStatus(boolean notificationStatus) {
-//        this.notificationStatus = notificationStatus;
-//    }
-
-//    public List<PaymentObserver> getObservers() {
-//        return observers;
-//    }
-
     @Override
     public String toString() {
         return "Payment{" +
@@ -69,11 +55,11 @@ public class Payment {
                 '}';
     }
 
-    public static  Builder builder(){
-        return new Builder (new Payment());
+    public static Builder builder() {
+        return new Builder(new Payment());
     }
 
-    public static class Builder{
+    public static class Builder {
         private final Payment payment;
 
         public Builder(Payment payment) {
@@ -119,19 +105,4 @@ public class Payment {
             return payment;
         }
     }
-
-//    public void addObserver(PaymentObserver observer) {
-//        observers.add(observer);
-//    }
-
-//    private void notifyObservers() {
-//        for (PaymentObserver observer : observers) {
-//            observer.update(this);
-//        }
-//    }
-
-//    public void markAsPaid() {
-//        // put payment logic
-//        notifyObservers();
-//    }
 }

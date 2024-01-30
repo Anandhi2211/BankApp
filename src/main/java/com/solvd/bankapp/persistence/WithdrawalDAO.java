@@ -9,7 +9,6 @@ public interface WithdrawalDAO extends BaseListDAO<Withdrawal> {
     void create(Withdrawal withdrawal);
     @Override
     Optional<Withdrawal> findById(int transactionId);
-
     @Override
     List<Withdrawal> getAll();
 }

@@ -11,9 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class BankTransferUtil implements IBankTransfers {
     private final BeneficiaryDAO beneficiaryDAO;
@@ -36,10 +34,9 @@ public class BankTransferUtil implements IBankTransfers {
             logger.info("1. Add Beneficiary");
             logger.info("2. View all Beneficiary");
             logger.info("3. Bank to Bank Transfer");
-            logger.info("4. Bank to Bank Transfer History");
-            logger.info("5. Exit");
+            logger.info("4. Exit");
             int answer = in.nextInt();
-            if (!(answer >= 1) || !(answer <= 5)) {
+            if (!(answer >= 1) || !(answer <= 4)) {
                 throw new BankException("Invalid Input");
             }
             switch (answer) {
@@ -53,11 +50,6 @@ public class BankTransferUtil implements IBankTransfers {
                             .setBeneficiaryName(beneficiaryName)
                             .setBeneficiaryAccountNumber(beneficiaryAccountNumber)
                             .setAccountNumber(account.getAccountNumber()).build();
-//                            .setBeneficiaryName(beneficiaryName)
-//                            .setBeneficiaryAccountNumber(beneficiaryAccountNumber)
-//                            .setAccountNumber(account.getAccountNumber()).build();
-//                    Beneficiary beneficiary = new Beneficiary(beneficiaryName, beneficiaryAccountNumber, account.getAccountNumber());
-
                     this.beneficiaryDAO.create(beneficiary);
                     break;
                 case 2:
@@ -87,21 +79,18 @@ public class BankTransferUtil implements IBankTransfers {
                                 logger.info("Enter the amount to transfer: ");
                                 BigDecimal amountToTransfer = in.nextBigDecimal();
                                 if (amountToTransfer.compareTo(account.getTotalBalance()) == -1) {
-//                                    NotificationService notificationService = new NotificationService();
-//                                    if(!notificationService.update(account)){
-                                        flag = true;
-                                        BigDecimal transferCharge = new BigDecimal(10);
-                                        Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amountToTransfer.add(transferCharge));
-                                        this.accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amountToTransfer.add(transferCharge)));
-                                        BankTransfer bankTransfer = BankTransfer.builder()
-                                                .transferId(transaction.getTransactionId())
-                                                .transferDate(transaction.getTransactionTimestamp())
-                                                .username(account.getUsername())
-                                                .destinationAccount(beneficiary1.getSourceAccountNumber())
-                                                .amount(amountToTransfer)
-                                                .build();
-//                                    BankTransfer bankTransfer = new BankTransfer(amountToTransfer, beneficiary1.getSourceAccountNumber(), transferCharge, account.getUsername(), transaction.getTransactionId(), transaction.getTransactionTimestamp());
-                                        this.bankTransferDAO.create(bankTransfer);
+                                    flag = true;
+                                    BigDecimal transferCharge = new BigDecimal(10);
+                                    Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amountToTransfer.add(transferCharge));
+                                    this.accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amountToTransfer.add(transferCharge)));
+                                    BankTransfer bankTransfer = BankTransfer.builder()
+                                            .transferId(transaction.getTransactionId())
+                                            .transferDate(transaction.getTransactionTimestamp())
+                                            .username(account.getUsername())
+                                            .destinationAccount(beneficiary1.getSourceAccountNumber())
+                                            .amount(amountToTransfer)
+                                            .build();
+                                    this.bankTransferDAO.create(bankTransfer);
 //                                    }
                                 } else {
                                     logger.info("Don't have enough Account Balance to do Transfer");
@@ -116,9 +105,6 @@ public class BankTransferUtil implements IBankTransfers {
                     }
                     break;
                 case 4:
-                    logger.info("Bank to bank Transfer History");
-                    break;
-                case 5:
                     logger.info("Exit");
                     return;
                 default:

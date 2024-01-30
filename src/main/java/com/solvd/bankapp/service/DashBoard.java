@@ -50,27 +50,27 @@ public class DashBoard {
                 }
                 switch (answer) {
                     case 1: {
-                        this.accountUtil.displayAccountDetails(account.getUsername(),in);
+                        this.accountUtil.displayAccountDetails(account.getUsername(), in);
                     }
                     break;
                     case 2: {
-                        this.savingAccountUtil.savingAccountPage(account.getUsername(),in);
+                        this.savingAccountUtil.savingAccountPage(account.getUsername(), in);
                     }
                     break;
                     case 3: {
-                        this.bankTransferUtil.bankTransferPage(account,in);
+                        this.bankTransferUtil.bankTransferPage(account, in);
                     }
                     break;
                     case 4: {
-                        this.transactionUtil.transactionPage(account,in);
+                        this.transactionUtil.transactionPage(account, in);
                     }
                     break;
                     case 5: {
-                        this.debitCardUtil.debitCardPage(account,in);
+                        this.debitCardUtil.debitCardPage(account, in);
                     }
                     break;
                     case 6: {
-                        this.paymentUtil.PayBillPage(account,in);
+                        this.paymentUtil.PayBillPage(account, in);
                         logger.info("BILLS");
                     }
                     break;
