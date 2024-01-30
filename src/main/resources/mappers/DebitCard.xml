@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bankapp.persistence.DebitCardDAO">
+
+    <insert id="create"  keyColumn="card_number" keyProperty="cardNumber" useGeneratedKeys="true">
+        Insert into debit_cards (card_number, expiration_date, cvv_number, customer_full_name, customers_ssn)
+        values (#{card.cardNumber}, #{card.expirationDate}, #{card.cvvNumber}, #{card.customerFullName}, #{card.ssn})
+    </insert>
+
+    <delete id="delete">
+        Delete from debit_cards where card_number = #{debitCardNumber};
+    </delete>
+
+
+
+    <select id="findByCardNumber" resultMap="debit_cardsResultMap">
+        select * from debit_cards where card_number = #{debitCardNumber}
+    </select>
+
+    <select id="findBySsn" resultMap="debit_cardsResultMap">
+        select * from debit_cards where customers_ssn = #{ssn}
+    </select>
+
+
+    <resultMap id="debit_cardsResultMap" type="com.solvd.bankapp.domain.DebitCard" autoMapping="false">
+        <id column="card_number" property="cardNumber"/>
+        <result column="expiration_date" property="expirationDate"/>
+        <result column="cvv_number" property="cvvNumber"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="customers_ssn" property="ssn"/>
+    </resultMap>
+
+</mapper>
