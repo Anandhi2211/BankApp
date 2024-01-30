@@ -3,16 +3,21 @@ package com.solvd.bankapp.domain;
 public class Beneficiary {
     private String beneficiaryName;
     private long beneficiaryAccountNumber;
-    private long accountNumber;
+    private long sourceAccountNumber;
+
+    private Beneficiary() {
+    }
 
     public String getBeneficiaryName() {
         return beneficiaryName;
     }
+
     public long getBeneficiaryAccountNumber() {
         return beneficiaryAccountNumber;
     }
-    public long getAccountNumber() {
-        return accountNumber;
+
+    public long getSourceAccountNumber() {
+        return sourceAccountNumber;
     }
 
     @Override
@@ -20,16 +25,18 @@ public class Beneficiary {
         return "Beneficiary{" +
                 "beneficiaryName='" + beneficiaryName + '\'' +
                 ", beneficiaryAccountNumber=" + beneficiaryAccountNumber +
-                ", accountNumber=" + accountNumber +
+                ", accountNumber=" + sourceAccountNumber +
                 '}';
     }
 
-    public static BeneficiaryBuilder builder() {
+    public static Builder builder() {
         return new Builder(new Beneficiary());
     }
+
     public static class Builder {
         private final Beneficiary beneficiary;
-        public Builder(Beneficiary beneficiary) {
+
+        private Builder(Beneficiary beneficiary) {
             this.beneficiary = beneficiary;
         }
 
@@ -44,12 +51,15 @@ public class Beneficiary {
         }
 
         public Builder setAccountNumber(long accountNumber) {
-            beneficiary.accountNumber = accountNumber;
+            beneficiary.sourceAccountNumber = accountNumber;
             return this;
         }
 
-        public Beneficiary getBeneficiary() {
+        public Beneficiary build() {
+            if (beneficiary.beneficiaryName == null || beneficiary.beneficiaryAccountNumber == 0 || beneficiary.sourceAccountNumber == 0) {
+                throw new IllegalArgumentException("BeneficiaryName, BeneficiaryAccountNumber, and AccountNumber are required.");
+            }
             return beneficiary;
         }
     }
-    }
+}

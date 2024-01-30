@@ -7,29 +7,25 @@ public class LoginCredential {
     private int pin;
     private long ssn;
 
-    public LoginCredential() {
-    }
-
-    public LoginCredential(String username, String userPassword, boolean activeStatus, int pin, long ssn) {
-        this.username = username;
-        this.userPassword = userPassword;
-        this.activeStatus = activeStatus;
-        this.pin = pin;
-        this.ssn = ssn;
+    private LoginCredential() {
     }
 
     public String getUsername() {
         return username;
     }
+
     public String getUserPassword() {
         return userPassword;
     }
+
     public boolean isActiveStatus() {
         return activeStatus;
     }
+
     public int getPin() {
         return pin;
     }
+
     public long getSsn() {
         return ssn;
     }
@@ -38,22 +34,24 @@ public class LoginCredential {
     public String toString() {
         return "LoginCredential{" +
                 "username='" + username + '\'' +
-                ", password='" + userPassword + '\'' +
+                ", userPassword='" + userPassword + '\'' +
                 ", activeStatus=" + activeStatus +
                 ", pin=" + pin +
                 ", ssn=" + ssn +
                 '}';
     }
-    public static  Builder builder(){
-        return new Builder (new LoginCredential());
+
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public static class Builder{
+    public static class Builder {
         private final LoginCredential loginCredential;
 
-        public Builder(com.solvd.bankapp.domain.LoginCredential loginCredential) {
-            this.loginCredential = loginCredential;
+        private Builder() {
+            this.loginCredential = new LoginCredential();
         }
+
         public Builder setUsername(String username) {
             loginCredential.username = username;
             return this;
@@ -79,9 +77,11 @@ public class LoginCredential {
             return this;
         }
 
-        public com.solvd.bankapp.domain.LoginCredential getLoginCredential() {
+        public LoginCredential build() {
+            if (loginCredential.username == null || loginCredential.userPassword == null) {
+                throw new IllegalArgumentException("Username and UserPassword are required.");
+            }
             return loginCredential;
         }
     }
-
 }

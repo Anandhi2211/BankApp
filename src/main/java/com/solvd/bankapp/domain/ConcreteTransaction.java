@@ -3,52 +3,45 @@ package com.solvd.bankapp.domain;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class Deposit extends Transaction {
+public class ConcreteTransaction extends Transaction {
 
-    private Deposit(TransactionBuilder<?> builder) {
+    private ConcreteTransaction(ConcreteTransactionBuilder builder) {
         super(builder);
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder implements TransactionBuilder<Deposit> {
+    public static class ConcreteTransactionBuilder implements TransactionBuilder<ConcreteTransaction> {
         private int transactionId;
         private BigDecimal amount;
         private boolean transactionStatus;
         private long accountNumber;
         private Timestamp transactionTimestamp;
 
-        private Builder() {
-        }
-
         @Override
-        public TransactionBuilder<Deposit> setTransactionId(int transactionId) {
+        public TransactionBuilder<ConcreteTransaction> setTransactionId(int transactionId) {
             this.transactionId = transactionId;
             return this;
         }
 
         @Override
-        public TransactionBuilder<Deposit> setAmount(BigDecimal amount) {
+        public TransactionBuilder<ConcreteTransaction> setAmount(BigDecimal amount) {
             this.amount = amount;
             return this;
         }
 
         @Override
-        public TransactionBuilder<Deposit> setTransactionStatus(boolean transactionStatus) {
+        public TransactionBuilder<ConcreteTransaction> setTransactionStatus(boolean transactionStatus) {
             this.transactionStatus = transactionStatus;
             return this;
         }
 
         @Override
-        public TransactionBuilder<Deposit> setAccountNumber(long accountNumber) {
+        public TransactionBuilder<ConcreteTransaction> setAccountNumber(long accountNumber) {
             this.accountNumber = accountNumber;
             return this;
         }
 
         @Override
-        public TransactionBuilder<Deposit> setTransactionTimestamp(Timestamp transactionTimestamp) {
+        public TransactionBuilder<ConcreteTransaction> setTransactionTimestamp(Timestamp transactionTimestamp) {
             this.transactionTimestamp = transactionTimestamp;
             return this;
         }
@@ -79,11 +72,8 @@ public class Deposit extends Transaction {
         }
 
         @Override
-        public Deposit build() {
-            if (transactionId == 0 || amount == null || transactionTimestamp == null) {
-                throw new IllegalArgumentException("TransactionId, Amount, and TransactionTimestamp are required.");
-            }
-            return new Deposit(this);
+        public ConcreteTransaction build() {
+            return new ConcreteTransaction(this);
         }
     }
 }

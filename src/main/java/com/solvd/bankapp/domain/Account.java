@@ -2,54 +2,61 @@ package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Account {
+public class Account implements Subject {
     private long accountNumber;
     private BigDecimal totalBalance;
     private String username;
     private ArrayList<Transaction> transactionList;
+    private final List<PaymentObserver> observers = new ArrayList<>();
 
-    public Account(long accountNumber, BigDecimal totalBalance, String username) {
-        this.accountNumber = accountNumber;
-        this.totalBalance = totalBalance;
-        this.username = username;
+    Account() {
     }
 
-    public void setAccountNumber(long accountNumber) {
-        this.accountNumber = accountNumber;
+    public long getAccountNumber() {
+        return accountNumber;
+    }
+
+    public BigDecimal getTotalBalance() {
+        return totalBalance;
     }
 
     public void setTotalBalance(BigDecimal totalBalance) {
         this.totalBalance = totalBalance;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setTransactionList(ArrayList<Transaction> transactionList) {
-        this.transactionList = transactionList;
-    }
-
-    public Account() {
-    }
-
-    public long getAccountNumber() {
-        return accountNumber;
-    }
-    public BigDecimal getTotalBalance() {
-        return totalBalance;
-    }
     public String getUsername() {
         return username;
     }
-    public ArrayList<Transaction> getTransactionList() {
-        if(this.transactionList==null){
-            this.transactionList = new ArrayList<>();
+
+    public List<Transaction> getTransactionList() {
+        if (transactionList == null) {
+            transactionList = new ArrayList<>();
         }
-        return this.transactionList;
+        return transactionList;
     }
 
+    public boolean isBalanceBelowThreshold(BigDecimal threshold) {
+        return totalBalance.compareTo(threshold) < 0;
+    }
+
+    @Override
+    public void addObserver(PaymentObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(PaymentObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (PaymentObserver observer : observers) {
+            observer.update(this);
+        }
+    }
 
     @Override
     public String toString() {
@@ -61,34 +68,45 @@ public class Account {
     }
 
     public static Builder builder() {
-        return new Builder(new Account());
+        return new Builder();
     }
-  public static class Builder{
-        private  final Account account;
-      public Builder(Account account) {
-          this.account = account;
-      }
-      public Builder setAccountNumber(long accountNumber) {
-          account.accountNumber = accountNumber;
-          return this;
-      }
-      public Builder setTotalBalance(BigDecimal totalBalance) {
-          account.totalBalance = totalBalance;
-          return this;
-      }
-      public Builder setUsername(String username) {
-          account.username = username;
-          return this;
-      }
-      public Builder setTransactionList(ArrayList<Transaction> transactionList) {
-          account.transactionList = transactionList;
-          return this;
-      }
 
-      public  Account getAccount(){
-          return  account;
-      }
+    public static class Builder {
+        private final Account account;
 
-  }
+        private Builder() {
+            this.account = new Account();
+            this.account.totalBalance = BigDecimal.ZERO;
+        }
 
+        public Builder setAccountNumber(long accountNumber) {
+            account.accountNumber = accountNumber;
+            return this;
+        }
+
+        public Builder setTotalBalance(BigDecimal totalBalance) {
+            account.totalBalance = totalBalance;
+            return this;
+        }
+
+        public Builder setUsername(String username) {
+            account.username = username;
+            return this;
+        }
+
+        public Builder addTransaction(Transaction transaction) {
+            if (this.account.transactionList == null) {
+                this.account.transactionList = new ArrayList<>();
+            }
+            this.account.transactionList.add(transaction);
+            return this;
+        }
+
+        public Account build() {
+            if (account.accountNumber == 0 || account.totalBalance == null || account.username == null) {
+                throw new IllegalArgumentException("AccountNumber, TotalBalance, and Username are required.");
+            }
+            return account;
+        }
+    }
 }

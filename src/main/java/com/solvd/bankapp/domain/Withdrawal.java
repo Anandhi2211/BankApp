@@ -3,83 +3,87 @@ package com.solvd.bankapp.domain;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class Withdrawal {
-    private BigDecimal withdrawalAmount;
-    private long accountNumber;
-    private String username;
-    private int transactionId;
-    private Timestamp withdrawalTimestamp;
+public class Withdrawal extends Transaction {
 
-    public BigDecimal getWithdrawalAmount() {
-        return withdrawalAmount;
+    private Withdrawal (TransactionBuilder<?> builder) {
+        super(builder);
     }
 
-    public long getAccountNumber() {
-        return accountNumber;
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public String getUsername() {
-        return username;
-    }
+    public static class Builder implements TransactionBuilder<Withdrawal> {
+        private int transactionId;
+        private BigDecimal amount;
+        private boolean transactionStatus;
+        private long accountNumber;
+        private Timestamp transactionTimestamp;
 
-    public int getTransactionId() {
-        return transactionId;
-    }
-
-    public Timestamp getWithdrawalTimestamp() {
-        return withdrawalTimestamp;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Withdrawal{" +
-                "withdrawalAmount=" + withdrawalAmount +
-                ", accountNumber=" + accountNumber +
-                ", username='" + username + '\'' +
-                ", transactionId=" + transactionId +
-                ", withdrawalTimestamp=" + withdrawalTimestamp +
-                '}';
-    }
-
-    public static  Builder builder(){
-        return new Builder (new Withdrawal());
-    }
-
-    public static class Builder{
-        private final Withdrawal withdrawal;
-
-        public Builder(com.solvd.bankapp.domain.Withdrawal withdrawal) {
-            this.withdrawal = withdrawal;
+        private Builder() {
         }
 
-        public Builder setWithdrawalAmount(BigDecimal withdrawalAmount) {
-            withdrawal.withdrawalAmount = withdrawalAmount;
+        @Override
+        public TransactionBuilder<Withdrawal> setTransactionId(int transactionId) {
+            this.transactionId = transactionId;
             return this;
         }
 
-        public Builder setAccountNumber(long accountNumber) {
-            withdrawal.accountNumber = accountNumber;
+        @Override
+        public TransactionBuilder<Withdrawal> setAmount(BigDecimal amount) {
+            this.amount = amount;
             return this;
         }
 
-        public Builder setUsername(String username) {
-            withdrawal.username = username;
+        @Override
+        public TransactionBuilder<Withdrawal> setTransactionStatus(boolean transactionStatus) {
+            this.transactionStatus = transactionStatus;
             return this;
         }
 
-        public Builder setTransactionId(int transactionId) {
-            withdrawal.transactionId = transactionId;
+        @Override
+        public TransactionBuilder<Withdrawal> setAccountNumber(long accountNumber) {
+            this.accountNumber = accountNumber;
             return this;
         }
 
-        public Builder setWithdrawalTimestamp(Timestamp withdrawalTimestamp) {
-            withdrawal.withdrawalTimestamp = withdrawalTimestamp;
+        @Override
+        public TransactionBuilder<Withdrawal> setTransactionTimestamp(Timestamp transactionTimestamp) {
+            this.transactionTimestamp = transactionTimestamp;
             return this;
         }
 
-        public com.solvd.bankapp.domain.Withdrawal getWithdrawal() {
-            return withdrawal;
+        @Override
+        public int getTransactionId() {
+            return transactionId;
+        }
+
+        @Override
+        public BigDecimal getAmount() {
+            return amount;
+        }
+
+        @Override
+        public boolean getTransactionStatus() {
+            return transactionStatus;
+        }
+
+        @Override
+        public long getAccountNumber() {
+            return accountNumber;
+        }
+
+        @Override
+        public Timestamp getTransactionTimestamp() {
+            return transactionTimestamp;
+        }
+
+        @Override
+        public Withdrawal build() {
+            if (transactionId == 0 || amount == null || transactionTimestamp == null) {
+                throw new IllegalArgumentException("TransactionId, Amount, and TransactionTimestamp are required.");
+            }
+            return new Withdrawal(this);
         }
     }
 }
