@@ -9,14 +9,12 @@ import java.sql.Timestamp;
 public abstract class Transaction {
     private final int transactionId;
     private final BigDecimal amount;
-    private final boolean transactionStatus;
     private final long accountNumber;
     private final Timestamp transactionTimestamp;
 
     public Transaction(TransactionBuilder<? extends Transaction> builder) {
         this.transactionId = builder.getTransactionId();
         this.amount = builder.getAmount();
-        this.transactionStatus = builder.getTransactionStatus();
         this.accountNumber = builder.getAccountNumber();
         this.transactionTimestamp = builder.getTransactionTimestamp();
     }
@@ -27,10 +25,6 @@ public abstract class Transaction {
 
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    public boolean isTransactionStatus() {
-        return transactionStatus;
     }
 
     public long getAccountNumber() {
@@ -46,7 +40,6 @@ public abstract class Transaction {
         return "Transaction{" +
                 "transactionId=" + transactionId +
                 ", amount=" + amount +
-                ", transactionStatus=" + transactionStatus +
                 ", accountNumber=" + accountNumber +
                 ", transactionTimestamp=" + transactionTimestamp +
                 '}';

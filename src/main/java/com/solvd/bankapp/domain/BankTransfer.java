@@ -43,7 +43,6 @@ public class BankTransfer extends Transaction {
     public static class Builder implements TransactionBuilder<BankTransfer> {
         private int transactionId;
         private BigDecimal amount;
-        private boolean transactionStatus;
         private long accountNumber;
         private Timestamp transactionTimestamp;
 
@@ -59,12 +58,6 @@ public class BankTransfer extends Transaction {
         @Override
         public TransactionBuilder<BankTransfer> setAmount(BigDecimal amount) {
             this.amount = amount;
-            return this;
-        }
-
-        @Override
-        public TransactionBuilder<BankTransfer> setTransactionStatus(boolean transactionStatus) {
-            this.transactionStatus = transactionStatus;
             return this;
         }
 
@@ -88,11 +81,6 @@ public class BankTransfer extends Transaction {
         @Override
         public BigDecimal getAmount() {
             return amount;
-        }
-
-        @Override
-        public boolean getTransactionStatus() {
-            return transactionStatus;
         }
 
         @Override

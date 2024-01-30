@@ -18,7 +18,7 @@ public class Deposit extends Transaction {
     public static class Builder implements TransactionBuilder<Deposit> {
         private int transactionId;
         private BigDecimal amount;
-        private boolean transactionStatus;
+        private String username;
         private long accountNumber;
         private Timestamp transactionTimestamp;
 
@@ -37,9 +37,8 @@ public class Deposit extends Transaction {
             return this;
         }
 
-        @Override
-        public TransactionBuilder<Deposit> setTransactionStatus(boolean transactionStatus) {
-            this.transactionStatus = transactionStatus;
+        public Builder setUsername(String username) {
+            this.username = username;
             return this;
         }
 
@@ -65,9 +64,8 @@ public class Deposit extends Transaction {
             return amount;
         }
 
-        @Override
-        public boolean getTransactionStatus() {
-            return transactionStatus;
+        public String getUsername() {
+            return username;
         }
 
         @Override

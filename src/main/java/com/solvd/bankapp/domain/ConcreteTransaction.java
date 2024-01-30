@@ -30,8 +30,7 @@ public class ConcreteTransaction extends Transaction {
             return this;
         }
 
-        @Override
-        public TransactionBuilder<ConcreteTransaction> setTransactionStatus(boolean transactionStatus) {
+        public ConcreteTransactionBuilder setTransactionStatus(boolean transactionStatus) {
             this.transactionStatus = transactionStatus;
             return this;
         }
@@ -58,7 +57,6 @@ public class ConcreteTransaction extends Transaction {
             return amount;
         }
 
-        @Override
         public boolean getTransactionStatus() {
             return transactionStatus;
         }
