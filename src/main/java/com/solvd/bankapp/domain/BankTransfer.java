@@ -3,42 +3,17 @@ package com.solvd.bankapp.domain;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class BankTransfer {
-    private long transferId;
-    private Account sourceAccount;
-    private Account destinationAccount;
-    private BigDecimal amount;
-    private BigDecimal transferCharge;
-    private Timestamp transferTimestamp;
+public class BankTransfer extends Transaction {
 
-    private BankTransfer() {
+    private final BigDecimal transferCharge;
+
+    private BankTransfer(TransactionBuilder<?> builder) {
+        super(builder);
+        this.transferCharge = calculateSurcharges();
     }
 
-    public long getTransferId() {
-        return transferId;
-    }
-
-    public Account getSourceAccount() {
-        return sourceAccount;
-    }
-
-    public Account getDestinationAccount() {
-        return destinationAccount;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public BigDecimal getTransferCharge() {
-        return transferCharge;
-    }
-
-    public Timestamp getTransferTimestamp() {
-        return transferTimestamp;
-    }
-
-    private void calculateSurcharges() {
+    private BigDecimal calculateSurcharges() {
+        BigDecimal amount = super.getAmount();
         if (amount != null) {
             TransferCharges charge;
             if (amount.compareTo(BigDecimal.valueOf(500)) <= 0) {
@@ -49,72 +24,90 @@ public class BankTransfer {
                 charge = TransferCharges.OVER_1000;
             }
 
-            transferCharge = amount.multiply(BigDecimal.valueOf(charge.getRate()));
+            return amount.multiply(BigDecimal.valueOf(charge.getRate()));
         }
+        return BigDecimal.ZERO;
     }
 
-    @Override
-    public String toString() {
-        return "BankTransfer{" +
-                "transferId=" + transferId +
-                ", sourceAccount=" + sourceAccount +
-                ", destinationAccount=" + destinationAccount +
-                ", amount=" + amount +
-                ", transactionCharge=" + transferCharge +
-                ", transferDate=" + transferTimestamp +
-                '}';
+    public BigDecimal getTransferCharge() {
+        return transferCharge;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
-    public static class Builder {
-        private final BankTransfer bankTransfer;
+    public static class Builder implements TransactionBuilder<BankTransfer> {
+        private int transactionId;
+        private BigDecimal amount;
+        private boolean transactionStatus;
+        private long accountNumber;
+        private Timestamp transactionTimestamp;
 
         private Builder() {
-            this.bankTransfer = new BankTransfer();
         }
 
-        public Builder transferId(long transferId) {
-            bankTransfer.transferId = transferId;
+        @Override
+        public TransactionBuilder<BankTransfer> setTransactionId(int transactionId) {
+            this.transactionId = transactionId;
             return this;
         }
 
-        public Builder sourceAccount(Account sourceAccount) {
-            bankTransfer.sourceAccount = sourceAccount;
+        @Override
+        public TransactionBuilder<BankTransfer> setAmount(BigDecimal amount) {
+            this.amount = amount;
             return this;
         }
 
-        public Builder destinationAccount(Account destinationAccount) {
-            bankTransfer.destinationAccount = destinationAccount;
+        @Override
+        public TransactionBuilder<BankTransfer> setTransactionStatus(boolean transactionStatus) {
+            this.transactionStatus = transactionStatus;
             return this;
         }
 
-        public Builder amount(BigDecimal amount) {
-            bankTransfer.amount = amount;
+        @Override
+        public TransactionBuilder<BankTransfer> setAccountNumber(long accountNumber) {
+            this.accountNumber = accountNumber;
             return this;
         }
 
-        public Builder transactionCharge(BigDecimal transactionCharge) {
-            bankTransfer.transferCharge = transactionCharge;
+        @Override
+        public TransactionBuilder<BankTransfer> setTransactionTimestamp(Timestamp transactionTimestamp) {
+            this.transactionTimestamp = transactionTimestamp;
             return this;
         }
 
-        public Builder transferDate(Timestamp transferDate) {
-            bankTransfer.transferTimestamp = transferDate;
-            return this;
+        @Override
+        public int getTransactionId() {
+            return transactionId;
         }
 
+        @Override
+        public BigDecimal getAmount() {
+            return amount;
+        }
+
+        @Override
+        public boolean getTransactionStatus() {
+            return transactionStatus;
+        }
+
+        @Override
+        public long getAccountNumber() {
+            return accountNumber;
+        }
+
+        @Override
+        public Timestamp getTransactionTimestamp() {
+            return transactionTimestamp;
+        }
+
+        @Override
         public BankTransfer build() {
-            if (bankTransfer.transferId == 0 || bankTransfer.sourceAccount == null ||
-                    bankTransfer.destinationAccount == null || bankTransfer.amount == null ||
-                    bankTransfer.transferTimestamp == null) {
-                throw new IllegalArgumentException("TransferId, SourceAccount, DestinationAccount, Amount, and TransferDate are required.");
+            if (transactionId == 0 || amount == null || transactionTimestamp == null) {
+                throw new IllegalArgumentException("TransactionId, Amount, and TransactionTimestamp are required.");
             }
-            bankTransfer.calculateSurcharges();
-
-            return bankTransfer;
+            return new BankTransfer(this);
         }
     }
 }

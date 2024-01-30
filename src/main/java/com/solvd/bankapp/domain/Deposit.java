@@ -3,91 +3,87 @@ package com.solvd.bankapp.domain;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class Deposit {
-    private BigDecimal depositAmount;
-    private long accountNumber;
-    private String username;
-    private int transactionId;
-    private Timestamp depositTimestamp;
+public class Deposit extends Transaction {
 
-    public Deposit(BigDecimal depositAmount, long accountNumber, String username, int transactionId) {
-        this.depositAmount = depositAmount;
-        this.accountNumber = accountNumber;
-        this.username = username;
-        this.transactionId = transactionId;
+    private Deposit(TransactionBuilder<?> builder) {
+        super(builder);
     }
 
-    public Deposit() {
-
+    public static Builder builder() {
+        return new Builder();
     }
 
+    public static class Builder implements TransactionBuilder<Deposit> {
+        private int transactionId;
+        private BigDecimal amount;
+        private boolean transactionStatus;
+        private long accountNumber;
+        private Timestamp transactionTimestamp;
 
-    public BigDecimal getDepositAmount() {
-        return depositAmount;
-    }
-    public long getAccountNumber() {
-        return accountNumber;
-    }
-    public String getUsername() {
-        return username;
-    }
-    public int getTransactionId() {
-        return transactionId;
-    }
-    public Timestamp getDepositTimestamp() {
-        return depositTimestamp;
-    }
-
-    @Override
-    public String toString() {
-        return "Deposit{" +
-                "depositAmount=" + depositAmount +
-                ", accountNumber=" + accountNumber +
-                ", username='" + username + '\'' +
-                ", transactionId=" + transactionId +
-                ", depositTimestamp=" + depositTimestamp +
-                '}';
-    }
-
-    public static  Builder builder(){
-        return new Builder(new Deposit());
-    }
-    public static class Builder{
-
-        private final Deposit deposit;
-
-        public Builder(Deposit deposit) {
-            this.deposit = deposit;
+        private Builder() {
         }
 
-        public Builder setDepositAmount(BigDecimal depositAmount) {
-            deposit.depositAmount = depositAmount;
+        @Override
+        public TransactionBuilder<Deposit> setTransactionId(int transactionId) {
+            this.transactionId = transactionId;
             return this;
         }
 
-        public Builder setAccountNumber(long accountNumber) {
-            deposit.accountNumber = accountNumber;
+        @Override
+        public TransactionBuilder<Deposit> setAmount(BigDecimal amount) {
+            this.amount = amount;
             return this;
         }
 
-        public Builder setUsername(String username) {
-            deposit.username = username;
+        @Override
+        public TransactionBuilder<Deposit> setTransactionStatus(boolean transactionStatus) {
+            this.transactionStatus = transactionStatus;
             return this;
         }
 
-        public Builder setTransactionId(int transactionId) {
-            deposit.transactionId = transactionId;
+        @Override
+        public TransactionBuilder<Deposit> setAccountNumber(long accountNumber) {
+            this.accountNumber = accountNumber;
             return this;
         }
 
-        public Builder setDepositTimestamp(Timestamp depositTimestamp) {
-            deposit.depositTimestamp = depositTimestamp;
+        @Override
+        public TransactionBuilder<Deposit> setTransactionTimestamp(Timestamp transactionTimestamp) {
+            this.transactionTimestamp = transactionTimestamp;
             return this;
         }
 
-        public com.solvd.bankapp.domain.Deposit getDeposit() {
-            return deposit;
+        @Override
+        public int getTransactionId() {
+            return transactionId;
+        }
+
+        @Override
+        public BigDecimal getAmount() {
+            return amount;
+        }
+
+        @Override
+        public boolean getTransactionStatus() {
+            return transactionStatus;
+        }
+
+        @Override
+        public long getAccountNumber() {
+            return accountNumber;
+        }
+
+        @Override
+        public Timestamp getTransactionTimestamp() {
+            return transactionTimestamp;
+        }
+
+        @Override
+        public Deposit build() {
+            if (transactionId == 0 || amount == null || transactionTimestamp == null) {
+                throw new IllegalArgumentException("TransactionId, Amount, and TransactionTimestamp are required.");
+            }
+            return new Deposit(this);
         }
     }
-
 }
