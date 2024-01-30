@@ -1,9 +1,6 @@
 package com.solvd.bankapp.service;
 
-import com.solvd.bankapp.domain.Account;
-import com.solvd.bankapp.domain.BankTransfer;
-import com.solvd.bankapp.domain.Beneficiary;
-import com.solvd.bankapp.domain.Transaction;
+import com.solvd.bankapp.domain.*;
 import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.persistence.BankTransferDAO;
 import com.solvd.bankapp.persistence.BeneficiaryDAO;
@@ -23,7 +20,7 @@ public class BankTransferUtil implements IBankTransfers {
     private final TransactionUtil transactionUtil;
     private final AccountUtil accountUtil;
     private final BankTransferDAO bankTransferDAO;
-    private static final Logger logger = LogManager.getLogger(DashBoard.class);
+    private static final Logger logger = LogManager.getLogger(BankTransferUtil.class);
 
     public BankTransferUtil() {
         this.beneficiaryDAO = new BeneficiaryDAOImpl();
@@ -90,23 +87,22 @@ public class BankTransferUtil implements IBankTransfers {
                                 logger.info("Enter the amount to transfer: ");
                                 BigDecimal amountToTransfer = in.nextBigDecimal();
                                 if (amountToTransfer.compareTo(account.getTotalBalance()) == -1) {
-                                    flag = true;
-                                    BigDecimal transferCharge = new BigDecimal(10);
-
-                                    Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amountToTransfer.add(transferCharge));
-                                    this.accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amountToTransfer.add(transferCharge)));
-                                    BankTransfer bankTransfer = BankTransfer.builder()
-                                            .transferId(transaction.getTransactionId())
-                                            .transferDate(transaction.getTransactionTimestamp())
-                                            .username(account.getUsername())
-                                            .destinationAccount(beneficiary1.getSourceAccountNumber())
-                                            .amount(amountToTransfer)
-                                            .build();
-
-
-
+//                                    NotificationService notificationService = new NotificationService();
+//                                    if(!notificationService.update(account)){
+                                        flag = true;
+                                        BigDecimal transferCharge = new BigDecimal(10);
+                                        Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amountToTransfer.add(transferCharge));
+                                        this.accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amountToTransfer.add(transferCharge)));
+                                        BankTransfer bankTransfer = BankTransfer.builder()
+                                                .transferId(transaction.getTransactionId())
+                                                .transferDate(transaction.getTransactionTimestamp())
+                                                .username(account.getUsername())
+                                                .destinationAccount(beneficiary1.getSourceAccountNumber())
+                                                .amount(amountToTransfer)
+                                                .build();
 //                                    BankTransfer bankTransfer = new BankTransfer(amountToTransfer, beneficiary1.getSourceAccountNumber(), transferCharge, account.getUsername(), transaction.getTransactionId(), transaction.getTransactionTimestamp());
-                                    this.bankTransferDAO.create(bankTransfer);
+                                        this.bankTransferDAO.create(bankTransfer);
+//                                    }
                                 } else {
                                     logger.info("Don't have enough Account Balance to do Transfer");
                                 }

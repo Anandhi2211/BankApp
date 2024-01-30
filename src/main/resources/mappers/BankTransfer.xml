@@ -6,7 +6,7 @@
 
     <insert id="create"  useGeneratedKeys="true" >
         Insert into bank_transfers (transfer_amount, beneficiary_account_number, charge, logincredentials_username, transactions_transaction_id,transfer_timestamp )
-        values (#{transfer.transferAmount}, #{transfer.beneficiaryAccountNumber}, #{transfer.charge}, #{transfer.username}, #{transfer.transactionId},#{transfer.transferTimestamp})
+        values (#{transfer.amount}, #{transfer.destinationAccount}, #{transfer.transferCharge}, #{transfer.username}, #{transfer.transferId},#{transfer.transferTimestamp})
     </insert>
 
     <sql id="bankTransferColumns">

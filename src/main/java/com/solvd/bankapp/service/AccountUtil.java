@@ -1,9 +1,6 @@
 package com.solvd.bankapp.service;
 
-import com.solvd.bankapp.domain.Account;
-import com.solvd.bankapp.domain.Customer;
-import com.solvd.bankapp.domain.LoginCredential;
-import com.solvd.bankapp.domain.Transaction;
+import com.solvd.bankapp.domain.*;
 import com.solvd.bankapp.persistence.AccountDAO;
 import com.solvd.bankapp.persistence.CustomerDAO;
 import com.solvd.bankapp.persistence.LoginCredentialDAO;
@@ -105,13 +102,17 @@ public class AccountUtil implements IAccount {
 
     public void displayAccountDetails(String username, Scanner in) {
         logger.info("Account Details");
+        NotificationService notificationService = new NotificationService();
+
         Account account = this.accountDAO.findAccountByUsername(username);
+        notificationService.update(account);
         Customer customer = this.customerDAO.display(username);
         logger.info("Account number: " + account.getAccountNumber());
         logger.info("Account balance" + account.getTotalBalance());
         logger.info("Account UserName" + account.getUsername());
         logger.info("First Name: " + customer.getFirstName());
         logger.info("Last Name: " + customer.getLastName());
+
     }
 //    public BigDecimal getTotaleBalance(long accountNumber) {
 //        return accountDAO.displayTotalBalance(accountNumber);

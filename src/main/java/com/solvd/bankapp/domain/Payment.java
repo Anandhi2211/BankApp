@@ -13,8 +13,8 @@ public class Payment {
     private int transactionId;
     private long ssn;
     private Timestamp paymentTimestamp;
-    private boolean notificationStatus;
-    private final List<PaymentObserver> observers = new ArrayList<>();
+//    private boolean notificationStatus;
+//    private final List<PaymentObserver> observers = new ArrayList<>();
 
     public int getCompanyAccountNumber() {
         return companyAccountNumber;
@@ -44,17 +44,17 @@ public class Payment {
         return paymentTimestamp;
     }
 
-    public boolean isNotificationStatus() {
-        return notificationStatus;
-    }
+//    public boolean isNotificationStatus() {
+//        return notificationStatus;
+//    }
+//
+//    public void setNotificationStatus(boolean notificationStatus) {
+//        this.notificationStatus = notificationStatus;
+//    }
 
-    public void setNotificationStatus(boolean notificationStatus) {
-        this.notificationStatus = notificationStatus;
-    }
-
-    public List<PaymentObserver> getObservers() {
-        return observers;
-    }
+//    public List<PaymentObserver> getObservers() {
+//        return observers;
+//    }
 
     @Override
     public String toString() {
@@ -115,23 +115,23 @@ public class Payment {
             return this;
         }
 
-        public com.solvd.bankapp.domain.Payment build() {
+        public Payment build() {
             return payment;
         }
     }
 
-    public void addObserver(PaymentObserver observer) {
-        observers.add(observer);
-    }
+//    public void addObserver(PaymentObserver observer) {
+//        observers.add(observer);
+//    }
 
-    private void notifyObservers() {
-        for (PaymentObserver observer : observers) {
-            observer.update(this);
-        }
-    }
+//    private void notifyObservers() {
+//        for (PaymentObserver observer : observers) {
+//            observer.update(this);
+//        }
+//    }
 
-    public void markAsPaid() {
-        // put payment logic
-        notifyObservers();
-    }
+//    public void markAsPaid() {
+//        // put payment logic
+//        notifyObservers();
+//    }
 }

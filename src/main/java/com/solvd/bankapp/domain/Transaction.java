@@ -48,11 +48,9 @@ public class Transaction {
                 ", transactionTimestamp=" + transactionTimestamp +
                 '}';
     }
-
     public static Builder builder() {
         return new Builder();
     }
-
     public static class Builder {
         private int transactionId;
         private BigDecimal amount;
@@ -62,7 +60,6 @@ public class Transaction {
 
         private Builder() {
         }
-
         public Builder setTransactionId(int transactionId) {
             this.transactionId = transactionId;
             return this;

@@ -42,7 +42,7 @@ public class PaymentUtil {
                     logger.info("Enter Bill Account Number");
                     int billAccountNumber = in.nextInt();
                     Payment payment = this.paymentDAO.findPaymentById(billAccountNumber);
-                    if (payment != null) {
+                    if (payment == null) {
                         logger.info("Enter the Bill company Name: ");
                         String billCompanyName = in.next();
                         logger.info("Enter the Bill Amount");
@@ -52,27 +52,17 @@ public class PaymentUtil {
                             Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amt);
                             Customer customer = this.customer.getCustomerByUserName(loginCredential.getUsername());
 
-//                            payment = new Payment(billAccountNumber, billCompanyName, amt, account.getUsername(), transaction.getTransactionId(), customer.getSsn());
-
-
-//                            Payment payment = new Payment();
-//                            NotificationService notificationService = new NotificationService();
-//                            payment.addObserver(notificationService);
-//                            payment.markAsPaid();
-//
-
                             payment = Payment.builder()
                                     .setCompanyAccountNumber(billAccountNumber)
                                     .setCompanyName(billCompanyName)
                                     .setBillAmount(amt)
                                     .setSsn(customer.getSsn())
                                     .setUsername(account.getUsername())
+                                    .setPaymentTimestamp(transaction.getTransactionTimestamp())
                                     .setTransactionId(transaction.getTransactionId()).build();
                             this.paymentDAO.create(payment);
-                            NotificationService notificationService = new NotificationService();
-                            payment.addObserver(payment1 -> payment1.addObserver(notificationService));
 
-                            payment.markAsPaid();
+
                         } else {
                             logger.info("Not sufficient Balance");
                         }

@@ -123,9 +123,7 @@ public class TransactionUtil implements ITransaction {
                 .setTransactionTimestamp(currentTime)
                 .setAmount(amount)
                 .setAccountNumber(accountNumber).build();
-
 //        Transaction transaction = new Transaction(transactionID, amount, true, accountNumber, currentTime);
-
         this.transactionDAO.create(transaction);
         return transaction;
     }

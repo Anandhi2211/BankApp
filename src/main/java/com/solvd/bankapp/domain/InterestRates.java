@@ -1,4 +1,4 @@
-package com.solvd.bankapp.service;
+package com.solvd.bankapp.domain;
 
 public enum InterestRates implements IRate {
 
@@ -12,11 +12,9 @@ public enum InterestRates implements IRate {
     InterestRates(double rate) {
         this.rate = rate;
     }
-
-
     @Override
     public double getRate() {
-        return 0;
+        return rate;
     }
 
     @Override
