@@ -17,7 +17,7 @@ public class AtmTransfersUtil {
     private final AccountUtil accountUtil;
     private final TransactionUtil transactionUtil;
 
-    private static final Logger logger = LogManager.getLogger(Main.class);
+    private static final Logger logger = LogManager.getLogger(AtmTransfersUtil.class);
 
     public AtmTransfersUtil() {
         loginCredentialDAO = new LoginCredentialDAOImpl();
