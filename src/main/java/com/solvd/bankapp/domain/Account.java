@@ -2,6 +2,7 @@ package com.solvd.bankapp.domain;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Account {
 
@@ -13,22 +14,11 @@ public class Account {
 
     private ArrayList<Transaction> transactionList;
 
-    public Account() {
+    Account() {
     }
-
-    public Account(long accountNumber, BigDecimal totalBalance, String username) {
-        this.accountNumber = accountNumber;
-        this.totalBalance = totalBalance;
-        this.username = username;
-    }
-
 
     public long getAccountNumber() {
         return accountNumber;
-    }
-
-    public void setAccountNumber(long accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     public BigDecimal getTotalBalance() {
@@ -43,22 +33,11 @@ public class Account {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public ArrayList<Transaction> getTransactionList() {
-        if (this.transactionList == null) {
-            this.transactionList = new ArrayList<>();
+    public List<Transaction> getTransactionList() {
+        if (transactionList == null) {
+            transactionList = new ArrayList<>();
         }
-        return this.transactionList;
-    }
-
-    public void setTransactionList(Transaction transaction) {
-        if (this.transactionList == null) {
-            this.transactionList = new ArrayList<>();
-        }
-        this.transactionList.add(transaction);
+        return transactionList;
     }
 
     @Override
@@ -68,5 +47,48 @@ public class Account {
                 ", totalBalance=" + totalBalance +
                 ", username='" + username + '\'' +
                 '}';
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final Account account;
+
+        private Builder() {
+            this.account = new Account();
+            this.account.totalBalance = BigDecimal.ZERO;
+        }
+
+        public Builder setAccountNumber(long accountNumber) {
+            account.accountNumber = accountNumber;
+            return this;
+        }
+
+        public Builder setTotalBalance(BigDecimal totalBalance) {
+            account.totalBalance = totalBalance;
+            return this;
+        }
+
+        public Builder setUsername(String username) {
+            account.username = username;
+            return this;
+        }
+
+        public Builder addTransaction(Transaction transaction) {
+            if (this.account.transactionList == null) {
+                this.account.transactionList = new ArrayList<>();
+            }
+            this.account.transactionList.add(transaction);
+            return this;
+        }
+
+        public Account build() {
+            if (account.accountNumber == 0 || account.totalBalance == null || account.username == null) {
+                throw new IllegalArgumentException("AccountNumber, TotalBalance, and Username are required.");
+            }
+            return account;
+        }
     }
 }

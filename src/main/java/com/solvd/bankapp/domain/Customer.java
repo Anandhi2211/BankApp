@@ -8,90 +8,112 @@ public class Customer {
     private String phoneNumber;
     private Account account;
     private LoginCredential loginCredential;
-    public Customer() {
 
-    }
-    public LoginCredential getLoginCredential() {
-
-        if(this.loginCredential==null){
-            this.loginCredential = new LoginCredential();
-        }
-        return this.loginCredential;
-    }
-
-    public void setLoginCredential(LoginCredential loginCredential) {
-        this.loginCredential = loginCredential;
-    }
-
-
-    public Account getAccount() {
-        if(this.account == null){
-            this.account = new Account();
-        }
-        return this.account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-
-    public Customer(long ssn, String firstName, String lastName, String email, String phoneNumber) {
-        this.ssn = ssn;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+    private Customer() {
     }
 
     public long getSsn() {
         return ssn;
-    }
-
-    public void setSsn(long ssn) {
-        this.ssn = ssn;
-    }
+        }
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public Account getAccount() {
+        if (account == null) {
+            account = new Account(); //changed
+//            throw new IllegalStateException("No account exists for this customer. Please create an account.");
+        }
+        return account;
+    }
+
+    public LoginCredential getLoginCredential() {
+        if (loginCredential == null) {
+            throw new IllegalStateException("Login credentials not initialized. Please set login credentials.");
+        }
+        return loginCredential;
+    }
+
+    public void setLoginCredential(LoginCredential loginCredential) {
+        this.loginCredential = loginCredential;
     }
 
     @Override
     public String toString() {
-        return "ICustomer{" +
+        return "Customer{" +
                 "ssn=" + ssn +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final Customer customer;
+
+        private Builder() {
+            this.customer = new Customer();
+    }
+
+        public Builder ssn(long ssn) {
+            customer.ssn = ssn;
+            return this;
+    }
+
+        public Builder firstName(String firstName) {
+            customer.firstName = firstName;
+            return this;
+    }
+
+        public Builder lastName(String lastName) {
+            customer.lastName = lastName;
+            return this;
+    }
+
+        public Builder email(String email) {
+            customer.email = email;
+            return this;
+    }
+
+        public Builder phoneNumber(String phoneNumber) {
+            customer.phoneNumber = phoneNumber;
+            return this;
+    }
+
+        public Builder account(Account account) {
+            customer.account = account;
+            return this;
+    }
+
+        public Builder loginCredential(LoginCredential loginCredential) {
+            customer.loginCredential = loginCredential;
+            return this;
+    }
+
+        public Customer build() {
+            if (customer.ssn == 0 || customer.firstName == null || customer.lastName == null ||
+                    customer.email == null || customer.phoneNumber == null) {
+                throw new IllegalArgumentException("SSN, FirstName, LastName, Email, and PhoneNumber are required.");
+            }
+            return customer;
+        }
     }
 }

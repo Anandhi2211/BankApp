@@ -89,10 +89,10 @@ public class DebitCardDAOImpl implements DebitCardDAO {
         ArrayList<Account> accounts = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                Account account = new Account();
-                account.setAccountNumber(resultSet.getLong("account_number"));
+                Account account = Account.builder()
+                .setAccountNumber(resultSet.getLong("account_number"))
+                .setUsername(resultSet.getString("logincredentials_username")).build();
                 account.setTotalBalance(resultSet.getBigDecimal("total_balance"));
-                account.setUsername(resultSet.getString("logincredentials_username"));
                 accounts.add(account);
             }
             return accounts;
@@ -110,12 +110,20 @@ public class DebitCardDAOImpl implements DebitCardDAO {
                     .prepareStatement("select * from debit_cards where customers_ssn = " + ssn);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                debitCard = new DebitCard();
-                debitCard.setCardNumber(resultSet.getLong("card_number"));
-                debitCard.setSsn(resultSet.getLong("customers_ssn"));
-                debitCard.setExpirationDate(resultSet.getTimestamp("expiration_date"));
-                debitCard.setCvvNumber(resultSet.getInt("cvv_number"));
-                debitCard.setCustomerFullName(resultSet.getString("customer_full_name"));
+                debitCard =  DebitCard.builder()
+                .setCardNumber(resultSet.getLong("card_number"))
+                .setSsn(resultSet.getLong("customers_ssn"))
+                .setExpirationDate(resultSet.getTimestamp("expiration_date"))
+                .setCvvNumber(resultSet.getInt("cvv_number"))
+                .setCustomerFullName(resultSet.getString("customer_full_name")).build();
+
+
+//                debitCard.setCardNumber(resultSet.getLong("card_number"));
+//                debitCard.setSsn(resultSet.getLong("customers_ssn"));
+//                debitCard.setExpirationDate(resultSet.getTimestamp("expiration_date"));
+//                debitCard.setCvvNumber(resultSet.getInt("cvv_number"));
+//                debitCard.setCustomerFullName(resultSet.getString("customer_full_name"));
+//
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -58,7 +58,16 @@ public class PurchaseUtil {
                                         if (amt.compareTo(account.getTotalBalance()) == -1) {
                                             this.accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amt));
                                             Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amt);
-                                            PurchaseProduct purchaseProduct = new PurchaseProduct(debitCard.getCardNumber(), desc, amt, transaction.getTransactionId(), debitCard.getSsn(), transaction.getTransactionTimestamp());
+//                                            PurchaseProduct purchaseProduct = new PurchaseProduct(debitCard.getCardNumber(), desc, amt, transaction.getTransactionId(), debitCard.getSsn(), transaction.getTransactionTimestamp());
+                                            PurchaseProduct purchaseProduct = PurchaseProduct.builder()
+                                                    .setPurchaseDescription(desc)
+                                                    .setTransactionId(transaction.getTransactionId())
+                                                    .setPurchaseTimestamp(transaction.getTransactionTimestamp())
+                                                    .setAmount(amt)
+                                                    .setCardNumber(debitCard.getCardNumber())
+                                                    .setSsn(debitCard.getSsn())
+                                                    .getPurchaseProduct();
+
                                             this.purchaseProductDAO.create(purchaseProduct);
                                             logger.info("Purchased Bill Generated to Purchase Table");
                                         } else {

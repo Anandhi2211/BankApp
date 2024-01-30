@@ -46,7 +46,17 @@ public class DebitCardUtil {
                         date = date.plusYears(3);
                         Random random = new Random();
                         int cvv = random.nextInt(999);
-                        DebitCard debitCard = new DebitCard(debitCardNumber++, Timestamp.valueOf(date.atStartOfDay()), cvv, customer.getFirstName(), customer.getSsn());
+//                        DebitCard debitCard = new DebitCard(debitCardNumber++, Timestamp.valueOf(date.atStartOfDay()), cvv, customer.getFirstName(), customer.getSsn());
+
+                        DebitCard debitCard = DebitCard.builder().setCardNumber(debitCardNumber++)
+                                .setExpirationDate(Timestamp.valueOf(date.atStartOfDay()))
+                                .setCvvNumber(cvv)
+                                .setSsn(customer.getSsn())
+                                .setCustomerFullName(customer.getFirstName()+" "+customer.getLastName()).build();
+
+//                                (debitCardNumber++, Timestamp.valueOf(date.atStartOfDay()), cvv, customer.getFirstName(), customer.getSsn());
+
+
                         logger.info(debitCard);
                         this.debitCardDAO.create(debitCard);
                     } else {

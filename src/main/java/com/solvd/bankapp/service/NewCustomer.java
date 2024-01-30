@@ -17,6 +17,7 @@ public class NewCustomer {
         customerDAO = new CustomerDAOImpl();
         this.accountUtil = new AccountUtil();
     }
+
     public void addNewCustomer(Scanner in) {
         logger.info("New Customer details");
 //        logger.info("Enter your SSN: ");
@@ -30,12 +31,20 @@ public class NewCustomer {
 //        logger.info("Enter Mobile Number: ");
 //        String mobileNumber = in.next();
 //        Customer customer = new Customer(ssn, firstname, lastname, email, mobileNumber);
-        Customer customer = new Customer(1234567, "Anandhi", "Jayapal", "anandhirmk@gmail.com", "9999999999");
-        accountUtil.createAccount(customer,in);
+        Customer customer = Customer.builder()
+                .ssn(1234567)
+                .firstName("Anandhi")
+                .lastName("Jayapal")
+                .email("anandhirmk@gmail.com")
+                .phoneNumber("9999999999").build();
+//        Customer customer = new Customer(1234567, "Anandhi", "Jayapal", "anandhirmk@gmail.com", "9999999999");
+        accountUtil.createAccount(customer, in);
     }
+
     public Customer findCustomer(long ssn) {
         return customerDAO.findBySsn(ssn);
     }
+
     public Customer getCustomerByUserName(String username) {
         return customerDAO.display(username);
     }

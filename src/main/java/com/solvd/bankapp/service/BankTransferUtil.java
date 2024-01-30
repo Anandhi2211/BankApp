@@ -47,11 +47,20 @@ public class BankTransferUtil implements IBankTransfers {
             }
             switch (answer) {
                 case 1:
+                    account = this.accountUtil.getAccount(account.getUsername());
                     logger.info("Enter Beneficiary Account Number");
                     long beneficiaryAccountNumber = in.nextLong();
                     logger.info("Enter Beneficiary Name");
                     String beneficiaryName = in.next();
-                    Beneficiary beneficiary = new Beneficiary(beneficiaryName, beneficiaryAccountNumber, account.getAccountNumber());
+                    Beneficiary beneficiary = Beneficiary.builder()
+                            .setBeneficiaryName(beneficiaryName)
+                            .setBeneficiaryAccountNumber(beneficiaryAccountNumber)
+                            .setAccountNumber(account.getAccountNumber()).build();
+//                            .setBeneficiaryName(beneficiaryName)
+//                            .setBeneficiaryAccountNumber(beneficiaryAccountNumber)
+//                            .setAccountNumber(account.getAccountNumber()).build();
+//                    Beneficiary beneficiary = new Beneficiary(beneficiaryName, beneficiaryAccountNumber, account.getAccountNumber());
+
                     this.beneficiaryDAO.create(beneficiary);
                     break;
                 case 2:
@@ -59,7 +68,7 @@ public class BankTransferUtil implements IBankTransfers {
                     ArrayList<Beneficiary> beneficiaryList = this.beneficiaryDAO.getAll(account.getAccountNumber());
                     if (beneficiaryList != null) {
                         for (Beneficiary beneficiary1 : beneficiaryList) {
-                            if (account.getAccountNumber() == beneficiary1.getAccountNumber()) {
+                            if (account.getAccountNumber() == beneficiary1.getSourceAccountNumber()) {
                                 logger.info("Beneficiary Name: " + beneficiary1.getBeneficiaryName());
                                 logger.info("Beneficiary Account Number: " + beneficiary1.getBeneficiaryAccountNumber());
                                 logger.info("***");
@@ -83,9 +92,20 @@ public class BankTransferUtil implements IBankTransfers {
                                 if (amountToTransfer.compareTo(account.getTotalBalance()) == -1) {
                                     flag = true;
                                     BigDecimal transferCharge = new BigDecimal(10);
+
                                     Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amountToTransfer.add(transferCharge));
                                     this.accountUtil.updateAmount(account.getAccountNumber(), account.getTotalBalance().subtract(amountToTransfer.add(transferCharge)));
-                                    BankTransfer bankTransfer = new BankTransfer(amountToTransfer, beneficiary1.getAccountNumber(), transferCharge, account.getUsername(), transaction.getTransactionId(), transaction.getTransactionTimestamp());
+                                    BankTransfer bankTransfer = BankTransfer.builder()
+                                            .transferId(transaction.getTransactionId())
+                                            .transferDate(transaction.getTransactionTimestamp())
+                                            .username(account.getUsername())
+                                            .destinationAccount(beneficiary1.getSourceAccountNumber())
+                                            .amount(amountToTransfer)
+                                            .build();
+
+
+
+//                                    BankTransfer bankTransfer = new BankTransfer(amountToTransfer, beneficiary1.getSourceAccountNumber(), transferCharge, account.getUsername(), transaction.getTransactionId(), transaction.getTransactionTimestamp());
                                     this.bankTransferDAO.create(bankTransfer);
                                 } else {
                                     logger.info("Don't have enough Account Balance to do Transfer");

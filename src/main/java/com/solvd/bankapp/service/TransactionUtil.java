@@ -116,7 +116,16 @@ public class TransactionUtil implements ITransaction {
         int transactionID = this.transactionDAO.getTransactionId();
         logger.info("CURRENT TRANSACTION ID " + transactionID);
         transactionID = (transactionID != 0) ? transactionID + 1 : 20000;
-        Transaction transaction = new Transaction(transactionID, amount, true, accountNumber, currentTime);
+
+        Transaction transaction = Transaction.builder()
+                .setTransactionId(transactionID)
+                .setTransactionStatus(true)
+                .setTransactionTimestamp(currentTime)
+                .setAmount(amount)
+                .setAccountNumber(accountNumber).build();
+
+//        Transaction transaction = new Transaction(transactionID, amount, true, accountNumber, currentTime);
+
         this.transactionDAO.create(transaction);
         return transaction;
     }

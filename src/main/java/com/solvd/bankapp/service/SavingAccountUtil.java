@@ -39,19 +39,21 @@ public class SavingAccountUtil {
                     BigDecimal amount = in.nextBigDecimal();
                     BigDecimal amountBalance = account.getTotalBalance();
                     if (amount.compareTo(amountBalance) == -1) {
-                        int rate = 4;//can add in enum
                         SavingsAccount savingsAccount = this.savingsAccountDAO.findSavingByNumber(account.getAccountNumber());
                         if (savingsAccount == null) {
-                            savingsAccount = new SavingsAccount(amount, account.getAccountNumber(), rate);
+                            savingsAccount = SavingsAccount.builder()
+                                    .setAccountNumber(account.getAccountNumber())
+                                    .setSavingsBalance(amount)
+                                    .setInterestRate(InterestRates.DEFAULT.getRate()).build();
                             this.savingsAccountDAO.create(savingsAccount);
                             this.transactionUtil.addTransactions(account.getAccountNumber(), amount);
                             this.accountUtil.updateAmount(account.getAccountNumber(), amountBalance.subtract(amount));
-                            logger.info("********* UPDATED AMT" + amountBalance.subtract(amount));
+                            logger.info("********* UPDATED AMT***********" + amountBalance.subtract(amount));
                         } else {
                             this.savingsAccountDAO.update(account.getAccountNumber(), amount.add(savingsAccount.getSavingsBalance()));
                             this.transactionUtil.addTransactions(account.getAccountNumber(), amount);
                             this.accountUtil.updateAmount(account.getAccountNumber(), amountBalance.subtract(amount));
-                            logger.info("********* UPDATED AMT" + amountBalance.subtract(amount));
+                            logger.info("********* UPDATED AMT************" + amountBalance.subtract(amount));
                         }
                     } else {
                         logger.info("Amount is not sufficient to add into saving account");
@@ -62,7 +64,6 @@ public class SavingAccountUtil {
                     amount = in.nextBigDecimal();
                     SavingsAccount savingsAccount = this.savingsAccountDAO.findSavingByNumber(account.getAccountNumber()); //code to get amount balance from saving table
                     if (savingsAccount != null) {
-                        logger.info("TEST**********" + savingsAccount.getSavingsBalance());
                         if (amount.compareTo(savingsAccount.getSavingsBalance()) == -1) {
                             this.savingsAccountDAO.update(account.getAccountNumber(), savingsAccount.getSavingsBalance().subtract(amount));
                             this.transactionUtil.addTransactions(account.getAccountNumber(), amount);

@@ -15,4 +15,6 @@ public interface SavingsAccountDAO extends BaseDAO<SavingsAccount> {
     List<SavingsAccount> getAll();//we can remove
     void delete(long accountNumber);
     void update(@Param("accountNumber") long accountNumber, @Param("amount") BigDecimal amount);
+
+
 }

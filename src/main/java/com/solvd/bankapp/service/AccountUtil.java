@@ -42,16 +42,27 @@ public class AccountUtil implements IAccount {
                 case 1: {
                     logger.info("Account Created");
                     String userName = customer.getFirstName() + "_" + customer.getSsn();
-                    account = new Account(accountNumber++, amt, userName);
-                    customer.setAccount(account);
+
+                    account = Account.builder()
+                            .setAccountNumber(accountNumber++)
+                            .setUsername(userName)
+                            .setTotalBalance(amt).build();
+//                    account = new Account(accountNumber++, amt, userName);
+
+
+//                    customer.setAccount(account);
+//                    Customer.builder().account(account);
+
+//                    logger.info("Customer loging "+customer.getAccount().getAccountNumber()+ customer.getAccount().getUsername());
+
                     customer = setLoginDetails(account, customer, in);
                     if (customer != null) {
                         TransactionUtil transactionUtil = new TransactionUtil();
                         this.customerDAO.create(customer);
                         this.loginCredentialDAO.create(customer.getLoginCredential());
-                        this.accountDAO.create(customer.getAccount());
-                        Transaction transaction = transactionUtil.addTransactions(customer.getAccount().getAccountNumber(), amt);
-                        customer.getAccount().setTransactionList(transaction);
+                        this.accountDAO.create(account);//fix
+                        Transaction transaction = transactionUtil.addTransactions(account.getAccountNumber(), amt);
+//                        customer.getAccount().setTransactionList(transaction);
                     } else {
                         customer = null;
                     }
@@ -75,7 +86,15 @@ public class AccountUtil implements IAccount {
         if (password.equals(retypePassword)) {
             int pin = Integer.parseInt(Long.toString(customer.getSsn()).substring(Long.toString(customer.getSsn()).length() - 4));
             logger.info("You Pin Number: " + pin);
-            loginCredential = new LoginCredential(account.getUsername(), password, true, pin, customer.getSsn());
+
+            loginCredential = LoginCredential.builder()
+                    .setUsername(account.getUsername())
+                    .setUserPassword(password)
+                    .setActiveStatus(true)
+                    .setPin(pin)
+                    .setSsn(customer.getSsn()).build();
+
+//            loginCredential = new LoginCredential(account.getUsername(), password, true, pin, customer.getSsn());
             customer.setLoginCredential(loginCredential);
         } else {
             logger.info("Mismatch Password");
@@ -107,4 +126,15 @@ public class AccountUtil implements IAccount {
     public Account getAccount(String userName) {
         return accountDAO.findAccountByUsername(userName);
     }
+
+    @Override
+    public void deposit(String username ,long accountNumber, BigDecimal amt) {
+        accountDAO.deposit(username,accountNumber,amt);
+    }
+
+    @Override
+    public void withdraw(String username ,long accountNumber, BigDecimal amt) {
+        accountDAO.withdraw(username,accountNumber,amt);
+    }
+
 }

@@ -51,8 +51,28 @@ public class PaymentUtil {
                             LoginCredential loginCredential = this.loginCredentialDAO.findByUsername(account.getUsername());
                             Transaction transaction = this.transactionUtil.addTransactions(account.getAccountNumber(), amt);
                             Customer customer = this.customer.getCustomerByUserName(loginCredential.getUsername());
-                            payment = new Payment(billAccountNumber, billCompanyName, amt, account.getUsername(), transaction.getTransactionId(), customer.getSsn());
+
+//                            payment = new Payment(billAccountNumber, billCompanyName, amt, account.getUsername(), transaction.getTransactionId(), customer.getSsn());
+
+
+//                            Payment payment = new Payment();
+//                            NotificationService notificationService = new NotificationService();
+//                            payment.addObserver(notificationService);
+//                            payment.markAsPaid();
+//
+
+                            payment = Payment.builder()
+                                    .setCompanyAccountNumber(billAccountNumber)
+                                    .setCompanyName(billCompanyName)
+                                    .setBillAmount(amt)
+                                    .setSsn(customer.getSsn())
+                                    .setUsername(account.getUsername())
+                                    .setTransactionId(transaction.getTransactionId()).build();
                             this.paymentDAO.create(payment);
+                            NotificationService notificationService = new NotificationService();
+                            payment.addObserver(payment1 -> payment1.addObserver(notificationService));
+
+                            payment.markAsPaid();
                         } else {
                             logger.info("Not sufficient Balance");
                         }

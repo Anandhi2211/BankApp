@@ -4,82 +4,118 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class BankTransfer {
-    private BigDecimal transferAmount;
-    private long beneficiaryAccountNumber;
-    // create enum class
-    private BigDecimal charge;
-    private String username;
-    private int transactionId;
+    private int transferId;
+    private long destinationAccount;
+    private BigDecimal amount;
+    private BigDecimal transferCharge;
     private Timestamp transferTimestamp;
+    private String username;
 
-    public BankTransfer(BigDecimal transferAmount, long beneficiaryAccountNumber,
-                        BigDecimal charge, String username, int transactionId, Timestamp transferTimestamp) {
-        this.transferAmount = transferAmount;
-        this.beneficiaryAccountNumber = beneficiaryAccountNumber;
-        this.charge = charge;
-        this.username = username;
-        this.transactionId = transactionId;
-        this.transferTimestamp = transferTimestamp;
-
-    }
-
-    public BigDecimal getTransferAmount() {
-        return transferAmount;
-    }
-
-    public void setTransferAmount(BigDecimal transferAmount) {
-        this.transferAmount = transferAmount;
-    }
-
-    public long getBeneficiaryAccountNumber() {
-        return beneficiaryAccountNumber;
-    }
-
-    public void setBeneficiaryAccountNumber(long beneficiaryAccountNumber) {
-        this.beneficiaryAccountNumber = beneficiaryAccountNumber;
-    }
-
-    public BigDecimal getCharge() {
-        return charge;
-    }
-
-    public void setCharge(BigDecimal charge) {
-        this.charge = charge;
-    }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    private BankTransfer() {
     }
 
-    public int getTransactionId() {
-        return transactionId;
+    public long getTransferId() {
+        return transferId;
     }
 
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
+    public long getDestinationAccount() {
+        return destinationAccount;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public BigDecimal getTransferCharge() {
+        return transferCharge;
     }
 
     public Timestamp getTransferTimestamp() {
         return transferTimestamp;
     }
 
-    public void setTransferTimestamp(Timestamp transferTimestamp) {
-        this.transferTimestamp = transferTimestamp;
+
+
+    private void calculateSurcharges() {
+        if (amount != null) {
+            TransferCharges charge;
+            if (amount.compareTo(BigDecimal.valueOf(500)) <= 0) {
+                charge = TransferCharges.UNDER_500;
+            } else if (amount.compareTo(BigDecimal.valueOf(1000)) <= 0) {
+                charge = TransferCharges.BETWEEN_500_AND_1000;
+            } else {
+                charge = TransferCharges.OVER_1000;
+            }
+
+            transferCharge = amount.multiply(BigDecimal.valueOf(charge.getRate()));
+        }
     }
 
     @Override
     public String toString() {
         return "BankTransfer{" +
-                "transferAmount=" + transferAmount +
-                ", beneficiaryAccountNumber=" + beneficiaryAccountNumber +
-                ", charge=" + charge +
-                ", username='" + username + '\'' +
-                ", transactionId=" + transactionId +
-                ", transferTimestamp=" + transferTimestamp +
+                "transferId=" + transferId +
+                ", destinationAccount=" + destinationAccount +
+                ", amount=" + amount +
+                ", transactionCharge=" + transferCharge +
+                ", transferDate=" + transferTimestamp +
                 '}';
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final BankTransfer bankTransfer;
+
+        private Builder() {
+            this.bankTransfer = new BankTransfer();
+        }
+
+        public Builder username(String username){
+            bankTransfer.username = username;
+            return this;
+        }
+        public Builder transferId(int transferId) {
+            bankTransfer.transferId = transferId;
+            return this;
+        }
+
+        public Builder destinationAccount(long destinationAccount) {
+            bankTransfer.destinationAccount = destinationAccount;
+            return this;
+        }
+
+        public Builder amount(BigDecimal amount) {
+            bankTransfer.amount = amount;
+            return this;
+        }
+
+        public Builder transactionCharge(BigDecimal transactionCharge) {
+            bankTransfer.transferCharge = transactionCharge;
+            return this;
+        }
+
+        public Builder transferDate(Timestamp transferDate) {
+            bankTransfer.transferTimestamp = transferDate;
+            return this;
+        }
+
+        public BankTransfer build() {
+            if (bankTransfer.transferId == 0 ||
+                    bankTransfer.destinationAccount == 0 || bankTransfer.amount == null ||
+                    bankTransfer.transferTimestamp == null) {
+                throw new IllegalArgumentException("TransferId, SourceAccount, DestinationAccount, Amount, and TransferDate are required.");
+            }
+            bankTransfer.calculateSurcharges();
+
+            return bankTransfer;
+        }
     }
 }

@@ -8,56 +8,28 @@ public class DebitCard {
     private int cvvNumber;
     private String customerFullName;
     private long ssn;
-    public DebitCard(long cardNumber, Timestamp expirationDate, int cvvNumber, String customerFullName, long ssn) {
-        this.cardNumber = cardNumber;
-        this.expirationDate = expirationDate;
-        this.cvvNumber = cvvNumber;
-        this.customerFullName = customerFullName;
-        this.ssn = ssn;
-    }
 
-    public DebitCard() {
-
+    private DebitCard() {
     }
 
     public long getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
     public Timestamp getExpirationDate() {
         return expirationDate;
-    }
-
-    public void setExpirationDate(Timestamp expirationDate) {
-        this.expirationDate = expirationDate;
     }
 
     public int getCvvNumber() {
         return cvvNumber;
     }
 
-    public void setCvvNumber(int cvvNumber) {
-        this.cvvNumber = cvvNumber;
-    }
-
     public String getCustomerFullName() {
         return customerFullName;
     }
 
-    public void setCustomerFullName(String customerFullName) {
-        this.customerFullName = customerFullName;
-    }
-
     public long getSsn() {
         return ssn;
-    }
-
-    public void setSsn(long ssn) {
-        this.ssn = ssn;
     }
 
     @Override
@@ -69,5 +41,50 @@ public class DebitCard {
                 ", customerFullName='" + customerFullName + '\'' +
                 ", ssn=" + ssn +
                 '}';
+    }
+
+    public static DebitCardBuilder builder() {
+        return new DebitCardBuilder(new DebitCard());
+    }
+
+    public static class DebitCardBuilder {
+        private final DebitCard debitCard;
+
+        private DebitCardBuilder(DebitCard debitCard) {
+            this.debitCard = debitCard;
+        }
+
+        public DebitCardBuilder setCardNumber(long cardNumber) {
+            debitCard.cardNumber = cardNumber;
+            return this;
+        }
+
+        public DebitCardBuilder setExpirationDate(Timestamp expirationDate) {
+            debitCard.expirationDate = expirationDate;
+            return this;
+        }
+
+        public DebitCardBuilder setCvvNumber(int cvvNumber) {
+            debitCard.cvvNumber = cvvNumber;
+            return this;
+        }
+
+        public DebitCardBuilder setCustomerFullName(String customerFullName) {
+            debitCard.customerFullName = customerFullName;
+            return this;
+        }
+
+        public DebitCardBuilder setSsn(long ssn) {
+            debitCard.ssn = ssn;
+            return this;
+        }
+
+        public DebitCard build() {
+            if (debitCard.cardNumber == 0 || debitCard.expirationDate == null || debitCard.cvvNumber == 0 ||
+                    debitCard.customerFullName == null || debitCard.ssn == 0) {
+                throw new IllegalArgumentException("CardNumber, ExpirationDate, CvvNumber, CustomerFullName, and Ssn are required.");
+            }
+            return debitCard;
+        }
     }
 }

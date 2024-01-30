@@ -23,4 +23,8 @@ public interface AccountDAO extends BaseDAO<Account> {
 
     long getAccountNumber();
 
+    void deposit(String username ,long accountNumber, BigDecimal amount);
+
+    void withdraw(String username ,long accountNumber, BigDecimal amount);
+
 }

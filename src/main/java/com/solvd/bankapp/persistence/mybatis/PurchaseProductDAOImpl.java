@@ -74,13 +74,21 @@ public class PurchaseProductDAOImpl implements PurchaseProductDAO {
         ArrayList<PurchaseProduct> purchaseProducts = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                PurchaseProduct purchaseProduct = new PurchaseProduct();
-                purchaseProduct.setCardNumber(resultSet.getLong("debitcards_card_number"));
-                purchaseProduct.setPurchaseDescription(resultSet.getString("purchase_description"));
-                purchaseProduct.setAmount(resultSet.getBigDecimal("amount"));
-                purchaseProduct.setTransactionId(resultSet.getInt("transactions_transaction_id"));
-                purchaseProduct.setSsn(resultSet.getLong("customers_ssn"));
-                purchaseProduct.setPurchaseTimestamp(Timestamp.valueOf(resultSet.getString("purchase_timestamp")));
+                PurchaseProduct purchaseProduct = PurchaseProduct.builder()
+                .setCardNumber(resultSet.getLong("debitcards_card_number"))
+                .setPurchaseDescription(resultSet.getString("purchase_description"))
+                .setAmount(resultSet.getBigDecimal("amount"))
+                .setTransactionId(resultSet.getInt("transactions_transaction_id"))
+                .setSsn(resultSet.getLong("customers_ssn"))
+                .setPurchaseTimestamp(Timestamp.valueOf(resultSet.getString("purchase_timestamp"))).getPurchaseProduct();
+
+//                purchaseProduct.setCardNumber(resultSet.getLong("debitcards_card_number"));
+//                purchaseProduct.setPurchaseDescription(resultSet.getString("purchase_description"));
+//                purchaseProduct.setAmount(resultSet.getBigDecimal("amount"));
+//                purchaseProduct.setTransactionId(resultSet.getInt("transactions_transaction_id"));
+//                purchaseProduct.setSsn(resultSet.getLong("customers_ssn"));
+//                purchaseProduct.setPurchaseTimestamp(Timestamp.valueOf(resultSet.getString("purchase_timestamp")));
+//
                 purchaseProducts.add(purchaseProduct);
             }
             return purchaseProducts;

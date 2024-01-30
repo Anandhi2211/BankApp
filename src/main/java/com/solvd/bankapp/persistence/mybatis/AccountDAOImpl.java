@@ -2,6 +2,7 @@ package com.solvd.bankapp.persistence.mybatis;
 
 import com.solvd.bankapp.ConnectionPool;
 import com.solvd.bankapp.domain.Account;
+import com.solvd.bankapp.domain.SavingsAccount;
 import com.solvd.bankapp.persistence.AccountDAO;
 import com.solvd.bankapp.persistence.SavingsAccountDAO;
 import com.solvd.bankapp.persistence.TransactionDAO;
@@ -107,6 +108,57 @@ public class AccountDAOImpl implements AccountDAO {
             CONNECTION_POOL.releaseConnection(connection);
         }
         return accountNumber;
+    }
+
+
+
+    @Override
+    public void deposit(String username, long accountNumber, BigDecimal amount) {
+        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
+        try {
+            AccountDAO accountDAO = sqlSession.getMapper(AccountDAO.class);
+            Account account = accountDAO.findAccountByUsername(username);//
+            if (account != null) {
+                BigDecimal newBalance = account.getTotalBalance().add(amount);
+                account.setTotalBalance(newBalance);
+                accountDAO.update(accountNumber,newBalance);//
+                sqlSession.commit();
+            } else {
+                LOGGER.error("Account not found for deposit");
+            }
+        } catch (PersistenceException e) {
+            LOGGER.error("Error depositing into Checking account", e);
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Override
+    public void withdraw(String usertname, long accountNumber, BigDecimal amount) {
+        SqlSession sqlSession = Config.getSessionFactory().openSession(false);
+        try {
+            AccountDAO accountDAO = sqlSession.getMapper(AccountDAO.class);
+            Account account = accountDAO.findAccountByUsername(usertname);//
+            if (account != null) {
+                BigDecimal currentBalance = account.getTotalBalance();
+                if (currentBalance.compareTo(amount) >= 0) {
+                    BigDecimal newBalance = currentBalance.subtract(amount);
+                    account.setTotalBalance(newBalance);
+                    accountDAO.update(account.getAccountNumber(),newBalance);
+                    sqlSession.commit();
+                } else {
+                    LOGGER.error("Insufficient funds for withdrawal");
+                }
+            } else {
+                LOGGER.error("Checking account not found for withdrawal");
+            }
+        } catch (PersistenceException e) {
+            LOGGER.error("Error withdrawing from Checking account", e);
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
     }
 
 //    @Override

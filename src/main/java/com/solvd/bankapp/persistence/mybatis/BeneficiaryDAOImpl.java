@@ -78,11 +78,12 @@ public class BeneficiaryDAOImpl implements BeneficiaryDAO {
         ArrayList<Beneficiary> beneficiaries = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                Beneficiary beneficiary = new Beneficiary();
-                beneficiary.setBeneficiaryName(resultSet.getString("beneficiary_name"));
-                beneficiary.setBeneficiaryAccountNumber(resultSet.getLong("beneficiary_account_number"));
-                beneficiary.setAccountNumber(resultSet.getLong("account_number"));
-                beneficiaries.add(beneficiary);
+                Beneficiary beneficiary = Beneficiary.builder()
+                .setBeneficiaryName(resultSet.getString("beneficiary_name"))
+                .setBeneficiaryAccountNumber(resultSet.getLong("beneficiary_account_number"))
+                .setAccountNumber(resultSet.getLong("account_number")).build();
+
+            beneficiaries.add(beneficiary);
             }
             return beneficiaries;
         } catch (SQLException e) {

@@ -1,9 +1,7 @@
 package com.solvd.bankapp;
 
 import com.solvd.bankapp.exception.BankException;
-import com.solvd.bankapp.service.DashBoard;
-import com.solvd.bankapp.service.NewCustomer;
-import com.solvd.bankapp.service.PurchaseUtil;
+import com.solvd.bankapp.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,17 +39,20 @@ public class Main {
                     }
                     case 3: {
                         logger.info("Into Deposit");
+                        AtmTransfersUtil depositUtil = new AtmTransfersUtil();
+                        depositUtil.deposit(in);
                     }
                     break;
                     case 4: {
                         logger.info("Into Withdrawal");
+                        AtmTransfersUtil depositUtil = new AtmTransfersUtil();
+                        depositUtil.withdraw(in);
                     }
                     break;
                     case 5:
                         logger.info("PurchaseUtil product with Debit Card");
                         PurchaseUtil purchaseUtil = new PurchaseUtil();
                         purchaseUtil.purchaseItems(in);
-
                         break;
                     case 6:
                         logger.info("Thanks for Visiting");

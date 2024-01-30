@@ -6,7 +6,7 @@
 
     <insert id="create" useGeneratedKeys="true">
         Insert into beneficiaries (beneficiary_name, beneficiary_account_number, account_number)
-        values (#{beneficiaryName}, #{beneficiaryAccountNumber}, #{accountNumber})
+        values (#{beneficiaryName}, #{beneficiaryAccountNumber}, #{sourceAccountNumber})
     </insert>
 
     <sql id="beneficiariesColumns">

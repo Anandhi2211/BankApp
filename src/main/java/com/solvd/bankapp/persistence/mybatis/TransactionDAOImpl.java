@@ -129,12 +129,25 @@ public class TransactionDAOImpl implements TransactionDAO {
         ArrayList<Transaction> transactions = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                Transaction transaction = new Transaction();
-                transaction.setTransactionId(resultSet.getInt("transaction_id"));
-                transaction.setAmount(resultSet.getBigDecimal("amount"));
-                transaction.setAccountNumber(resultSet.getLong("account_number"));
-                transaction.setTransactionStatus(resultSet.getBoolean("transaction_status"));
-                transaction.setTransactionTimestamp(Timestamp.valueOf(resultSet.getString("transaction_timestamp")));
+//                Transaction transaction = new Transaction();
+
+                 Transaction transaction = Transaction.builder()
+                        .setTransactionId(resultSet.getInt("transaction_id"))
+                        .setAmount(resultSet.getBigDecimal("amount"))
+                        .setAccountNumber(resultSet.getLong("account_number"))
+                        .setTransactionStatus(resultSet.getBoolean("transaction_status"))
+                        .setTransactionTimestamp(Timestamp.valueOf(resultSet.getString("transaction_timestamp")))
+                                .build();
+
+
+//
+//                transaction.setTransactionId(resultSet.getInt("transaction_id"));
+//                transaction.setAmount(resultSet.getBigDecimal("amount"));
+//                transaction.setAccountNumber(resultSet.getLong("account_number"));
+//                transaction.setTransactionStatus(resultSet.getBoolean("transaction_status"));
+//                transaction.setTransactionTimestamp((resultSet.getTimestamp("transaction_timestamp")));
+
+
                 transactions.add(transaction);
             }
             return transactions;

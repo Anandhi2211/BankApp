@@ -11,66 +11,23 @@ public class PurchaseProduct {
     private long ssn;
     private Timestamp purchaseTimestamp;
 
-    public PurchaseProduct(long cardNumber, String purchaseDescription, BigDecimal amount,
-                           int transactionId, long ssn, Timestamp purchaseTimestamp) {
-        this.cardNumber = cardNumber;
-        this.purchaseDescription = purchaseDescription;
-        this.amount = amount;
-        this.transactionId = transactionId;
-        this.ssn = ssn;
-        this.purchaseTimestamp = purchaseTimestamp;
-    }
-
-    public PurchaseProduct() {
-
-    }
-
     public long getCardNumber() {
         return cardNumber;
     }
-
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
     public String getPurchaseDescription() {
         return purchaseDescription;
     }
-
-    public void setPurchaseDescription(String purchaseDescription) {
-        this.purchaseDescription = purchaseDescription;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
     public int getTransactionId() {
         return transactionId;
     }
-
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
-    }
-
     public long getSsn() {
         return ssn;
     }
-
-    public void setSsn(long ssn) {
-        this.ssn = ssn;
-    }
-
     public Timestamp getPurchaseTimestamp() {
         return purchaseTimestamp;
-    }
-
-    public void setPurchaseTimestamp(Timestamp purchaseTimestamp) {
-        this.purchaseTimestamp = purchaseTimestamp;
     }
 
     @Override
@@ -83,5 +40,51 @@ public class PurchaseProduct {
                 ", ssn=" + ssn +
                 ", purchaseTimestamp=" + purchaseTimestamp +
                 '}';
+    }
+
+    public static  Builder builder(){
+        return new Builder (new PurchaseProduct());
+    }
+
+    public static class Builder{
+        private final PurchaseProduct purchaseProduct;
+
+        public Builder(PurchaseProduct purchaseProduct) {
+            this.purchaseProduct = purchaseProduct;
+        }
+
+        public Builder setCardNumber(long cardNumber) {
+            purchaseProduct.cardNumber = cardNumber;
+            return this;
+        }
+
+        public Builder setPurchaseDescription(String purchaseDescription) {
+            purchaseProduct.purchaseDescription = purchaseDescription;
+            return this;
+        }
+
+        public Builder setAmount(BigDecimal amount) {
+            purchaseProduct.amount = amount;
+            return this;
+        }
+
+        public Builder setTransactionId(int transactionId) {
+            purchaseProduct.transactionId = transactionId;
+            return this;
+        }
+
+        public Builder setSsn(long ssn) {
+            purchaseProduct.ssn = ssn;
+            return this;
+        }
+
+        public Builder setPurchaseTimestamp(Timestamp purchaseTimestamp) {
+            purchaseProduct.purchaseTimestamp = purchaseTimestamp;
+            return this;
+        }
+
+        public PurchaseProduct getPurchaseProduct() {
+            return purchaseProduct;
+        }
     }
 }
