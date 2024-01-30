@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bankapp.persistence.PaymentDAO">
+
+    <insert id="create" keyColumn="company_account_number" keyProperty="companyAccountNumber" useGeneratedKeys="true" >
+        Insert into payments (company_account_number, company_name, bill_amount, logincredentials_username, transactions_transaction_id, customers_ssn, payment_timestamp)
+        values (#{companyAccountNumber}, #{companyName}, #{billAmount}, #{username}, #{transactionId}, #{ssn}, #{paymentTimestamp} )
+    </insert>
+
+    <sql id="paymentsColumns">
+        Select * From payments
+    </sql>
+
+
+    <select id="findPaymentById" resultMap="paymentsResultMap">
+        <include refid="paymentsColumns"/>
+        where company_account_number = #{billAccountNumber}
+    </select>
+
+
+    <select id="findById" resultMap="paymentsResultMap">
+    <include refid="paymentsColumns"/>
+        where transactions_transaction_id = #{transactionId}
+    </select>
+
+    <select id="getAll" resultMap="paymentsResultMap"  >
+        <include refid="paymentsColumns"/>
+    </select>
+
+    <resultMap id="paymentsResultMap" type="com.solvd.bankapp.domain.Payment" autoMapping="false">
+        <id column="company_account_number" property="companyAccountNumber"/>
+        <result column="company_name" property="companyName"/>
+        <result column="bill_amount" property="billAmount"/>
+        <result column="logincredentials_username" property="username"/>
+        <result column="transactions_transaction_id" property="transactionId"/>
+        <result column="customers_ssn" property="ssn"/>
+    </resultMap>
+
+</mapper>

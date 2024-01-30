@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bankapp.persistence.BeneficiaryDAO">
+
+    <insert id="create" useGeneratedKeys="true">
+        Insert into beneficiaries (beneficiary_name, beneficiary_account_number, account_number)
+        values (#{beneficiaryName}, #{beneficiaryAccountNumber}, #{sourceAccountNumber})
+    </insert>
+
+    <sql id="beneficiariesColumns">
+        Select * from beneficiaries
+    </sql>
+
+    <select id="findByName" resultMap="beneficiariesResultMap">
+        <include refid="beneficiariesColumns"/>
+        where beneficiary_name = #{beneficiaryName}
+    </select>
+
+    <select id="getAll" resultMap="beneficiariesResultMap"  >
+        <include refid="beneficiariesColumns"/>
+         where account_number = #{accountNumber}
+    </select>
+
+    <resultMap id="beneficiariesResultMap" type="com.solvd.bankapp.domain.Beneficiary" autoMapping="false">
+        <result column="beneficiary_name" property="beneficiaryName"/>
+        <result column="beneficiary_account_number" property="beneficiaryAccountNumber"/>
+        <result column="account_number" property="accountNumber"/>
+    </resultMap>
+
+</mapper>
