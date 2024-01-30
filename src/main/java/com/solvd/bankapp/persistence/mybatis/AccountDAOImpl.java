@@ -1,7 +1,7 @@
 package com.solvd.bankapp.persistence.mybatis;
 
 import com.solvd.bankapp.domain.Account;
-import com.solvd.bankapp.domain.NotificationService;
+import com.solvd.bankapp.domain.patterns.NotificationService;
 import com.solvd.bankapp.persistence.AccountDAO;
 import com.solvd.bankapp.util.Config;
 import org.apache.ibatis.exceptions.PersistenceException;

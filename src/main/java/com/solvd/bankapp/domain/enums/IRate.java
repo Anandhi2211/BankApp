@@ -1,4 +1,4 @@
-package com.solvd.bankapp.domain;
+package com.solvd.bankapp.domain.enums;
 
 public interface IRate {
 

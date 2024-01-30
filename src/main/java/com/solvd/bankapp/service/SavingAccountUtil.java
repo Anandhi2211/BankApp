@@ -1,5 +1,5 @@
 package com.solvd.bankapp.service;
-import com.solvd.bankapp.domain.InterestRates;
+import com.solvd.bankapp.domain.enums.InterestRates;
 import com.solvd.bankapp.domain.SavingsAccount;
 import com.solvd.bankapp.exception.BankException;
 import com.solvd.bankapp.persistence.SavingsAccountDAO;

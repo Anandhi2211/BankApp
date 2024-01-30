@@ -1,4 +1,6 @@
-package com.solvd.bankapp.domain;
+package com.solvd.bankapp.domain.enums;
+
+import com.solvd.bankapp.domain.enums.IRate;
 
 public enum TransferCharges implements IRate {
 
