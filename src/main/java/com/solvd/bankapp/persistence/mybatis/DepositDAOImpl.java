@@ -1,5 +1,6 @@
 package com.solvd.bankapp.persistence.mybatis;
 
+import com.solvd.bankapp.domain.ConcreteTransaction;
 import com.solvd.bankapp.domain.Deposit;
 import com.solvd.bankapp.persistence.DepositDAO;
 import com.solvd.bankapp.util.Config;
@@ -16,7 +17,7 @@ public class DepositDAOImpl implements DepositDAO {
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.bankapp.persistence.mybatis.DepositDAOImpl.class);
 
     @Override
-    public void create(Deposit deposit) {
+    public void create(ConcreteTransaction deposit) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
         try {
             DepositDAO depositDAO = sqlSession.getMapper(DepositDAO.class);

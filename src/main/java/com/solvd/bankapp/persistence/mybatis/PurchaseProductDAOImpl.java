@@ -1,5 +1,6 @@
 package com.solvd.bankapp.persistence.mybatis;
 
+import com.solvd.bankapp.domain.ConcreteTransaction;
 import com.solvd.bankapp.domain.PurchaseProduct;
 import com.solvd.bankapp.persistence.PurchaseProductDAO;
 import com.solvd.bankapp.util.Config;
@@ -16,7 +17,7 @@ public class PurchaseProductDAOImpl implements PurchaseProductDAO {
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.bankapp.persistence.mybatis.PurchaseProductDAOImpl.class);
 
     @Override
-    public void create(PurchaseProduct purchase) {
+    public void create(ConcreteTransaction purchase) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
         try {
             PurchaseProductDAO purchaseProductDAO = sqlSession.getMapper(PurchaseProductDAO.class);

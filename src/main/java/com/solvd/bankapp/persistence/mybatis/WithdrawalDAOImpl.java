@@ -1,5 +1,6 @@
 package com.solvd.bankapp.persistence.mybatis;
 
+import com.solvd.bankapp.domain.ConcreteTransaction;
 import com.solvd.bankapp.domain.Withdrawal;
 import com.solvd.bankapp.persistence.WithdrawalDAO;
 import com.solvd.bankapp.util.Config;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class WithdrawalDAOImpl implements WithdrawalDAO {
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.bankapp.persistence.mybatis.WithdrawalDAOImpl.class);
     @Override
-    public void create(Withdrawal withdrawal) {
+    public void create(ConcreteTransaction withdrawal) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
         try {
             WithdrawalDAO withdrawalDAO = sqlSession.getMapper(WithdrawalDAO.class);

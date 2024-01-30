@@ -1,5 +1,7 @@
 package com.solvd.bankapp.domain;
 
+import com.solvd.bankapp.domain.enums.InterestRates;
+
 import java.math.BigDecimal;
 
 public class SavingsAccount {

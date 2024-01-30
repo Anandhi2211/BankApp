@@ -1,5 +1,8 @@
 package com.solvd.bankapp.domain;
 
+import com.solvd.bankapp.domain.patterns.PaymentObserver;
+import com.solvd.bankapp.domain.patterns.Subject;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

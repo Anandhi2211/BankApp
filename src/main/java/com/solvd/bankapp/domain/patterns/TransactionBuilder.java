@@ -1,4 +1,6 @@
-package com.solvd.bankapp.domain;
+package com.solvd.bankapp.domain.patterns;
+
+import com.solvd.bankapp.domain.Transaction;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

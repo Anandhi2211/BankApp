@@ -1,5 +1,6 @@
-package com.solvd.bankapp.domain;
+package com.solvd.bankapp.domain.patterns;
 
+import com.solvd.bankapp.domain.Account;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

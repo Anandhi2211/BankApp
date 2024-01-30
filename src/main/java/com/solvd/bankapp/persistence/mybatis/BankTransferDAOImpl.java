@@ -1,6 +1,7 @@
 package com.solvd.bankapp.persistence.mybatis;
 
 import com.solvd.bankapp.domain.BankTransfer;
+import com.solvd.bankapp.domain.ConcreteTransaction;
 import com.solvd.bankapp.persistence.BankTransferDAO;
 import com.solvd.bankapp.util.Config;
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -16,7 +17,7 @@ public class BankTransferDAOImpl implements BankTransferDAO {
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.bankapp.persistence.mybatis.BankTransferDAOImpl.class);
 
     @Override
-    public void create(BankTransfer transfer) {
+    public void create(ConcreteTransaction transfer) {
         SqlSession sqlSession = Config.getSessionFactory().openSession(false);
         try {
             BankTransferDAO bankTransferDAO = sqlSession.getMapper(BankTransferDAO.class);
