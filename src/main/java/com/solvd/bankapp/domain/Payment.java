@@ -13,7 +13,6 @@ public class Payment {
     private int transactionId;
     private long ssn;
     private Timestamp paymentTimestamp;
-    private boolean notificationStatus;
     private final List<PaymentObserver> observers = new ArrayList<>();
 
     public int getCompanyAccountNumber() {
@@ -42,14 +41,6 @@ public class Payment {
 
     public Timestamp getPaymentTimestamp() {
         return paymentTimestamp;
-    }
-
-    public boolean isNotificationStatus() {
-        return notificationStatus;
-    }
-
-    public void setNotificationStatus(boolean notificationStatus) {
-        this.notificationStatus = notificationStatus;
     }
 
     public List<PaymentObserver> getObservers() {
